@@ -10,7 +10,8 @@ class Project extends DataObject implements PermissionProvider {
 		'Price' => 'Currency',
 		'Website' => 'Varchar(255)',
 		'Published' => 'Boolean',
-		'URLSegment' => 'Varchar(255)'
+		'URLSegment' => 'Varchar(255)',
+		'ProjectDate' => 'Date'
 	);
 	
 	private static $has_one = array(
@@ -43,6 +44,8 @@ class Project extends DataObject implements PermissionProvider {
 		"URLSegment" => "new-project",
 		"Title" => "New project"
 	);
+	
+	private static $default_sort = "ProjectDate DESC, Created DESC";
 	
 //	static $casting = array( 
 //		'Published' => 'Boolean.Nice',

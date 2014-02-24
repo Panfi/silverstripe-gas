@@ -73,7 +73,7 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 		$sqlQuery->addInnerJoin("Project","Project.Published = 1 AND Project.ID = ProjectImage.ProjectID");
 		$sqlQuery->setDistinct(true);
 		$sqlQuery->setLimit(12,$p*12);
-		$sqlQuery->setOrderBy("ProjectImage.Created DESC");
+		$sqlQuery->setOrderBy("Project.ProjectDate DESC, Project.Created DESC");
 		$result = $sqlQuery->execute();
 		
 		$arrayList = new ArrayList();
