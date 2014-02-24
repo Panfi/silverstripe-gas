@@ -33,3 +33,22 @@
 	<h3>Share this image.</h3>
 	<a class="close-reveal-modal">&#215;</a>
 </div>
+
+<div id="profileModal" class="reveal-modal large">
+	<div class="row">
+		<div class="large-3 columns">
+			<img class="image" src="" alt="" />
+			<span class="hidden-small">
+				<br />
+				<span class="phone">&nbsp;</span><br/>
+				<a href="" class="email" title = "">&nbsp;</a>
+			</span>
+		</div>
+		<div class="large-9 columns">
+			<h3 class="title">&nbsp;</h3>
+			<p><span class="label primary radius job">&nbsp;</span></p>
+			<p class="text">&nbsp;</p>
+		</div>
+	</div>
+	<a class="close-reveal-modal">&#215;</a>
+</div>

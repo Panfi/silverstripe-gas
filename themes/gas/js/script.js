@@ -173,6 +173,41 @@ $(document).ready(function() {
         return false;
     });
     
+    $(".profilepreview").click(function(e) {
+    	e.preventDefault();
+
+    	$("#profileModal .title").html($(this).data("title"));
+    	$("#profileModal .image").attr('src', $(this).find("img").attr("src"));
+    	$("#profileModal .email").html($(this).data("email"));
+    	$("#profileModal .email").attr('href', "mailto:"+$(this).data("email"));
+    	
+    	$("#profileModal .phone").html($(this).data("phone"));
+    	$("#profileModal .text").html($(this).data("text"));
+    	
+    	if(!$(this).data("job")) {
+    		$("#profileModal .job").hide();
+    	}
+    	else {
+    		$("#profileModal .job").html($(this).data("job")).show();
+    	}
+    	
+    	if(!$(this).data("phone")) {
+    		$("#profileModal .phone").hide();
+    	}
+    	else {
+    		$("#profileModal .phone").html($(this).data("phone")).show();
+    	}
+    	if(!$(this).data("email")) {
+    		$("#profileModal .email").hide();
+    	}
+    	else {
+    		$("#profileModal .email").html($(this).data("email")).show();
+    	}
+    	
+    	$("#profileModal").foundation("reveal","open");
+    	
+    });
+    
     /* var clickActionTimeout = null;
     
     function clearClickActionTimeout() {

@@ -5,6 +5,8 @@ class Profile extends DataObject {
 	private static $db = array(
 		'Title' => 'Varchar(255)',
 		'JobPosition' => 'Varchar(125)',
+		'Phone' => 'Varchar(20)',
+		'Email' => 'Varchar(64)',
 		'Text' => 'Text',
 		'VideoEmbed' => 'Text',
 	);
@@ -24,6 +26,8 @@ class Profile extends DataObject {
 		return new FieldSet(
 			new TextField('Title'),
 			new TextField('JobPosition'),
+			new TextareaField('Phone'),
+			new TextareaField('Email'),
 			new TextareaField('Text'),
 			new TextareaField('VideoEmbed'),
 			$myField
