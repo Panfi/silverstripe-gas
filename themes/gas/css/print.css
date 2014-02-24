@@ -1,0 +1,5 @@
+.top-bar, .sidebar, footer, .linkswrap, hidePrint {
+	display: none;
+}
+
+h1, h2, h3, h4, h5 { font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: 600; }

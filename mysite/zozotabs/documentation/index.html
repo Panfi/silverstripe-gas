@@ -1,0 +1,205 @@
+﻿<!doctype html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Zozo UI - HTML5, CSS3, jQuery </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="Description" content="Zozo UI an awesome Web UI powerd by HTML5, CSS3 &amp; jQuery which looks great on any browser, by Farid Hayati, www.FariDesign.net, www.zozoui.com" />
+    <meta name="author" content="Farid Hayati">
+    <meta name="keywords" content="zozoui, zozotabs, zozo tabs, vertical tabbed content, tab nav, tabbed nav, css,css3,html5,html &amp; css,jquery, ui, html5, javasript ui, html5 ui, jquery ui, widgets, jquery widgets, html5 widgets, jquery plugins, jquery mobile, ui widgets, javascript widgets, html widgets, javascript ui, jQuery Calendar, jQuery Menu, jQuery Context Menu, jQuery Accordion, jQuery Expander, jQuery PanelBar, jQuery DatePicker, jQuery DateTimePicker, jQuery Button, jQuery RepeatButton, jQuery ScrollBar, jQuery ToggleButton, jQuery LinkButton" />
+    <!--[if lt IE 9]><script src="js/libs/html5.js"></script><![endif]-->
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,600italic,700italic,800italic,400,300,600,700,800|Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
+
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/libs/modernizr-2.5.3.min.js"></script>
+</head>
+<body>
+    <div id="page">
+        <div class="content">
+            <header>
+                <h3 class="chapter" style="font-size: 40px;">Zozo Tabs - Documentation</h3>
+                <p class="prepend-top append-0">
+                    Thank you for purchasing our software and becoming one of our valued clients. This document is provided to you to help you get started with our software.
+                    We appreciate our clients and look forward to receiving feedback from you.  Please don't forget to rate it! 
+                </p>
+                
+                <p>© 2012 Zozo UI&nbsp;is a project by <a href="http://www.twitter.com/faridesign" target="_blank">Farid Hayati</a><br />
+                 <a href="http://zozoui.com/tabs">More Live Demos</a> | <a href="http://docs.zozoui.com/tabs">Extended HTML documentation</a> | <a href="mailto:support@zozoui.com">Contact Us</a></p>
+                <hr />
+            </header>
+
+            <section id="toc">
+                <h2 class="chapter" style="font-size: 22px;">Table of Contents</h2>
+                <ol style="list-style: upper-alpha;">
+                    <li><a href="#unzip">Unzip and place</a></li>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#usage-jquery">Usage: using jQuery selector</a></li>
+                    <li><a href="#usage-html5">Usage: using HTML5 data attributes</a></li>
+                </ol>
+                <hr />
+            </section>
+
+            <section id="unzip">
+                <h3 class="chapter">A) Unzip and place - <a href="#toc">top</a></h3>
+                <ul class="steps">
+
+                    <li><span class="step">1</span><span class="title">Unzip the contents of the file which you downloaded from codecanyon.net.</span>
+                    </li>
+                    <li><span class="step">2</span><span class="title">Place <i>zozo.tabs.min.css</i> in the directory <i>css/</i> of your website or project.</span>
+                    </li>
+                    <li><span class="step">3</span><span class="title">Place <i>zozo.tabs.min.js</i> and <i><a href="http://docs.jquery.com/Downloading_jQuery">jQuery</a></i> in the directory <i>js/</i> of your website or project.</span>
+                    </li>
+                </ul>
+                <hr />
+            </section>
+
+            <section id="installation">
+                <h3 class="chapter">B) Installation - <a href="#toc">top</a></h3>
+
+                <p>Installing Zozo Tabs is very easy and straight-forward. Simply add the following <strong>link</strong> and <strong>scripts</strong> tags with your proper paths, paste the following code within the <code>&lt;head&gt;&lt;/head&gt;</code> tags of your HTML document.</p>
+                <div class="code-sample">
+                    <pre class="prettyprint javascript">
+<code>&lt;link href="css/zozo.tabs.min.css" rel="stylesheet"&gt;
+&lt;script src="js/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="js/zozo.tabs.min.js"&gt;&lt;/script&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    You are now ready to use Zozo Tabs in your website or poject. 
+                    
+                </p>
+                <p>The final step is to activate our tabs. Zozo Tabs is very easy to use and very flexible becuase we can activate it using jQuery selector like any other plugin, but we can also activate it using HTML5 data attributes. That means no JavaScript/jQuery skills are required.</p>
+                <hr />
+            </section>
+
+            <section id="usage-jquery">
+                <h3 class="chapter">C) Usage: using jQuery selector - <a href="#toc">top</a></h3>
+                This section assumes that you have already included Zozo Tabs required files as described in section <a href="#installation">Installation</a>.                                                           
+                Creating Zozo Tabs is very simple. All we need is to create the basic HTML markup for our tabs and activate it using jQuery selector.
+                                   
+            <ul class="steps">
+                <li><span class="step">1</span><span class="title">The basic HTML markup </span>
+                    <p>Below the basic HTML markup for our tabs, a div element which contains an unordered list for tabs with associated div elements for content. Paste the following HTML anywhere within the <code>&lt;body&gt;&lt;/body&gt;</code>  tag:</p>
+                    <div class="code-sample">
+                        <pre class="prettyprint javascript">
+<code>&lt;div id="tabbed-nav"&gt;
+  &lt;ul&gt;
+        &lt;li&gt;&lt;a&gt;Design&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a&gt;Specs&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a&gt;Price&lt;/a&gt;&lt;/li&gt;                           
+	&lt;li&gt;&lt;a&gt;Release Date&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;div&gt;
+	&lt;div&gt;&lt;h4&gt;Design&lt;/h4&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;h4&gt;Specs&lt;/h4&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;h4&gt;Price&lt;/h4&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;h4&gt;Release Date&lt;/h4&gt;&lt;/div&gt;        
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </li>
+
+                <li><span class="step">2</span><span class="title">Activate using jQuery selector</span>
+                    <p>Below we using <a href="http://docs.jquery.com/Selectors">jQuery's selector</a> within $(document).ready() to ativate our tabs. Paste the following code just before <code>&lt;/body&gt;</code>  tag:</p>
+                    <div class="code-sample">
+                        <pre class="prettyprint javascript">
+<code>&lt;script&gt; 
+$(document).ready(function(){
+    $("#tabbed-nav").zozoTabs({
+        theme: "green"                    
+    });
+});
+&lt;/script&gt;
+</code></pre>
+                    </div>
+                    <p>
+                        After Zozo Tabs has been initialised, it will also add all necessary css classes for styling and theming. In above example we have included a optional option to change the theme (Zozo Tabs comes with <strong>6 built-in themes</strong> that are ready to go and accepts a lot of configuration options, see section <a href="http://zozoui.com/#configuration" target="_blank">configuration</a> for further information).                         
+                    </p>                  
+                </li>
+
+            </ul>
+
+                <hr />
+            </section>
+
+            <section id="usage-html5">
+                <h3 class="chapter">D) Usage: using HTML5 data attributes- <a href="#toc">top</a></h3>
+                This section assumes that you have already included Zozo Tabs required files as described in section <a href="#installation">Installation</a>.                                                           
+                Creating Zozo Tabs is very simple. All we need is to create the basic HTML markup for our tabs and activate it.
+
+                <p>
+                    This the second way to create Zozo Tabs using HTML5 data attributes and we don't need additional JavaScript code. The basic HTML markup stays the same. 
+                    We are going to add a few HTML5 data attributes. The first one is data-role of z-tabs which is required. In below example we are also including data-theme attribute to change the theme.
+                    These data- attributes are used throughout Zozo Tabs to transform basic markup into an enhanced and styled widget.                    
+                </p>
+                <p>That means we only need the following HTML markup with HTML5 data attributes and past it anywhere within the <code>&lt;body&gt;&lt;/body&gt;</code>  tag:</p>
+
+                <div class="code-sample">
+                    <pre class="prettyprint javascript">
+<code>&lt;div id="tabbed-nav" data-role="z-tabs" data-theme="green"&gt;
+  &lt;ul&gt;
+        &lt;li&gt;&lt;a&gt;Design&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a&gt;Specs&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a&gt;Price&lt;/a&gt;&lt;/li&gt;                           
+	&lt;li&gt;&lt;a&gt;Release Date&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;div&gt;
+	&lt;div&gt;&lt;h4&gt;Design&lt;/h4&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;h4&gt;Specs&lt;/h4&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;h4&gt;Price&lt;/h4&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;h4&gt;Release Date&lt;/h4&gt;&lt;/div&gt;        
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                 <p>
+                        That's it! Soon will come more tutorials for detailed summaries of how to create more complex tabs on <a href="http://www.faridesign.net" target="www.faridesign.net">www.faridesign.net</a> and <a href="http://www.zozoui.com" target="_blank">www.zozoui.com</a>
+                    </p>
+
+
+                <hr />
+            </section>
+
+            <section id="contact">
+                <h3 class="chapter">Contact us - <a href="#toc">top</a></h3>
+                <p>We always want to make sure that you are satisfied with your purchase. For support you can contact us using the following ways. Please don’t forget to rate us on codecanyon if you like our work.</p>
+                <ul>
+                    <li>Email: <a href="support@zozoui.com">support@zozoui.com</a></li>
+                    <li>Website: <a href="http://www.zozoui.com/" target="_blank">www.zozoui.com</a></li>
+                    <li>Twitter: <a href="https://twitter.com/zozoui" target="_blank">On our twitter page (follow us)</a></li>
+                    <li>Facebook: <a href="http://www.facebook.com/pages/Zozo-UI/454240371295483" target="_blank">http://www.facebook.com/pages/Zozo-UI/454240371295483 (like us)</a></li>
+                </ul>
+
+                <hr />
+            </section>
+
+            <section id="notify">
+                <p>
+                    To get notified about Zozo Tabs or our other product updates or my new releases, like our <a href="http://www.facebook.com/pages/Zozo-UI/454240371295483" target="_blank">Facebook Page</a>, follow us on <a href="https://twitter.com/zozoui">Twitter</a> or join our <a href="http://zozoui.com/#newsletter">email newsletter</a> (unsubscribe at any time, MailChimp powered).
+                    We would love to see zozo ui in action! 
+Please don't hesitate to send us live link, any info, screen shots, etc. showing it to us. 
+We would be more than happy to add a link to zozoui.com or on our codecanyon page to your website.
+
+                </p>
+
+                <p><a href="#toc">Go To Table of Contents</a></p>
+
+                <hr />
+            </section>
+
+            <footer>
+                <p>Copyright © 2012 Zozo UI. All rights reserved. <a href="http://www.zozoui.com">www.zozoui.com</a> - <a href="mailto:support@zozoui.com">email</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+    <script src="js/plugins.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

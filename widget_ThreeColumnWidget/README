@@ -1,0 +1,17 @@
+HTML Content Widget 1.0.0 for the Silverstripe CMS
+23 July 2008
+By anatol@nugob.org
+
+Released under the BSD license. 
+
+A simple widget to add HTML content to the sidebar.
+
+INSTALLATION:
+Extract this to your SilverStripe root directory and run "db/build".
+
+USAGE:
+In the CMS visit a page with enabled widget sidebar and drag and drop the "HTML Content" box to the right.
+
+PLEASE NOTE: If the text editor field of the Widget (content) is not visible, save and reload the page. This usually happens when you drag the widget onto a page for the first time.
+If you know how to fix this please drop me a line.
+

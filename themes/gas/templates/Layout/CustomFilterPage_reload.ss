@@ -1,0 +1,1 @@
+<% if Projects %><% loop Projects %><% include ProjectPreviewSale %><% end_loop %><% end_if %>
