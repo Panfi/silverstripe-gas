@@ -20,7 +20,7 @@ class ProfilePage extends Page {
 	function getCMSFields() {
 		    $fields = parent::getCMSFields();
 		 	
-		 	$gridFieldConfig = GridFieldConfig_RecordEditor::create(); 
+		 	$gridFieldConfig = GridFieldConfig_RecordEditor::create(50); 
  			$gridFieldConfig->addComponent(new GridFieldBulkManager());
  			$gridFieldConfig->addComponent(new GridFieldBulkImageUpload());   
  			$gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));    
@@ -45,6 +45,10 @@ class ProfilePage_Controller extends Page_Controller {
 //		if(($date=="26" & (int)$hour >= 22) || (int)$date>26 || (isset($_GET["demo"])&&$_GET["demo"]==1)) {
 //			Director::redirect("/registrate");
 //		}
+	}
+	
+	public function SortedProfiles() {
+		return $this->Profiles()->sort("SortOrder ASC");
 	}
 	
 //	public function RMinute() {

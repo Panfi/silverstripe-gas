@@ -13,9 +13,7 @@
 		</div>
 		
 		<div class="expand five" >
-			<% cached 'searchform', Aggregate(Category).Max(LastEdited) %>
-				$Form
-			<% uncached %>
+			$Form
 		</div>
 		
 	</div>

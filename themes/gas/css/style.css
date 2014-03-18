@@ -773,11 +773,44 @@ h3.blockheading {
   left: 0;
 }
 /* PROFILE PAGE */
-.ProfilePage .profile {
-	padding: 0.5em 1.2em 1.5em 1.2em;
+
+.ProfilePage .profile a {
+	display: block;
+	padding: 1em 1em 1em 1em;
 	background: #d4d3d3;
-	background: rgba(255,255,255,0.2);
-	margin-bottom: 0.5em;
+	background: rgba(255,255,255,0.3);
+	margin-bottom: 0.3em;
+	text-align: center;
+	border-bottom: 8px solid rgba(0,0,0,0.1);
+	overflow: hidden;
+}
+
+.ProfilePage .profile .label {
+	display: inline-block !important;
+	margin: 0 !important;
+}
+.ProfilePage .profile h3 {
+	font-size: 1.5em;
+	font-weight: 700;
+	margin-bottom: 0.3em !important;
+}
+
+#profileModal .email, #profileModal .phone {
+	color: #EEEEEE !important;
+	font-weight: bold !important;
+}
+#profileModal i {
+	color: #FFFFFF !important;
+}
+
+.ProfilePage .label.jobposition {
+	padding: 0.4em 0.8em !important;
+	text-transform: uppercase;
+}
+.divider {
+	display: inline-block;
+	margin: 0 0.5em;
+	border-right: 1px solid #888 !important;
 }
 
 
@@ -1259,6 +1292,9 @@ button:focus {
   }
   .salesmessage {
   	margin: 1.5em 0;
+  }
+  #profileModal .details {
+  	margin-left: 1em;
   }
 }
 

@@ -129,23 +129,23 @@ $(document).ready(function() {
     	$(".expand").slideToggle(500);
     });
     
-//    $( "html.touch" ).on( "swiperight", function() {
-//    	if(currentNavigation=="right") {
-//    		toggleRightNav();
-//    	}
-//    	else if(currentNavigation==false) {
-//    		toggleLeftNav();
-//    	}
-//    });
+    $( "html.touch" ).on( "swiperight", function() {
+    	if(currentNavigation=="right") {
+    		toggleRightNav();
+    	}
+    	else if(currentNavigation==false) {
+    		toggleLeftNav();
+    	}
+    });
     
-//    $( "html.touch" ).on( "swipeleft", function() {
-//    	if(currentNavigation=="left") {
-//			toggleLeftNav();
-//		}
-//		else if(currentNavigation==false) {
-//			toggleRightNav();
-//		}
-//    });
+    $( "html.touch" ).on( "swipeleft", function() {
+    	if(currentNavigation=="left") {
+			toggleLeftNav();
+		}
+		else if(currentNavigation==false) {
+			toggleRightNav();
+		}
+    });
     
     var showChar = 300;
     var ellipsestext = "...";
@@ -174,6 +174,20 @@ $(document).ready(function() {
             $(this).parent().parent().find(".morecontent").html(h);
         }
         return false;
+    });
+    
+    $(".ProfilePage .profile a").click(function(evt) {
+    	evt.preventDefault();
+    	$a = $("#profileModal");
+    	$a.find(".title").html($(this).data("title"));
+    	$a.find("img").attr("src", $(this).data("image"));
+    	$a.find(".jobposition").html($(this).data("jobposition"));
+    	$a.find(".text").html($(this).data("text"));
+    	$a.find(".phone").html($(this).data("phone"));
+    	$a.find(".email span").html($(this).data("email"));
+    	$a.find(".email").attr("href", $(this).data("email"));
+    	$("#profileModal").foundation("reveal","open");
+    	return false;
     });
     
     /* var clickActionTimeout = null;

@@ -7,6 +7,8 @@ class Profile extends DataObject {
 		'JobPosition' => 'Varchar(125)',
 		'Text' => 'Text',
 		'VideoEmbed' => 'Text',
+		'Email' => 'Varchar(64)',
+		'Phone' => 'Varchar(20)'
 	);
 	
 	private static $has_one = array (
@@ -14,7 +16,7 @@ class Profile extends DataObject {
 		'Image' => 'Image'
 	);
 	
-	private static $default_sort = "Created ASC";
+	private static $default_sort = "SortOrder ASC";
 		
 	function getCMSFields_forPopup() {
 
