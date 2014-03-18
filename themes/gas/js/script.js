@@ -43,22 +43,6 @@ function reflowSections() {
 	$('div.section').foundation('section','reflow').fadeIn();
 }
 
-setInterval(function() {
-	if(didScroll) {
-		didScroll=false;
-		$('.fix-y').each(function() {
-			dy = $(this).data("dy");
-			//console.log($(this).css("top"));
-			if($(this).hasClass('animate')) {
-				$(this).stop(true).animate({'top': $(window).scrollTop() + dy},500,'easeOutQuad');
-			}
-			else {
-				$(this).css({'top': $(window).scrollTop() + dy});
-			}
-		});
-	}
-},500);
-
 $(document).ready(function() {	
 	console.log("Document ready.");
 	$(document.documentElement).addClass("js-ready");
@@ -80,10 +64,29 @@ $(document).ready(function() {
 	//UNVEIL
 	$("img").unveil(300);
 	
-//	FIX SCROLL
-	 $(window).scroll(function(){
-	 	didScroll=true;
-	}); 
+	
+	if($(document).width() > 760) {
+		setInterval(function() {
+			if(didScroll) {
+				didScroll=false;
+				$('.fix-y').each(function() {
+					dy = $(this).data("dy");
+					//console.log($(this).css("top"));
+					if($(this).hasClass('animate')) {
+						$(this).stop(true).animate({'top': $(window).scrollTop() + dy},500,'easeOutQuad');
+					}
+					else {
+						$(this).css({'top': $(window).scrollTop() + dy});
+					}
+				});
+			}
+		},500);
+		//	FIX SCROLL
+		$(window).scroll(function(){
+		 	didScroll=true;
+		}); 
+	}
+
 	
 	$("div.scrollable").css({
 		"height" : $(window).height(),
@@ -126,23 +129,23 @@ $(document).ready(function() {
     	$(".expand").slideToggle(500);
     });
     
-    $( "html.touch" ).on( "swiperight", function() {
-    	if(currentNavigation=="right") {
-    		toggleRightNav();
-    	}
-    	else if(currentNavigation==false) {
-    		toggleLeftNav();
-    	}
-    });
+//    $( "html.touch" ).on( "swiperight", function() {
+//    	if(currentNavigation=="right") {
+//    		toggleRightNav();
+//    	}
+//    	else if(currentNavigation==false) {
+//    		toggleLeftNav();
+//    	}
+//    });
     
-    $( "html.touch" ).on( "swipeleft", function() {
-    	if(currentNavigation=="left") {
-			toggleLeftNav();
-		}
-		else if(currentNavigation==false) {
-			toggleRightNav();
-		}
-    });
+//    $( "html.touch" ).on( "swipeleft", function() {
+//    	if(currentNavigation=="left") {
+//			toggleLeftNav();
+//		}
+//		else if(currentNavigation==false) {
+//			toggleRightNav();
+//		}
+//    });
     
     var showChar = 300;
     var ellipsestext = "...";

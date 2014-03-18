@@ -15,7 +15,9 @@ class SortableDataObject extends DataExtension
 	
 	
 	public function updateCMSFields(FieldList $fields) {
-		$fields->removeByName("SortOrder");
+		if(!Permission::check("ADMIN")) {
+			$fields->removeByName("SortOrder");
+		}
 	}
 	
 	public static function set_sort_dir($dir)

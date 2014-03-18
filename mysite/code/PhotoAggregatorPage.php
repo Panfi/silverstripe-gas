@@ -96,7 +96,7 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 		$bf->addExtraClass("normalSelect");
 		
 		$cf = new LiteralField("Categories","Categories");
-		$c = DataObject::get("Category");
+		$c = Category::get()->where("HideFromPhotos != 1");
 		if($c) {
 			$cf = new DropdownField("Category","Category",$c->map("ID","Title"),$this->request->getVar('Category'));
 			$cf->setEmptyString("All categories");

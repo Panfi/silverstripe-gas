@@ -430,10 +430,10 @@ div.gassection p.title a {
   background: #E8E8E8;
   min-height: 1000px;
   z-index: 2 !important;
-  -webkit-backface-visibility: hidden;
+/*  -webkit-backface-visibility: hidden;*/
 }
 #inner-wrap .layout {
-	-webkit-backface-visibility: hidden;
+/*	-webkit-backface-visibility: hidden;*/
 }
 .sidenav {
   z-index: 2;
@@ -580,10 +580,10 @@ div.gassection p.title a {
   -moz-transition: -moz-transform 500ms ease;
   -o-transition: -o-transform 500ms ease;
   transition: transform 500ms ease;
-  -webkit-backface-visibility: hidden;
+/*  -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
-  -o-backface-visibility: hidden;
+  -o-backface-visibility: hidden;*/
   backface-visibility: hidden;
   webkit-perspective: 1000;
 }

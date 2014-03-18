@@ -7,7 +7,8 @@ class Category extends Page {
    		'MainColor' => 'Varchar(7)',
    		'SecondaryColor' => 'Varchar(7)',
    		'FeaturedHome' => 'Boolean',
-   		'FeaturedOrder' => 'Int'
+   		'FeaturedOrder' => 'Int',
+   		'HideFromPhotos' => 'Int'
    	);
 
 	private static $has_one = array(
@@ -38,6 +39,8 @@ class Category extends Page {
 			$fields->addFieldToTab("Root.Featured", new CheckboxField("FeaturedHome","Feature on homepage"));
 			$fields->addFieldToTab("Root.Featured", new TextField("FeaturedOrder","Order of featuring"));
 		}
+		
+		$fields->addFieldToTab("Root.Main", new CheckboxField("HideFromPhotos", "Check to hide category from photos"));
 		
 		$if=UploadField::create("BackgroundImage","Upload background image");
 		$if->setFolderName("images/backgrounds");

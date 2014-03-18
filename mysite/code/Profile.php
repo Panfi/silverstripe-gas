@@ -26,6 +26,7 @@ class Profile extends DataObject {
 			new TextField('JobPosition'),
 			new TextareaField('Text'),
 			new TextareaField('VideoEmbed'),
+			new TextField('SortOrder'),
 			$myField
 		);
 	}
