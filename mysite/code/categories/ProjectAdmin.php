@@ -1,4 +1,5 @@
 <?php
+
 class ProjectAdmin extends ModelAdmin {
 	
 	private static $url_segment = 'vehicles';

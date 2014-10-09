@@ -11,12 +11,13 @@ class Category extends Page {
    		'HideFromPhotos' => 'Int'
    	);
 
-	private static $has_one = array(
-	);
+	// private static $has_one = array(
+	// );
 	
 	private static $many_many = array(
 		'Projects' => 'Project',
-		'Brands' => 'Brand'
+		'Brands' => 'Brand',
+		'Products' => 'Product'
 	);
 	
 	private static $belongs_many_many = array(

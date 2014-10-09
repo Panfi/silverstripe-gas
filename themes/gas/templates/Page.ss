@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="mysite/fontello/css/animation.css" /><!--[if IE 7]>
   <link rel="stylesheet" href="mysite/fontello/css/fontello-ie7.css" /><![endif]-->
   <link rel="image_src" href="$ThumbnailURL" />
-  <!-- <script src="mysite/foundation/js/vendor/custom.modernizr.js"></script> -->
+  <script src="mysite/foundation/js/vendor/custom.modernizr.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   
   <% include Theming %>

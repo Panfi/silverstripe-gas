@@ -10,6 +10,10 @@ class Brand extends DataObject {
 		'SortOrder' => 'Int'
 	);
 	
+	private static $has_many = array(
+		'Products' => 'Product'
+	);
+
 	private static $belongs_many_many = array(
 		'Projects' => 'Project',
 		'Categories' => 'Category'
@@ -19,6 +23,10 @@ class Brand extends DataObject {
 		'Image' => 'Image'
 	);
 	
+	/* INDEXES AND SUMMARY */
+
+	private static $default_sort = "Title ASC";
+
 	private static $indexes = array (
 		'URLSegment' => true,
 		'SortOrder' => true

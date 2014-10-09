@@ -24,7 +24,8 @@ class Project extends DataObject implements PermissionProvider {
 	
 	private static $many_many = array(
 		'Brands' => 'Brand',
-		'Colors' => 'Color'
+		'Colors' => 'Color',
+		'Products' => 'Product'
 	);
 	
 	private static $belongs_many_many = array(

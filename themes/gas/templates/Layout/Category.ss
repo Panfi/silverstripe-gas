@@ -42,13 +42,13 @@
 		<% include Brands %>
 	
 		<div class="subsection projects">
-			<h2 class="blockheading" id="projects"><a href="{$Link}all">Photo Galleries under <strong>$Title</strong></a></h2>
+			<h2 class="blockheading" id="projects"><a href="{$Link}all">Photos under <strong>$Title</strong></a></h2>
 			<ul class="small-block-grid-5 blockgrid">
 				<% loop getProjects %>
 					<% include ProjectPreview %>
 				<% end_loop %>
 			</ul>
-			<h3 style="text-align:right;"><a href="{$Link}all">See all Photo Galleries <i class="icon-right-circled"></i></a></h3>
+			<h3 style="text-align:right;"><a href="{$Link}all">See all Photos <i class="icon-right-circled"></i></a></h3>
 		</div>
 		
 		
