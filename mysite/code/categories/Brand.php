@@ -33,6 +33,7 @@ class Brand extends DataObject {
 	);
 	
 	private static $summary_fields = array(
+		"ID",
 		"Title",
 		"SortOrder"
 	);

@@ -286,10 +286,10 @@ ul.fancydrop li a {
   color: #FFFFFF;
   /*text-shadow: 0px 1px 7px rgba(0, 0, 0, 0.5);*!/
 }*/
-.gasmenu li:hover {
+.gasmenu dd:hover {
 	background: #5e89b5;
 }
-.gasmenu li:hover > a {
+.gasmenu dd:hover > a {
 	color: #FFF;
 }
 .sectionwrap {

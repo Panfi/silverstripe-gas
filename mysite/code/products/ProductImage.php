@@ -6,8 +6,9 @@ class ProductImage extends DataObject {
   );
   
   private static $has_one = array (
-    'Project' => 'Project',
-    'Image' => 'Image'
+    'Product' => 'Product',
+    'Image' => 'Image',
+    'SortOrder' => 'Int'
   );
   
   private static $default_sort = "SortOrder ASC, Created DESC";

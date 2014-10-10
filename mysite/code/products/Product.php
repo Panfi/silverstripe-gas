@@ -4,6 +4,7 @@ class Product extends DataObject {
   
   private static $db = array(
     'Title' => 'Varchar(255)',
+    'ProductCode' => 'Varchar(255)',
     'Price' => 'Currency',
     'Content' => 'HTMLText',
     'URLSegment' => 'Varchar(255)',
@@ -20,7 +21,11 @@ class Product extends DataObject {
   );
   
   private static $has_many = array (
-    'Images' => 'Image'
+    'Images' => 'ProductImage'
+  );
+
+  private static $defaults = array(
+    'Title' => 'New product'
   );
 
   /* INDEXES AND SUMMARY FIELDS */
@@ -41,19 +46,19 @@ class Product extends DataObject {
     $fields->addFieldToTab("Root.Main", new CheckboxSetField('Categories', 'Mark categories ths product belongs to', $c->map("ID","Title")));
   }
 
+  $fields->removeByName("Categories");
+
   if(!$this->ID) {
-    $fields->removeByName("Root.Images");
-    $fields->removeByName("Categories");
     $fields->removeByName("Projects");
-    $fields->removeByName("Brands");
-    $fields->addFieldToTab("Root.Main", new ReadonlyField("Note","Images","Please save project before attaching images."));
+    $fields->removeByName("Root.Images");
+    $fields->addFieldToTab("Root.Main", new ReadonlyField("Note","Images","Please save the product before attaching images."));
   }
   else {
     $gridFieldConfig = GridFieldConfig_RecordEditor::create(); 
     $gridFieldConfig->addComponent(new GridFieldBulkManager());
     $gridFieldConfig->addComponent(new GridFieldBulkImageUpload());   
     $gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));    
-    $photoManager = new GridField("Images", "Project images", $this->Images()->sort("SortOrder"), $gridFieldConfig);
+    $photoManager = new GridField("Images", "Product images", $this->Images()->sort("SortOrder"), $gridFieldConfig);
     $fields->addFieldToTab("Root.Images", $photoManager);
   }
 
@@ -94,7 +99,7 @@ class Product extends DataObject {
   }
   
   function LookForExistingURLSegment($URLSegment) {
-    return(Product::get()->where("URLSegment = '".$URLSegment."' AND Product.ID != ".$this->ID));
+    return(DataObject::get_one("Product","URLSegment = '".$URLSegment."' AND Product.ID != ".$this->ID));
   }
   
   public function Link() {

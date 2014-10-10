@@ -7,7 +7,7 @@ Director:
     'search' : 'Search_Controller'
     'brands/$ID' : 'Brand_Controller'
     'project' : 'Project_Controller'
+    'product/$ID' : 'Product_Controller'
     'color/$ID' : 'Color_Controller'
     'tags/$ID' : 'Tag_Controller'
     'categories' : 'AllCategory_Controller'
-    

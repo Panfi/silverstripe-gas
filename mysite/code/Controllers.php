@@ -513,11 +513,53 @@ class Image_Controller extends Page_Controller {
 			$URLSegment = Convert::raw2sql($Params['ID']);
 			if($URLSegment && $Item = DataObject::get_one('Image', "LOWER(Title) = '" . urldecode($URLSegment) . "'")) {
 				$Data = array(
-					'Title' => "Tag: ".$Item->Title,
+					'Title' => $Item->Title,
 					'MetaTitle' => $Item->Title,
 					'Image' => $Item
 				);
 				return $this->customise($Data)->renderWith(array('ImageView','Page'));
+			}
+			else {
+				Controller::redirectBack();
+			}
+	}
+	
+}
+
+class Product_Controller extends Page_Controller {
+
+	private static $allowed_actions = array (
+		'index'
+	);
+
+	public function init() {	
+		parent::init();
+	}
+	
+	const URLSegment = '/product';
+	
+	public function getURLSegment() { 
+		return self::URLSegment; 
+	}
+	
+	public function Link($action = null, $id = null) {
+		//$action = $this->request->param('Action');
+		//$id = $this->request->param('ID');
+		return Controller::join_links(self::URLSegment, $action, $id);
+	} 
+	
+	
+	public function index() {
+			$Params = $this->getURLParams();
+			$URLSegment = Convert::raw2sql($Params['ID']);
+			if($URLSegment && $Item = DataObject::get_one('Product', "URLSegment = '" . $URLSegment . "'")) {
+				$Data = array(
+					'Title' => "Tag: ".$Item->Title,
+					'MetaTitle' => $Item->Title,
+					'Image' => $Item->Images() ? $Item->Images()->First() : null,
+					'Item' => $Item
+				);
+				return $this->customise($Data)->renderWith(array('ProductView','Page'));
 			}
 			else {
 				Controller::redirectBack();
