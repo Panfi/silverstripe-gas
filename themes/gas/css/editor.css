@@ -1,1 +1,13 @@
-@import "print.css"
+@import "print.css";
+
+.cms_listpreview {
+  line-height: 30px;
+  white-space: nowrap;
+  width: 100%;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cms_listpreview img {
+  margin-right: 10px;
+}

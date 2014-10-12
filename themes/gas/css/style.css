@@ -1066,6 +1066,10 @@ a.morelink {
 	text-transform: uppercase;
 }
 
+.white a {
+  color: #FFFFFF !important;
+}
+
 /* SALES WRAP HEADINGS */
 
 .salesmessage h1, .salesmessage h2, .salesmessage h3, .salesmessage h4 {
@@ -1300,6 +1304,10 @@ button:focus {
 
 .galleria.fullscreen { z-index: 99999; background: #000000; position: fixed; left: 0 !important; top: 0 !important; bottom: 0 !important; right: 0 !important;
 	width: 100% !important; height: 100% !important;
+}
+
+.flex-video.snapwidget {
+  padding-bottom:47%;
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),

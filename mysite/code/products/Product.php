@@ -8,6 +8,7 @@ class Product extends DataObject {
     'Price' => 'Currency',
     'Content' => 'HTMLText',
     'URLSegment' => 'Varchar(255)',
+    'Published' => 'Boolean',
     'Featured' => 'Boolean'
   );
   
@@ -41,12 +42,20 @@ class Product extends DataObject {
  function getCMSFields() {
   $fields = parent::getCMSFields();
   
+
+  $fields->removeByName("Categories");
+  $fields->removeByName("Projects");
+
   $c = DataObject::get("Category","Status='Published'","Title ASC");
   if($c) {
     $fields->addFieldToTab("Root.Main", new CheckboxSetField('Categories', 'Mark categories ths product belongs to', $c->map("ID","Title")));
   }
 
-  $fields->removeByName("Categories");
+
+  $v = DataObject::get("Project","Published=1","Title ASC");
+  if($v) {
+    $fields->addFieldToTab("Root.Main", new CheckboxSetField('Projects', 'Mark the projects ths product is found in', $v->map("ID","CMSListPreview")));
+  }
 
   if(!$this->ID) {
     $fields->removeByName("Projects");
@@ -56,8 +65,11 @@ class Product extends DataObject {
   else {
     $gridFieldConfig = GridFieldConfig_RecordEditor::create(); 
     $gridFieldConfig->addComponent(new GridFieldBulkManager());
-    $gridFieldConfig->addComponent(new GridFieldBulkImageUpload());   
+    $gridFieldConfig->addComponent(new GridFieldBulkUpload());   
     $gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));    
+    $gridFieldConfig->getComponentByType('GridFieldBulkUpload')
+      ->setUfSetup('setFolderName', 'products')
+      ->setUfConfig('sequentialUploads', true);
     $photoManager = new GridField("Images", "Product images", $this->Images()->sort("SortOrder"), $gridFieldConfig);
     $fields->addFieldToTab("Root.Images", $photoManager);
   }
@@ -102,6 +114,10 @@ class Product extends DataObject {
     return(DataObject::get_one("Product","URLSegment = '".$URLSegment."' AND Product.ID != ".$this->ID));
   }
   
+  public function Image() {
+    return $this->Images()->Count()>0 ? $this->Images()->First() : false;
+  }
+
   public function Link() {
     return 'products/' . $this->URLSegment;       
   }
@@ -110,12 +126,12 @@ class Product extends DataObject {
     return $this->Link();
   }
   
-  function onAfterWrite() {
-    parent::onAfterWrite();
-    if(!$this->SortOrder) {
-      $max = Brand::get()->Max("SortOrder");
-      $this->SortOrder = $max + 1;
-      $this->write();
-    }
-  }
+  // function onAfterWrite() {
+  //   parent::onAfterWrite();
+  //   if(!$this->SortOrder) {
+  //     $max = Brand::get()->Max("SortOrder");
+  //     $this->SortOrder = $max + 1;
+  //     $this->write();
+  //   }
+  // }
 }

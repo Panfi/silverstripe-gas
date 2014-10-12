@@ -3,12 +3,12 @@
 class ProductImage extends DataObject {
   
   private static $db = array(
+    'SortOrder' => 'Int'
   );
   
   private static $has_one = array (
     'Product' => 'Product',
-    'Image' => 'Image',
-    'SortOrder' => 'Int'
+    'Image' => 'Image'
   );
   
   private static $default_sort = "SortOrder ASC, Created DESC";

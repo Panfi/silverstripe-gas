@@ -95,7 +95,7 @@
 	
 	
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script src="mysite/zozotabs/js/zozo.tabs.min.js"></script>
+	<!-- <script src="mysite/zozotabs/js/zozo.tabs.min.js"></script> -->
 	$ExtraJavascript
 	<!-- <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script> -->
 	<!-- <script src="mysite/foundation/js/foundation.min.js"></script> -->

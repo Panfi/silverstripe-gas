@@ -554,7 +554,7 @@ class Product_Controller extends Page_Controller {
 			$URLSegment = Convert::raw2sql($Params['ID']);
 			if($URLSegment && $Item = DataObject::get_one('Product', "URLSegment = '" . $URLSegment . "'")) {
 				$Data = array(
-					'Title' => "Tag: ".$Item->Title,
+					'Title' => $Item->Title,
 					'MetaTitle' => $Item->Title,
 					'Image' => $Item->Images() ? $Item->Images()->First() : null,
 					'Item' => $Item

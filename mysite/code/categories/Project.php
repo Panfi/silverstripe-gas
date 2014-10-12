@@ -116,7 +116,10 @@ class Project extends DataObject implements PermissionProvider {
 			$gridFieldConfig = GridFieldConfig_RecordEditor::create(); 
 			$gridFieldConfig->addComponent(new GridFieldBulkManager());
 			$gridFieldConfig->addComponent(new GridFieldBulkImageUpload());   
-			$gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));    
+			$gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));
+			$gridFieldConfig->getComponentByType('GridFieldBulkUpload')
+      	->setUfSetup('setFolderName', 'projects')
+      	->setUfConfig('sequentialUploads', true);
 			$photoManager = new GridField("Images", "Project images", $this->Images()->sort("SortOrder"), $gridFieldConfig);
 			$fields->addFieldToTab("Root.Images", $photoManager);
 	//			->setFolderName('images/projects')
@@ -269,6 +272,14 @@ class Project extends DataObject implements PermissionProvider {
 			}
 			return $results;
 		}
+	}
+
+	function CMSListPreview() {
+		$imageurl = "http://placehold.it/30x30";
+		if($this->Images()) {
+			$imageurl = $this->Images()->First()->Image()->croppedImage(30,30)->URL;
+		}
+		return "<span class='cms_listpreview'><img src='".$imageurl."' />".$this->Title."</span>";
 	}
 	
 }
