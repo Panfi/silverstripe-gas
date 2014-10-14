@@ -34,8 +34,11 @@ class Page extends SiteTree {
 	 	
 	 	$gridFieldConfig = GridFieldConfig_RecordEditor::create(); 
 		$gridFieldConfig->addComponent(new GridFieldBulkManager());
-		$gridFieldConfig->addComponent(new GridFieldBulkImageUpload());   
-		$gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));    
+		$gridFieldConfig->addComponent(new GridFieldBulkUpload());   
+    $gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));    
+    $gridFieldConfig->getComponentByType('GridFieldBulkUpload')
+      ->setUfSetup('setFolderName', 'images')
+      ->setUfConfig('sequentialUploads', true);
 
 		$photoManager = new GridField("Images", "Images", $this->Images()->sort("SortOrder"), $gridFieldConfig);
 	 	
@@ -483,6 +486,7 @@ class ContactForm extends Form {
         	TextField::create("CarYear"),
         	TextField::create("CarMake"),
         	TextField::create("CarModel"),
+        	TextField::create("Safety"),
         	$actionField,
         	TextField::create("Phone")->setAttribute('data-validation-regex', '/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/'),
             EmailField::create("Email"),

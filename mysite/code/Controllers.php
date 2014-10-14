@@ -115,11 +115,20 @@ class Search_Controller extends Page_Controller {
 
 class Brand_Controller extends Page_Controller {
 
+	protected $categoryID;
+	protected $brand;
+	protected $urlSegment;
+
 	private static $allowed_actions = array (
 		'index'
 	);
 
-	public function init() {	
+	public function init() {
+		$Params = $this->getURLParams();
+		$this->urlSegment = Convert::raw2sql($Params['ID']);
+		if(Convert::raw2sql($Params['CategoryID'])) {
+			$this->categoryID = Convert::raw2sql($Params['CategoryID']);
+		}
 		parent::init();
 	}
 	
@@ -137,21 +146,28 @@ class Brand_Controller extends Page_Controller {
 	
 	
 	public function index() {
-		
-		$Params = $this->getURLParams();
-		$URLSegment = Convert::raw2sql($Params['ID']);
-		if($URLSegment && $Item = DataObject::get_one('Brand', "URLSegment = '" . urldecode($URLSegment) . "'")) {
-			$Data = array(
-				'Title' => "Brand: '".$Item->Title."'",
-				'MetaTitle' => $Item->Title,
-				'Content' => $Item->Content,
-				'Brand' => $Item,
-				'Projects' => $Item->Projects(),
-				'Categories' => $Item->Categories()
-			);
-			return $this->customise($Data)->renderWith(array('Brand','Page'));
+
+		if( $this->urlSegment && $Item = $this->getCurrentBrand() ) {
+			
+			if( (Director::is_ajax() == true) || ( isset($_GET["ajax"]) && $_GET["ajax"]===1 ) ){ 
+				print_r($this->Categories()->where("Active",1)->first());
+			}
+			else {
+				$Data = array(
+					'Title' => $Item->Title,
+					'ClassName' => "BrandView",
+					'MetaTitle' => $Item->Title,
+					'Content' => $Item->Content,
+					'Brand' => $Item,
+					'Projects' => $Item->Projects(),
+					//'Categories' => $this->Categories(),
+					'Products' => $Item->ProductsByCategory($this->categoryID)
+				);
+				return $this->customise($Data)->renderWith(array('Brand','Page'));
+			}
 		}
 		else {
+
 			$b = null;
 			$title = "All our brands";
 			
@@ -170,9 +186,23 @@ class Brand_Controller extends Page_Controller {
 				"Category" => $cat
 			);
 			return $this->customise($Data)->renderWith(array('AllBrands','Page'));
+
 		}
 		
 		
+	}
+
+	public function getCurrentBrand() {
+		if($this->brand) {
+			return $this->brand;
+		}
+		else {
+			$b = DataObject::get_one('Brand', "URLSegment = '" . urldecode($this->urlSegment) . "'");
+			if($b) {
+				$this->brand = $b;
+				return $b;
+			}
+		}
 	}
 	
 	public function Brands() {
@@ -184,7 +214,28 @@ class Brand_Controller extends Page_Controller {
 			return DataObject::get("Brand","ImageID>0","Title ASC");
 		}
 	}
+
+	public function Categories() {
+		$categories = $this->brand->Categories();
+		$cat = ArrayList::create();
+		foreach($categories as $c) {
+			$temp = array(
+				"ID" => $c->ID,
+				"Title" => $c->Title,
+				"Link" => $c->Link()
+			);
+			if($c->URLSegment == $this->categoryID) {
+				$temp["Active"] = 1;
+			}
+			$cat->push($temp);
+		}
+		return $cat;
+	}
 	
+	public function Products() {
+		$c = Product::get();
+		return $c;
+	}
 }
 
 

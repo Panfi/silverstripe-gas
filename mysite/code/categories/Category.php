@@ -11,7 +11,7 @@ class Category extends Page {
    		'HideFromPhotos' => 'Int'
    	);
 
-	// private static $has_one = array(
+	// private static $has_many = array(
 	// );
 	
 	private static $many_many = array(

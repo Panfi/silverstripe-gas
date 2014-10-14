@@ -1406,3 +1406,32 @@ button:focus {
 		text-overflow: ellipsis;
 	}
 }
+
+.BrandView .heading {
+	margin-bottom: 0 !important;
+}
+.black {
+	background: #000;
+}
+.black h2, .black a h4 {
+	color: #FFF;
+}
+.black .section .title {
+	background: none !important;
+	border: none !important;
+}
+.black .section .title a {
+	color: #999 !important;
+}
+.black .section.active .title a {
+	background: #222 !important;
+	color: #FFF !important;
+}
+.black .section .content {
+	background: #222 !important;
+	border: none !important;
+}
+.BrandView .sub-nav dd {
+	text-transform: uppercase;
+	margin-right: 10px;
+}

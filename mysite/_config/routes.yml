@@ -5,9 +5,10 @@ After: framework/routes#coreroutes
 Director:
   rules:
     'search' : 'Search_Controller'
-    'brands/$ID' : 'Brand_Controller'
+    'brands/$ID/$CategoryID' : 'Brand_Controller'
     'project' : 'Project_Controller'
     'product/$ID' : 'Product_Controller'
     'color/$ID' : 'Color_Controller'
     'tags/$ID' : 'Tag_Controller'
     'categories' : 'AllCategory_Controller'
+    'loadproducts' : 'LoadProduct_Controller'

@@ -107,4 +107,31 @@ class Brand extends DataObject {
 			$this->write();
 		}
 	}
+
+
+	/* PRODUCT STUFF */
+
+	function ProductsByCategory($categoryURLSegment) {
+		if(!$categoryURLSegment) {
+			return $this->Products();
+		}
+		else {
+			$category = Category::get()->where("URLSegment='".$categoryURLSegment."'")->limit(1);
+			if($category->first()) {
+				//return $this->Products(); //->where("Product.CategoryID =".$category->first()->ID);
+				$p = Product::get();
+				return $p;
+			}
+			else {
+				echo("Category not found, redirect back");
+				Controller::curr()->Redirect($this->Link());
+			}
+		}
+	}
+
+	function ProductCategories() {
+		echo("Shit");
+		$cats = $this->Products()->column("CategoryID");
+		print_r($cats);
+	}
 }

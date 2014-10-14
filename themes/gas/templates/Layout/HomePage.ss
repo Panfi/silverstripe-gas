@@ -13,6 +13,7 @@
 	    </div>
 	  </section>
 	  <% end_loop %>
+	 </div>
 </div>
 </div>
 
