@@ -1,13 +1,30 @@
-@import "http://fonts.googleapis.com/css?family=Lato:400,700&.css)";
+/* @override 
+	http://gas.sixthhouse.com/themes/gas/css/style.css
+	http://localhost/gas/themes/gas/css/style.css */
+
+@import "http://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Condensed:700,300&.css)";
 
 html {
 /*  background-attachment: none, fixed;*/
 }
 body {
-  background: #333;
+  background: #252525;
   color: #333333;
   color: rgba(0, 0, 0, 0.6);
   font-family: "Lato", "Helvetica Neue", _sans-serif;
+}
+a {
+	-o-transition:.5s ease-out;
+	  -ms-transition:.5s ease-out;
+	  -moz-transition:.5s ease-out;
+	  -webkit-transition:.5s ease-out;
+	  transition:.5s ease-out;
+}
+p strong {
+	color: #000;
+}
+.button {
+	text-transform: uppercase;
 }
 .right-align {
   text-align: right;
@@ -29,14 +46,24 @@ li.name h1 a {
   position: absolute;
 }
 h1,
+h2 {
+	font-family: 'Lato',"Arial", _sans-serif;
+	font-weight: 700;
+}
+h3,
+h4 {
+	font-family: 'Roboto Condensed', _sans-serif;
+	font-weight: 300;
+}
+h1,
 h2,
 h3,
 h4,
 h5 {
-  font-family: 'Lato', _sans-serif;
-  font-weight: 400;
   color: #333;
   color: rgba(0, 0, 0, 0.8);
+  letter-spacing: -1px;
+  text-transform: uppercase;
 }
 h1 a,
 h2 a,
@@ -203,16 +230,16 @@ ul.gasmenu {
 	border-right: 1px solid #cccccc;
 }.gasmenu li a {
   display: table-cell;
-  font-family: "Lato", _sans-serif;
+  font-family: "Roboto Condensed", "Arial Narrow", _sans-serif;
   vertical-align: middle;
   text-align: center;
   text-transform: uppercase;
   color: #333333;
   color: #333333;
-  font-size: 1em;
+  font-size: 0.9em !important;
   font-weight: 700;
   padding: 0.5em 0.5em;
-  letter-spacing: -1px;
+/*  letter-spacing: 0px;*/
 }
 .gasmenu li.has-dropdown {
   position: relative;
@@ -304,6 +331,7 @@ div.gassection p.title a {
   text-transform: uppercase;
   text-align: center;
   font-weight: 700;
+  font-family: "Roboto Condensed","Arial Narrow", _sans-serif;
 }
 .gassection .section p.title:hover a {
 	background: #5e89b5;
@@ -324,7 +352,7 @@ div.gassection p.title a {
 }
 .heading fieldset h4 {
 	color: #FFF;
-}.heading fieldset label {
+}.heading fieldset lRoboto Condensed {
 	color: #ccc;
 }
 .updates {
@@ -356,8 +384,9 @@ div.gassection p.title a {
 	margin: 0;
 }
 .address {
+ font-family: "Roboto Condensed", "Arial Narrow", _sans-serif;
   color: #bbbbbb !important;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 .address a i {
   color: #ffffff;
@@ -680,7 +709,8 @@ div.gassection p.title a {
 .blockheading {
   color: #ffffff;
   padding: 0 0.5em;
-  background: #4c4c4c;
+  background: #222;
+  background: rgba(0,0,0,0.7);
 }
 .blockheading i {
   float: right;
@@ -688,16 +718,17 @@ div.gassection p.title a {
 .blockheading a {
   color: #dddddd;
 }
-.blockheading:hover {
-  opacity: 0.8;
+.blockheading:hover, .inner:hover .blockheading {
+  opacity: 0.9;
+  background: rgba(0,0,0,0.1);
 }
-.blockheading:hover a {
+.blockheading:hover a, .inner:hover .blockheading a {
   opacity: 1;
   color: #ffffff;
+  font-weight: 700;
 }
 h3.blockheading {
 	font-size: 1.2em;
-	text-transform: uppercase;
 }
 .overlayheading li div.inner {
   position: relative;
@@ -733,7 +764,7 @@ h3.blockheading {
 .reveal-modal h5,
 .reveal-modal h6,
 .reveal-modal a,
-.reveal-modal label {
+.reveal-modal lRoboto Condensed {
   color: #FFFFFF;
 }
 .reveal-modal small {
@@ -778,7 +809,7 @@ h3.blockheading {
 	overflow: hidden;
 }
 
-.ProfilePage .profile .label {
+.ProfilePage .profile .lRoboto Condensed {
 	display: inline-block !important;
 	margin: 0 !important;
 }
@@ -796,7 +827,7 @@ h3.blockheading {
 	color: #FFFFFF !important;
 }
 
-.ProfilePage .label.jobposition {
+.ProfilePage .lRoboto Condensed.jobposition {
 	padding: 0.4em 0.8em !important;
 	text-transform: uppercase;
 }
@@ -821,7 +852,6 @@ hr {
 }
 .blockheading {
 	position: relative;
-	background: #333;
 	opacity: 0.9 !important;
 }
 .addthisshare {
@@ -1051,7 +1081,7 @@ p.address a {
 	margin-bottom: 1em;
 }
 
-a.morelink {
+a.readmore-js-toggle {
 	display: block;
 	margin-top: 1em;
 	color: #000;
@@ -1106,7 +1136,7 @@ a.morelink {
 
 /* FORM ADJUSTMENTS */
 
-.checkboxset > label {
+.checkboxset > lRoboto Condensed {
 	float: none !important;
 }
 .checkboxsetfield {
@@ -1130,7 +1160,7 @@ a.morelink {
 	font-weight: 700;
 	margin-top: 0;
 }
-.filterform .field label {
+.filterform .field lRoboto Condensed {
 	color: #999 !important;
 }
 
@@ -1383,15 +1413,6 @@ button:focus {
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) { 
-	.header-right {
-		/* margin-top: 0 !important; */
-	}
-/*	p.address {
-		font-size: 0.5em;
-	}
-	p.address a {
-		display: none;
-	}*/
 	.gasmenu li a {
 		font-size: 0.8em;
 		overflow: hidden;
@@ -1403,6 +1424,9 @@ button:focus {
 .BrandView .heading {
 	margin-bottom: 0 !important;
 }
+
+
+
 .black {
 	background: #000;
 }
@@ -1429,8 +1453,16 @@ button:focus {
 	margin-right: 10px;
 }
 .BrandView .sub-nav dd a:hover {
-	color: #FFF;
+	color: #000;
 }
 .BrandView .productwrap {
 	padding: 1.2em;
+}
+
+.ProductView .heading {
+	margin-bottom: 0 !important;
+}
+.whitebg {
+	background: #FFF !important;
+	padding: 1.4em 0 !important;
 }

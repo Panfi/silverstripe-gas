@@ -5,6 +5,7 @@ class Product extends DataObject {
   private static $db = array(
     'Title' => 'Varchar(255)',
     'ProductCode' => 'Varchar(255)',
+    'AvailableSizes' => 'Varchar(255)',
     'Price' => 'Currency',
     'Content' => 'HTMLText',
     'URLSegment' => 'Varchar(255)',
@@ -119,7 +120,7 @@ class Product extends DataObject {
   }
 
   public function Link() {
-    return 'products/' . $this->URLSegment;       
+    return 'product/' . $this->URLSegment;       
   }
   
   public function AbsoluteLink() {

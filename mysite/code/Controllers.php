@@ -580,11 +580,17 @@ class Image_Controller extends Page_Controller {
 
 class Product_Controller extends Page_Controller {
 
+	protected $categoryID;
+
 	private static $allowed_actions = array (
 		'index'
 	);
 
-	public function init() {	
+	public function init() {
+		if(isset($_GET["c"]) && (int)$_GET["c"] > 0) {
+			$this->categoryID = (int)$_GET["c"];
+		}
+		echo($this->categoryID);
 		parent::init();
 	}
 	
@@ -609,7 +615,8 @@ class Product_Controller extends Page_Controller {
 					'Title' => $Item->Title,
 					'MetaTitle' => $Item->Title,
 					'Image' => $Item->Images() ? $Item->Images()->First() : null,
-					'Item' => $Item
+					'Item' => $Item,
+					'ClassName' => "ProductView"
 				);
 				return $this->customise($Data)->renderWith(array('ProductView','Page'));
 			}

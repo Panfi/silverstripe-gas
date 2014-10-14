@@ -11,7 +11,7 @@
 </div>
 
 <% if Products %>
-<div class="black">
+<div class="whitebg">
 	<div class="row">
 		<div class="large-12 columns">
 			<h2>Products under <strong>$Title</strong></h2>
