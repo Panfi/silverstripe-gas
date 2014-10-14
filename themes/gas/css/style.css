@@ -1435,3 +1435,9 @@ button:focus {
 	text-transform: uppercase;
 	margin-right: 10px;
 }
+.BrandView .sub-nav dd a:hover {
+	color: #FFF;
+}
+.BrandView .productwrap {
+	padding: 1.2em;
+}

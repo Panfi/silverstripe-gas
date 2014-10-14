@@ -222,7 +222,8 @@ class Brand_Controller extends Page_Controller {
 			$temp = array(
 				"ID" => $c->ID,
 				"Title" => $c->Title,
-				"Link" => $c->Link()
+				"Link" => $c->Link(),
+				"URLSegment" => $c->URLSegment
 			);
 			if($c->URLSegment == $this->categoryID) {
 				$temp["Active"] = 1;

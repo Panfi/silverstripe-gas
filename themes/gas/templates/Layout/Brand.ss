@@ -16,10 +16,11 @@
 		<div class="large-12 columns">
 			<h2>Products under <strong>$Title</strong></h2>
 
-			<div class="section-container auto gassection" data-section>
+			<div class="productwrap">
+			  
 			  <dl class="sub-nav">
 			  	<% loop Categories %>
-			  		<dd class="<% if Active %>active<% end_if %>"><a href="$Top.Brand.Link/$URLSegment">$Title</dd>
+			  		<dd class="<% if Active %>active<% end_if %>"><a href="{$Top.Brand.Link}/{$URLSegment}">$Title</a></dd>
 			  	<% end_loop %>
 			  </dl>
 			  <div class="section <% if Pos==1 %>active<% end_if %>">
@@ -32,7 +33,9 @@
 		      <% end_loop %>
 		    	</ul>
 			  </div>
-		 </div>
+
+			  <center><a href="#" class="loadmore">Load more</a></center>
+			</div>
 
 		</div>
 	</div>
