@@ -1,5 +1,5 @@
 <% if ActionEnabled %>
-	<div class="saleswrap theme-primary-underscore" <% if ActionImage %>style="background: #000 url($ActionImage.CroppedImage(1000,400).URL) no-repeat center center;"<% end_if %> >
+	<div class="saleswrap theme-primary-underscore" <% if ActionImage %>style="background: #000 url($ActionImage.CroppedImage(1200,600).URL) no-repeat center center;"<% end_if %> >
 		<div class="row">
 			<div class="large-6 columns">
 				<h1 class="white">$Title</h1>
