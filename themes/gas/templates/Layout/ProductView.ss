@@ -13,12 +13,7 @@
 
 <div class="whitebg">
   <div class="row layout">
-
     <div class="large-12 columns">
-      
-      <!-- <h1 class="white">$Title</h1> -->
-      
-      
       
       <div class="row">
         <div class="large-6 columns">
@@ -36,7 +31,7 @@
                     </li>
                     <% end_loop %>
                   </ul>
-                  <ul class="small-block-grid-6">
+                  <ul class="small-block-grid-6 product-thumbs">
                     <% loop Images %>
                       <li>
                         <a data-orbit-link="image={$Pos}">$Image.CroppedImage(80,80)</a>
@@ -48,25 +43,26 @@
               <% end_if %>
         </div>
         <div class="large-6 columns">
-          <h2>$Title</h2>
-          <!-- <% with Brand %><p><a href="$Item.Brand.Link"><img src="$Image.CroppedImage(50,50).URL" alt="$Title.XML" /> $Title</a></p><% end_with %> -->
-          <% if AvailableSizses %>
-            <p class="additional">Available sizes: <strong>$AvailableSizes</strong></p>
-          <% end_if %>
-          <% if Price %>
-            <h3>$Price.Nice</h3>
-          <% end_if %>
-          <div class="textcontent moretext">$Content</div>
-          <hr />
+
+          <div class="leftpad">
+            <h2>$Title</h2>
+            <!-- <% with Brand %><p><a href="$Item.Brand.Link"><img src="$Image.CroppedImage(50,50).URL" alt="$Title.XML" /> $Title</a></p><% end_with %> -->
+            <% if AvailableSizses %>
+              <p class="additional">Available sizes: <strong>$AvailableSizes</strong></p>
+            <% end_if %>
+            <% if Price %>
+              <h3>$Price.Nice</h3>
+            <% end_if %>
+            <div class="textcontent moretext">$Content</div>
+            <hr />
             <h3>Interested in <strong>$Title</strong>?</h3>
             <p>
-              <a href="#" data-dropdown="drop1" class="button radius"><strong>Click here</strong> to find out more.</a> or <a href="#" data-dropdown="drop3" class="button radius">Call us</a>
+              <a href="#" data-dropdown="drop1" class="button radius"><strong>Click here</strong> to find out more</a> or <a href="#" data-dropdown="drop3" class="button radius"><strong>Click here</strong> to Call us</a>
             </p>
-
           </div>
+
         </div>
       </div>
-
 
       <h2>Found in these Vehicles</h2>
       <div class="section-container auto gassection" data-section>
@@ -97,23 +93,8 @@
         </section>
         <% end_if %>
       </div>
-      
-      <!-- <% if Brands %>
-      <div class="projectbrands">
-      <h3 class="blockheading"><a href="#">Brands</a></h3>
-      <ul class="overlayheading large-block-grid-6 small-block-grid-3 blockgrid">
-        < % control Brands % >
-          <li>
-            <a href="$Link" title="View '$Title' brand details" class="th radius"><img src="mysite/images/loader-light.png" data-src="< % control Image % >$WhitePaddedImage(150,150).URL< % end _ control % >" alt="$Title" /></a>
-          </li> 
-        < % end _ control % >
-      </ul>
-      </div>
-      <% end_if %> -->
 
-      <% end_with %>
-
-  </div>
+    </div>
   </div>
 </div>
-    
+<% end_with %>

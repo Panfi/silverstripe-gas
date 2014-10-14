@@ -1469,7 +1469,24 @@ button:focus {
 .ProductView .heading {
 	margin-bottom: 0 !important;
 }
+.ProductView .orbit-slides-container img {
+	border: 1px solid #EFEFEF;
+}
+.ProductView ul.product-thumbs {
+	margin-top: 10px;
+}
+.ProductView ul.product-thumbs li {
+	padding: 1px !important;
+}
 .whitebg {
 	background: #FFF !important;
 	padding: 1.4em 0 !important;
+}
+.leftpad {
+	margin-left: 10px;
+}
+@media only screen and (max-width: 768px) {
+	.leftpad {
+		margin-left: 0 !important;
+	}
 }
