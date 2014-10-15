@@ -55,7 +55,7 @@ li.name h1 a {
 h1,
 h2 {
 	font-family: 'Lato',"Arial", _sans-serif;
-	font-weight: 700;
+	font-weight: 300;
 }
 h3,
 h4 {
@@ -359,7 +359,7 @@ div.gassection p.title a {
 }
 .heading fieldset h4 {
 	color: #FFF;
-}.heading fieldset lRoboto Condensed {
+}.heading fieldset label {
 	color: #ccc;
 }
 .updates {
@@ -771,7 +771,7 @@ h3.blockheading {
 .reveal-modal h5,
 .reveal-modal h6,
 .reveal-modal a,
-.reveal-modal lRoboto Condensed {
+.reveal-modal label {
   color: #FFFFFF;
 }
 .reveal-modal small {
@@ -816,7 +816,7 @@ h3.blockheading {
 	overflow: hidden;
 }
 
-.ProfilePage .profile .lRoboto Condensed {
+.ProfilePage .profile .label {
 	display: inline-block !important;
 	margin: 0 !important;
 }
@@ -834,7 +834,7 @@ h3.blockheading {
 	color: #FFFFFF !important;
 }
 
-.ProfilePage .lRoboto Condensed.jobposition {
+.ProfilePage .label.jobposition {
 	padding: 0.4em 0.8em !important;
 	text-transform: uppercase;
 }
@@ -1143,7 +1143,7 @@ a.readmore-js-toggle {
 
 /* FORM ADJUSTMENTS */
 
-.checkboxset > lRoboto Condensed {
+.checkboxset > label {
 	float: none !important;
 }
 .checkboxsetfield {
@@ -1167,7 +1167,7 @@ a.readmore-js-toggle {
 	font-weight: 700;
 	margin-top: 0;
 }
-.filterform .field lRoboto Condensed {
+.filterform .field label {
 	color: #999 !important;
 }
 
@@ -1485,6 +1485,17 @@ button:focus {
 .leftpad {
 	margin-left: 10px;
 }
+.product-title {
+	text-align: center;
+}
+.product-title span {
+	background: #000;
+	color: #FFF;
+	text-align: center;
+	font-size: 0.9rem;
+	font-weight: 700;
+	padding: 0 0.4rem;
+} 
 @media only screen and (max-width: 768px) {
 	.leftpad {
 		margin-left: 0 !important;

@@ -68,7 +68,9 @@ class Product extends DataObject {
 
   $b = DataObject::get("Brand","1","Title ASC");
   if($b) {
-     $fields->addFieldToTab("Root.Main", DropdownField::create('BrandID', 'Brand', $b->map("ID","Title")));
+    $brandfield = new DropdownField('BrandID', 'Brand', $b->map("ID","Title"));
+    $brandfield->setEmptyString('(Select)');
+    $fields->addFieldToTab("Root.Main", $brandfield);
   }
 
   $c = DataObject::get("Category","Status='Published'","Title ASC");

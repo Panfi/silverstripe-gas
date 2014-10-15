@@ -19,11 +19,11 @@
         <div class="large-6 columns">
             <% if Images %>
               <% if ImageCount==1 %>
-                <img src="$Image.PaddedImage(800,800).URL" alt="<% if Caption %>$Caption<% else %>Image-$Pos<% end_if %>" />
+                <img src="$Image.Image.PaddedImage(800,800).URL" alt="<% if Caption %>$Caption<% else %>Image-$Pos<% end_if %>" />
               <% else %>
                 <div class="slideshow-wrapper leading">
                   <div class="preloader"></div>
-                  <ul data-orbit data-options="pause_on_hover:true; resume_on_mouseout:true; slide_number:false;bullets:false; animation:'fade'; animation_speed: 1000;">
+                  <ul data-orbit data-options="slide_number:false; bullets:false; animation:'fade'; timer: false;">
                     <% loop Images %>
                     <li data-orbit-slide="image-{$Pos}">
                       <% if Link %><a href="$Link"><% end_if %>
@@ -31,14 +31,14 @@
                     </li>
                     <% end_loop %>
                   </ul>
-                  <ul class="small-block-grid-6 product-thumbs">
-                    <% loop Images %>
-                      <li>
-                        <a data-orbit-link="image={$Pos}">$Image.CroppedImage(80,80)</a>
-                      </li>
-                    <% end_loop %>
-                  </ul>
                 </div>
+                <ul class="small-block-grid-6 product-thumbs">
+                  <% loop Images %>
+                    <li>
+                      <a data-orbit-link="image-{$Pos}">$Image.CroppedImage(80,80)</a>
+                    </li>
+                  <% end_loop %>
+                </ul>
               <% end_if %>
               <% end_if %>
         </div>
@@ -50,8 +50,10 @@
             <% if AvailableSizses %>
               <p class="additional">Available sizes: <strong>$AvailableSizes</strong></p>
             <% end_if %>
-            <% if Price %>
+            <% if Price>0 %>
               <h3>$Price.Nice</h3>
+            <% else %>
+              <p><a href="#" class="button radius"><strong>Request</strong> a quote</a></p>
             <% end_if %>
             <div class="textcontent moretext">$Content</div>
             <hr />

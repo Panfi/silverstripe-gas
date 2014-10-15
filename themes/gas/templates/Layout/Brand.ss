@@ -24,11 +24,11 @@
 			  	<% end_loop %>
 			  </dl>
 			  <div class="section <% if Pos==1 %>active<% end_if %>">
-		    	<ul class="small-block-grid-3 large-block-grid-6 blockgrid">
+		    	<ul class="small-block-grid-3 large-block-grid-6 blockgrid product-grid">
 		    	<% loop Top.Products %>
 		      	<li>
 		      		<a href="$Link" title="$Title.XML"><img src="mysite/images/loader.gif" data-src="<% if Image %>$Image.Image.CroppedImage(200,200).URL<% else %>http://placehold.it/200x200&text=No+image<% end_if %>" />
-		      		<strong>$Title</strong></a>
+		      		<h4 class="product-title"><span>$Title</span></h4></a>
 		      	</li>
 		      <% end_loop %>
 		    	</ul>
@@ -58,7 +58,7 @@
 		<% if Categories %>
 		<h3><strong>$Title</strong> products can be found in 
 		<% loop Categories %>
-			<% if Last %>and <% end_if %><a href="$Link" title="$title" class="label radius">$Title</a><% if Last %><% else %>,<% end_if %>
+			<% if Count>1 && Last %>and <% end_if %><a href="$Link" title="$title" class="label radius">$Title</a><% if Last %><% else %>,<% end_if %>
 		<% end_loop %>
 		</h3>
 		<% end_if %>
