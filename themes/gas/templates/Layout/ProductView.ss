@@ -57,42 +57,38 @@
             <hr />
             <h3>Interested in <strong>$Title</strong>?</h3>
             <p>
-              <a href="#" data-dropdown="drop1" class="button radius"><strong>Click here</strong> to find out more</a> or <a href="#" data-dropdown="drop3" class="button radius"><strong>Click here</strong> to Call us</a>
+              <a href="#" data-dropdown="drop1" class="button radius"><strong>Click here</strong> to find out more</a>
+              or 
+              <a href="#" data-dropdown="drop3" class="button radius"><strong>Click here</strong> to Call us</a>
             </p>
           </div>
 
         </div>
       </div>
 
+      <% if Projects %>
       <h2>Found in these Vehicles</h2>
-      <div class="section-container auto gassection" data-section>
-        <% if Projects %>
-        <section class="section active">
-          <p class="title" data-section-title><a href="#panel1">Vehicles</a></p>
-          <div class="content" data-section-content>
-             <ul class="small-block-grid-3 large-block-grid-6 blockgrid">
-              <% loop Projects %>
-              <% include ProjectPreview %>
-              <% end_loop %>
-             </ul>
-             <h4><a href="">See all our <strong>Vehicles</strong> <i class="icon-right-circled"></i></a></h4>
-          </div>
-        </section>
-        <% end_if %>
-        <% if SimilarProducts %>
-        <section class="section">
-          <p class="title" data-section-title><a href="#panel3">Related products</a></p>
-          <div class="content" data-section-content>
-             <ul class="small-block-grid-3 large-block-grid-6 blockgrid">
-              <% loop SimilarProducts %>
-              <li><a href="$Link" title="$Title.XML"><img src="mysite/images/loader.gif" data-src="<% if Image %><% with Image %>$CroppedImage(200,200).URL<% end_with %><% else %>http://placehold.it/200x200&text=No+image<% end_if %>" /></a></li>
-              <% end_loop %>
-             </ul>
-             <h4><a href="/what-we-do">See all <strong>What We Do</strong> <i class="icon-right-circled"></i></a></h4>
-          </div>
-        </section>
-        <% end_if %>
-      </div>
+      <ul class="small-block-grid-3 large-block-grid-6 blockgrid">
+            <% loop Projects %>
+            <% include ProjectPreview %>
+            <% end_loop %>
+           </ul>
+           <h4><a href="">See all our <strong>Vehicles</strong> <i class="icon-right-circled"></i></a></h4>
+      <% end_if %>
+        
+      <% if SimilarProducts %>
+      <section class="section">
+        <p class="title" data-section-title><a href="#panel3">Related products</a></p>
+        <div class="content" data-section-content>
+           <ul class="small-block-grid-3 large-block-grid-6 blockgrid">
+            <% loop SimilarProducts %>
+            <li><a href="$Link" title="$Title.XML"><img src="mysite/images/loader.gif" data-src="<% if Image %><% with Image %>$CroppedImage(200,200).URL<% end_with %><% else %>http://placehold.it/200x200&text=No+image<% end_if %>" /></a></li>
+            <% end_loop %>
+           </ul>
+           <h4><a href="/what-we-do">See all <strong>What We Do</strong> <i class="icon-right-circled"></i></a></h4>
+        </div>
+      </section>
+      <% end_if %>
 
     </div>
   </div>

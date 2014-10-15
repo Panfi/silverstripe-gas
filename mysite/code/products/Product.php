@@ -37,7 +37,8 @@ class Product extends DataObject {
   );
   
   private static $summary_fields = array(
-    "Title"
+    "Title" => "Title",
+    "Brand.Title" => "Brand"
   );
   
  function getCMSFields() {
@@ -46,17 +47,7 @@ class Product extends DataObject {
 
   $fields->removeByName("Categories");
   $fields->removeByName("Projects");
-
-  $c = DataObject::get("Category","Status='Published'","Title ASC");
-  if($c) {
-    $fields->addFieldToTab("Root.Main", new CheckboxSetField('Categories', 'Mark categories ths product belongs to', $c->map("ID","Title")));
-  }
-
-
-  $v = DataObject::get("Project","Published=1","Title ASC");
-  if($v) {
-    $fields->addFieldToTab("Root.Main", new CheckboxSetField('Projects', 'Mark the projects ths product is found in', $v->map("ID","CMSListPreview")));
-  }
+  $fields->removeByName("Brand");
 
   if(!$this->ID) {
     $fields->removeByName("Projects");
@@ -73,6 +64,21 @@ class Product extends DataObject {
       ->setUfConfig('sequentialUploads', true);
     $photoManager = new GridField("Images", "Product images", $this->Images()->sort("SortOrder"), $gridFieldConfig);
     $fields->addFieldToTab("Root.Images", $photoManager);
+  }
+
+  $b = DataObject::get("Brand","1","Title ASC");
+  if($b) {
+     $fields->addFieldToTab("Root.Main", DropdownField::create('BrandID', 'Brand', $b->map("ID","Title")));
+  }
+
+  $c = DataObject::get("Category","Status='Published'","Title ASC");
+  if($c) {
+    $fields->addFieldToTab("Root.Main", new CheckboxSetField('Categories', 'Mark categories ths product belongs to', $c->map("ID","Title")));
+  }
+
+  $v = DataObject::get("Project","Published=1","Title ASC");
+  if($v) {
+    $fields->addFieldToTab("Root.Main", new CheckboxSetField('Projects', 'Mark the projects ths product is found in', $v->map("ID","CMSListPreview")));
   }
 
   return $fields;

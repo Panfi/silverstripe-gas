@@ -115,7 +115,7 @@ class Project extends DataObject implements PermissionProvider {
 		else {
 			$gridFieldConfig = GridFieldConfig_RecordEditor::create(); 
 			$gridFieldConfig->addComponent(new GridFieldBulkManager());
-			$gridFieldConfig->addComponent(new GridFieldBulkImageUpload());   
+			$gridFieldConfig->addComponent(new GridFieldBulkUpload());   
 			$gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));
 			$gridFieldConfig->getComponentByType('GridFieldBulkUpload')
       	->setUfSetup('setFolderName', 'projects')
@@ -161,7 +161,7 @@ class Project extends DataObject implements PermissionProvider {
 			
 			$mo = DataObject::get("CarModel","","Title ASC");
 			if($ma) {
-			   $fields->addFieldToTab("Root.Organize", new DropdownField('CarModelID', 'Car make', $mo->map("ID","Title")));
+			   $fields->addFieldToTab("Root.Organize", new DropdownField('CarModelID', 'Car model', $mo->map("ID","Title")));
 			}
 			$previewField = $this->ID ? new LiteralField("Link","<div id='Link' class='field readonly'><div class='middleColumn'><span class='readonly right'><a href='".$this->Link()."' target='_blank'>Preview project gallery</a></span></div></div>") : new LiteralField("Link","<div id='Link' class='field readonly'><div class='middleColumn'><span class='readonly right'>Save to preview.</span></div></div>");
 			
