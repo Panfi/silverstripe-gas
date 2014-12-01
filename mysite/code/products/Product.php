@@ -37,8 +37,13 @@ class Product extends DataObject {
   );
   
   private static $summary_fields = array(
+    "ID" => "ID",
     "Title" => "Title",
     "Brand.Title" => "Brand"
+  );
+
+  static $api_access = array(
+    'view' => array('ID',"Title","Link","Image")
   );
   
  function getCMSFields() {
@@ -48,10 +53,10 @@ class Product extends DataObject {
   $fields->removeByName("Categories");
   $fields->removeByName("Projects");
   $fields->removeByName("Brand");
+  $fields->removeByName("Root.Images");
 
   if(!$this->ID) {
     $fields->removeByName("Projects");
-    $fields->removeByName("Root.Images");
     $fields->addFieldToTab("Root.Main", new ReadonlyField("Note","Images","Please save the product before attaching images."));
   }
   else {
@@ -66,11 +71,13 @@ class Product extends DataObject {
     $fields->addFieldToTab("Root.Images", $photoManager);
   }
 
+  $fields->addFieldToTab("Root.Main", new HtmlEditorField("Content","Description"), "AvailableSizes");
+
   $b = DataObject::get("Brand","1","Title ASC");
   if($b) {
     $brandfield = new DropdownField('BrandID', 'Brand', $b->map("ID","Title"));
     $brandfield->setEmptyString('(Select)');
-    $fields->addFieldToTab("Root.Main", $brandfield);
+    $fields->addFieldToTab("Root.Main", $brandfield, "Content");
   }
 
   $c = DataObject::get("Category","Status='Published'","Title ASC");
@@ -125,6 +132,10 @@ class Product extends DataObject {
   
   public function Image() {
     return $this->Images()->Count()>0 ? $this->Images()->First() : false;
+  }
+
+  public function ImageCount() {
+    return $this->Images() ? $this->Images()->Count() : 0;
   }
 
   public function Link() {

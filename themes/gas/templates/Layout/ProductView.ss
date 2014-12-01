@@ -47,6 +47,7 @@
           <div class="leftpad">
             <h2>$Title</h2>
             <!-- <% with Brand %><p><a href="$Item.Brand.Link"><img src="$Image.CroppedImage(50,50).URL" alt="$Title.XML" /> $Title</a></p><% end_with %> -->
+            <% if ProductCode %><h4>$ProductCode</h4><% end_if %>
             <% if AvailableSizses %>
               <p class="additional">Available sizes: <strong>$AvailableSizes</strong></p>
             <% end_if %>

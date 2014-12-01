@@ -25,11 +25,15 @@ class Search_Controller extends Page_Controller {
 		if(isset($_GET["q"])) {
 			$q = convert::raw2sql($_GET["q"]);
 		}
-		$fword = "'%$q%'";
+		$fword = "'%".$q."%'";
 		$query = "Title LIKE $fword";
 		
 		if(Director::is_ajax() == true){ 
-			$result = DataObject::get("Page",$query,"Title ASC")->limit(10);
+			$type="Page";
+			if(isset($_GET["type"])) {
+				$type=$_GET["type"];
+			}
+			$result = DataObject::get($type,$query,"Title ASC")->limit(10);
 			
 			if(!$result) { return false; }
 			$json = new JSONDataFormatter(); 
@@ -116,6 +120,7 @@ class Search_Controller extends Page_Controller {
 class Brand_Controller extends Page_Controller {
 
 	protected $categoryID;
+	protected $category;
 	protected $brand;
 	protected $urlSegment;
 
@@ -127,7 +132,11 @@ class Brand_Controller extends Page_Controller {
 		$Params = $this->getURLParams();
 		$this->urlSegment = Convert::raw2sql($Params['ID']);
 		if(Convert::raw2sql($Params['CategoryID'])) {
-			$this->categoryID = Convert::raw2sql($Params['CategoryID']);
+			$c = Category::get()->where("URLSegment = '".Convert::raw2sql($Params['CategoryID'])."'")->first();
+			if($c) {
+				$this->categoryID = $c->ID;
+				$this->category = $c;
+			}
 		}
 		parent::init();
 	}
@@ -155,6 +164,7 @@ class Brand_Controller extends Page_Controller {
 			else {
 				$Data = array(
 					'Title' => $Item->Title,
+					'MetaTitle' => $Item->Title . ($this->categoryID ? " | ". $this->category->Title : null ),
 					'ClassName' => "BrandView",
 					'MetaTitle' => $Item->Title,
 					'Content' => $Item->Content,
@@ -183,7 +193,6 @@ class Brand_Controller extends Page_Controller {
 				'Title' => $title,
 				'MetaTitle' => $title,
 				"Brands" => $b,
-				"Category" => $cat
 			);
 			return $this->customise($Data)->renderWith(array('AllBrands','Page'));
 
@@ -225,7 +234,7 @@ class Brand_Controller extends Page_Controller {
 				"Link" => $c->Link(),
 				"URLSegment" => $c->URLSegment
 			);
-			if($c->URLSegment == $this->categoryID) {
+			if($c->ID == $this->categoryID) {
 				$temp["Active"] = 1;
 			}
 			$cat->push($temp);
@@ -233,10 +242,10 @@ class Brand_Controller extends Page_Controller {
 		return $cat;
 	}
 	
-	public function Products() {
-		$c = Product::get();
-		return $c;
-	}
+	// public function Products() {
+	// 	$c = Product::get();
+	// 	return $c;
+	// }
 }
 
 

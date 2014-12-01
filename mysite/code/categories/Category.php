@@ -8,7 +8,8 @@ class Category extends Page {
    		'SecondaryColor' => 'Varchar(7)',
    		'FeaturedHome' => 'Boolean',
    		'FeaturedOrder' => 'Int',
-   		'HideFromPhotos' => 'Int'
+   		'HideFromPhotos' => 'Int',
+   		'HideBrand' => 'Boolean'
    	);
 
 	// private static $has_many = array(

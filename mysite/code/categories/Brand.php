@@ -37,6 +37,10 @@ class Brand extends DataObject {
 		"Title",
 		"SortOrder"
 	);
+
+	static $api_access = array(
+      'view' => true
+    );
 	
 //	function getCMSFields() {
 //		$fields = parent::getCMSFields();
@@ -111,22 +115,43 @@ class Brand extends DataObject {
 
 	/* PRODUCT STUFF */
 
-	function ProductsByCategory($categoryURLSegment) {
-		if(!$categoryURLSegment) {
+	function ProductsByCategory($categoryID) {
+
+		if(!$categoryID) {
 			return $this->Products();
 		}
 		else {
-			$category = Category::get()->where("URLSegment='".$categoryURLSegment."'")->limit(1);
-			if($category->first()) {
-				//return $this->Products(); //->where("Product.CategoryID =".$category->first()->ID);
-				$p = Product::get();
-				return $p;
-			}
-			else {
-				echo("Category not found, redirect back");
-				Controller::curr()->Redirect($this->Link());
-			}
+				$sqlQuery = new SQLQuery("Product.ID","Product");
+				$join = "";
+				$sqlQuery->addInnerJoin("Category_Products","Category_Products.ProductID = Product.ID");
+				$where= "Category_Products.CategoryID = ".$categoryID." AND Product.BrandID = ".$this->ID;
+				$sqlQuery->addWhere($where);
+				$sqlQuery->setDistinct(true);
+				$sqlQuery->setLimit(12,$p*12);
+				// $sqlQuery->setOrderBy("Project.Created DESC");
+				$result = $sqlQuery->execute();
+				
+				$product_ids = array();
+
+				foreach($result as $rowArray) {
+					$product_ids[] = $rowArray["ID"];
+				}
+					
+				if(count($product_ids)>0) {
+					$p = Product::get()->where("Product.ID IN (0, ".implode(",", $product_ids).")");
+					return $p;
+				}
+
+				//return $this->Products(); //->where("CategoryID", $category->ID); //->where("BrandID = " . $this->ID . " AND CategoryID",$category->ID);
+				// $p = Product::get();
+				//return $p;
 		}
+		// 	}
+		// 	else {
+		// 		echo("Category not found, redirect back");
+		// 		Controller::curr()->Redirect($this->Link());
+		// 	}
+		// }
 	}
 
 	function ProductCategories() {

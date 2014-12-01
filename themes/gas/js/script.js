@@ -97,7 +97,9 @@ $(document).ready(function() {
 		}).perfectScrollbar();
 		
 	$( ".searchbox" ).autocomplete({
+
       source: function( request, response ) {
+        
         $.ajax({
           url: "search",
           type: "GET",
@@ -125,6 +127,45 @@ $(document).ready(function() {
         
       }
     });
+
+    $( ".productsearchbox" ).autocomplete({
+
+      source: function( request, response ) {
+         var id = this.element.attr('id');
+        console.log(id);
+        $.ajax({
+          url: "search",
+          type: "GET",
+          dataType: "json",
+          data: {
+            type: "Product",
+            q : $(".productsearchbox").val()
+          },
+          success: function(data) {
+            console.log(data);
+            response( $.map(data.items, function(item) {
+            return {
+              value: item.Title,
+              id: item.ID,
+              link: "product/" + item.URLSegment
+            }
+            }));
+          }
+        });
+      },
+      select: function( event, ui ) {
+        console.log( ui.item ?
+          "Selected: " + ui.item.link :
+          "Nothing selected, input was " + this.value);
+        window.location = ui.item.link;
+        
+      }
+    }).data("ui-autocomplete")._renderItem = function (ul, item) {
+         return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<a>" + item.label + "</a>")
+             .appendTo(ul);
+     };
     
     //$(".expand").hide();
     $(".expand-button").click(function() {

@@ -15,6 +15,12 @@ class ProjectImage extends DataObject {
 		'Category' => 'Category',
 		'Color' => 'Color'
 	);
+
+	private static $summary_fields = array(
+		"ID" => "ID",
+		'Thumbnail' => 'Thumbnail',
+    "Project.Title" => "Project"
+  );
 	
 	private static $default_sort = "SortOrder ASC, Created DESC";
 		

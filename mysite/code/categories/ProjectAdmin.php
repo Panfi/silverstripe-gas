@@ -9,7 +9,8 @@ class ProjectAdmin extends ModelAdmin {
 	private static $managed_models = array(
 		'Project',
 		'CarMake',
-		'CarModel'
+		'CarModel',
+		'ProjectImage'
 	);
 		
 	public $showImportForm = true;
