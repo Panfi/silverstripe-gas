@@ -53,4 +53,4 @@ sftp-config.json
 
 mysite/_config*
 
-subsites/host-map.php
+.htaccess
