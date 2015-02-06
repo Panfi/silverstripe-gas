@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="mysite/fontello/css/fontello-ie7.css" /><![endif]-->
   <link rel="image_src" href="$ThumbnailURL" />
   <script src="mysite/foundation/js/vendor/custom.modernizr.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
   
   <% include Theming %>
   
@@ -93,8 +93,6 @@
 	'.js><\/script>')
 	</script> -->
 	
-	
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<!-- <script src="mysite/zozotabs/js/zozo.tabs.min.js"></script> -->
 	$ExtraJavascript
 	<!-- <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script> -->

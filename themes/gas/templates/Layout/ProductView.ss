@@ -48,7 +48,7 @@
             <h2>$Title</h2>
             <!-- <% with Brand %><p><a href="$Item.Brand.Link"><img src="$Image.CroppedImage(50,50).URL" alt="$Title.XML" /> $Title</a></p><% end_with %> -->
             <% if ProductCode %><h4>$ProductCode</h4><% end_if %>
-            <% if AvailableSizses %>
+            <% if AvailableSizes %>
               <p class="additional">Available sizes: <strong>$AvailableSizes</strong></p>
             <% end_if %>
             <% if Price>0 %>
@@ -60,9 +60,9 @@
             <hr />
             <h3>Interested in <strong>$Title</strong>?</h3>
             <p>
-              <a href="#" data-dropdown="drop1" class="button radius"><strong>Click here</strong> to find out more</a>
+              <a href="javascript:0;" data-reveal-id="contactModal" class="button radius"><strong>Click here</strong> to find out more</a>
               or 
-              <a href="#" data-dropdown="drop3" class="button radius"><strong>Click here</strong> to Call us</a>
+              <a href="tel:18774642746"class="button radius"><strong>Click here</strong> to Call us</a>
             </p>
           </div>
 

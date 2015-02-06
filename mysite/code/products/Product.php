@@ -5,21 +5,29 @@ class Product extends DataObject {
   private static $db = array(
     'Title' => 'Varchar(255)',
     'ProductCode' => 'Varchar(255)',
+    'PartNumber' => 'Varchar(255)',
     'AvailableSizes' => 'Varchar(255)',
+    'ModelYears' => 'Varchar(512)',
+    'MakeText' => 'Varchar(255)',
+    'ModelText' => 'Varchar(255)',
     'Price' => 'Currency',
     'Content' => 'HTMLText',
     'URLSegment' => 'Varchar(255)',
     'Published' => 'Boolean',
-    'Featured' => 'Boolean'
+    'Featured' => 'Boolean',
+    'ProductGroup' => 'Varchar(64)',
+    'ProductGroup2' => 'Varchar(64)',
+    'OriginalURL' => 'Varchar(255)'
   );
   
   private static $belongs_many_many = array(
-    'Projects' => 'Project',
-    'Categories' => 'Category'
+    'Projects' => 'Project'
+    // 'Categories' => 'Category'
   );
 
   private static $has_one = array (
-    'Brand' => 'Brand'
+    'Brand' => 'Brand',
+    'Category' => 'Category'
   );
   
   private static $has_many = array (
@@ -39,7 +47,8 @@ class Product extends DataObject {
   private static $summary_fields = array(
     "ID" => "ID",
     "Title" => "Title",
-    "Brand.Title" => "Brand"
+    "BrandID" => "BrandID",
+    "CategoryID" => "CategoryID"
   );
 
   static $api_access = array(
@@ -136,6 +145,18 @@ class Product extends DataObject {
 
   public function ImageCount() {
     return $this->Images() ? $this->Images()->Count() : 0;
+  }
+
+  function ThumbnailURL($width=300) {
+    if($this->Image()) {
+      $i = $this->Image()->Image();
+      if($i) {
+        return $i->CroppedImage($width,$width)->URL;
+      }
+      else {
+        return "http://www.placehold.it/".$width."x".$width."&text=No+image";
+      }
+    }
   }
 
   public function Link() {

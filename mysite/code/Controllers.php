@@ -23,21 +23,34 @@ class Search_Controller extends Page_Controller {
 		
 		$q="";
 		if(isset($_GET["q"])) {
-			$q = convert::raw2sql($_GET["q"]);
+			$q = Convert::raw2sql(strtolower($_GET["q"]));
 		}
 		$fword = "'%".$q."%'";
-		$query = "Title LIKE $fword";
+		$query = "Title LIKE $fword OR Content LIKE $fword";
 		
 		if(Director::is_ajax() == true){ 
 			$type="Page";
 			if(isset($_GET["type"])) {
 				$type=$_GET["type"];
 			}
-			$result = DataObject::get($type,$query,"Title ASC")->limit(10);
+			if(isset($_GET["brandID"])) {
+				$query.= " AND BrandID = ".Convert::raw2sql($_GET["brandID"]);
+			}
+			echo($query);
 			
-			if(!$result) { return false; }
-			$json = new JSONDataFormatter(); 
-			echo($json->convertDataObjectSet($result));
+			$result = DataObject::get($type,$query,"Title ASC")->limit(6);
+			if(!$result->first()) { return false; }
+			$set = array();
+			foreach($result as $do) {
+				// print_r($do);
+				$set[] = array( 
+					'ID' => $do->ID,
+					'Title' => $do->Title,
+					'Link' => $do->Link(),
+					'Thumbnail' => $do->ThumbnailURL(40)
+				);
+			}
+			echo(json_encode(array("count"=> count($set), "items" => $set)));
 		}
 		else {
 			$title = "Search results".($q!="" ? " for '$q'" : "");
@@ -63,7 +76,7 @@ class Search_Controller extends Page_Controller {
 		$join = "";
 		
 		if(($c=(int)$this->request->getVar('Category')) && $c>0 ) {
-			$pquery.= " AND Category_Projects.CategoryID = $c";
+			$pquery.= " AND Project.CategoryID = $c";
 			$sqlQuery->addInnerJoin("Category_Projects","Category_Projects.ProjectID = Project.ID");
 			$sqlQuery->setDistinct(true);
 		}
@@ -162,6 +175,13 @@ class Brand_Controller extends Page_Controller {
 				print_r($this->Categories()->where("Active",1)->first());
 			}
 			else {
+				$p = false;
+				if($Item->ProductsByCategory($this->categoryID)) {
+					$p = new PaginatedList($Item->ProductsByCategory($this->categoryID), $this->request);
+					// $p->setLimitItems(false);
+					$p->setPageLength(24);
+				}
+
 				$Data = array(
 					'Title' => $Item->Title,
 					'MetaTitle' => $Item->Title . ($this->categoryID ? " | ". $this->category->Title : null ),
@@ -170,8 +190,8 @@ class Brand_Controller extends Page_Controller {
 					'Content' => $Item->Content,
 					'Brand' => $Item,
 					'Projects' => $Item->Projects(),
-					//'Categories' => $this->Categories(),
-					'Products' => $Item->ProductsByCategory($this->categoryID)
+					// 'Categories' => $this->Categories(),
+					'Products' => $p
 				);
 				return $this->customise($Data)->renderWith(array('Brand','Page'));
 			}
@@ -225,21 +245,24 @@ class Brand_Controller extends Page_Controller {
 	}
 
 	public function Categories() {
+
 		$categories = $this->brand->Categories();
-		$cat = ArrayList::create();
-		foreach($categories as $c) {
-			$temp = array(
-				"ID" => $c->ID,
-				"Title" => $c->Title,
-				"Link" => $c->Link(),
-				"URLSegment" => $c->URLSegment
-			);
-			if($c->ID == $this->categoryID) {
-				$temp["Active"] = 1;
+		if($categories->count()>0) {
+			$cat = ArrayList::create();
+			foreach($categories as $c) {
+				$temp = array(
+					"ID" => $c->ID,
+					"Title" => $c->Title,
+					"Link" => $c->Link(),
+					"URLSegment" => $c->URLSegment
+				);
+				if($c->ID == $this->categoryID) {
+					$temp["Active"] = 1;
+				}
+				$cat->push($temp);
 			}
-			$cat->push($temp);
+			return $cat;
 		}
-		return $cat;
 	}
 	
 	// public function Products() {
@@ -312,7 +335,7 @@ class Project_Controller extends Page_Controller {
 				return $this->customise($Data)->renderWith(array('ProjectImage','Page'));
 			}
 			else {
-				echo("Kurc");
+				// echo("Kurc");
 				//$this->redirect($Item->Link());
 				return false;
 			}
@@ -599,7 +622,6 @@ class Product_Controller extends Page_Controller {
 		if(isset($_GET["c"]) && (int)$_GET["c"] > 0) {
 			$this->categoryID = (int)$_GET["c"];
 		}
-		echo($this->categoryID);
 		parent::init();
 	}
 	

@@ -43,12 +43,13 @@ function reflowSections() {
 	$('div.section').foundation('section','reflow').fadeIn();
 }
 
-$(document).ready(function() {	
+$(document).ready(function() {
+
 	console.log("Document ready.");
 	$(document.documentElement).addClass("js-ready");
 	
     if($(".moretext")) {
-        $(".moretext").readmore({ maxHeight: 200 });
+      $(".moretext").readmore({ maxHeight: 200 });
     }
 //	$('.sidenav-right').hide();
 //	$('.sidenav-left').hide();
@@ -83,89 +84,97 @@ $(document).ready(function() {
 					}
 				});
 			}
-		},500);
+		},200);
 		//	FIX SCROLL
 		$(window).scroll(function(){
 		 	didScroll=true;
 		}); 
 	}
 
+	if($("div.scrollable").length) {
+  	$("div.scrollable").css({
+  		"height" : $(window).height(),
+  		"overflow" : "hidden"
+  		}).perfectScrollbar();
+  }
 	
-	$("div.scrollable").css({
-		"height" : $(window).height(),
-		"overflow" : "hidden"
-		}).perfectScrollbar();
-		
-	$( ".searchbox" ).autocomplete({
+  if($(".searchbox").length) {
+  	$( ".searchbox" ).autocomplete({
 
-      source: function( request, response ) {
-        
-        $.ajax({
-          url: "search",
-          type: "GET",
-          dataType: "json",
-          data: {
-            q : $(".searchbox").val()
-          },
-          success: function(data) {
-            console.log(data);
-            response( $.map(data.items, function(item) {
-        		return {
-        			value: item.Title,
-        			id: item.ID,
-        			link: item.URLSegment
-        		}
-        	  }));
-          }
-        });
-      },
-      select: function( event, ui ) {
-        console.log( ui.item ?
-          "Selected: " + ui.item.link :
-          "Nothing selected, input was " + this.value);
-        window.location = ui.item.link;
-        
-      }
-    });
-
-    $( ".productsearchbox" ).autocomplete({
-
-      source: function( request, response ) {
-         var id = this.element.attr('id');
-        console.log(id);
-        $.ajax({
-          url: "search",
-          type: "GET",
-          dataType: "json",
-          data: {
-            type: "Product",
-            q : $(".productsearchbox").val()
-          },
-          success: function(data) {
-            console.log(data);
-            response( $.map(data.items, function(item) {
-            return {
-              value: item.Title,
-              id: item.ID,
-              link: "product/" + item.URLSegment
+        source: function( request, response ) {
+          
+          $.ajax({
+            url: "search",
+            type: "GET",
+            dataType: "json",
+            data: {
+              q : $(".searchbox").val()
+            },
+            success: function(data) {
+              console.log(data);
+              response( $.map(data.items, function(item) {
+          		return {
+          			value: item.Title,
+          			id: item.ID,
+          			link: item.URLSegment
+          		}
+          	  }));
             }
-            }));
-          }
-        });
-      },
-      select: function( event, ui ) {
-        console.log( ui.item ?
-          "Selected: " + ui.item.link :
-          "Nothing selected, input was " + this.value);
-        window.location = ui.item.link;
-        
-      }
-    }).data("ui-autocomplete")._renderItem = function (ul, item) {
-         return $("<li></li>")
-             .data("item.autocomplete", item)
-             .append("<a>" + item.label + "</a>")
-             .appendTo(ul);
-     };
+          });
+        },
+        select: function( event, ui ) {
+          console.log( ui.item ?
+            "Selected: " + ui.item.link :
+            "Nothing selected, input was " + this.value);
+          window.location = ui.item.link;
+          
+        }
+      });
+    }
+
+    if($(".productsearchbox").length) {
+
+      $(".productsearchbox" ).autocomplete({
+
+        source: function( request, response ) {
+           var id = this.element.attr('id');
+          console.log(id);
+          $.ajax({
+            url: "search",
+            type: "GET",
+            dataType: "json",
+            data: {
+              type: "Product",
+              brandID: $(".producsearchform").data("brandid"),
+              q: $(".productsearchbox").val()
+            },
+            success: function(data) {
+              console.log(data);
+              response( $.map(data.items, function(item) {
+              return {
+                value: item.Title,
+                id: item.ID,
+                link: item.Link,
+                thumb: item.Thumbnail
+              }
+              }));
+            }
+          });
+        },
+        select: function( event, ui ) {
+          console.log( ui.item ?
+            "Selected: " + ui.item.link :
+            "Nothing selected, input was " + this.value);
+          window.location = ui.item.link;
+          
+        }
+      }).data("ui-autocomplete")._renderItem = function (ul, item) {
+           return $("<li></li>")
+               .data("item.autocomplete", item)
+               .append("<a>" + item.label + "</a>")
+               .appendTo(ul);
+       };
+    }
     
     //$(".expand").hide();
     $(".expand-button").click(function() {

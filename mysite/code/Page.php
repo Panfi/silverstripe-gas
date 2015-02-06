@@ -98,6 +98,18 @@ class Page extends SiteTree {
 	}
 	
 	static $api_access = true;
+
+	function ThumbnailURL($width=300) {
+    if($this->Image()) {
+      $i = $this->Image();
+      if($i) {
+        return $i->CroppedImage($width,$width)->URL;
+      }
+      else {
+        return "http://www.placehold.it/".$width."x".$width."&text=No+image";
+      }
+    }
+  }
 		
 }
 class Page_Controller extends ContentController {
@@ -125,14 +137,15 @@ class Page_Controller extends ContentController {
 
 	public function init() {
 		Requirements::clear('jsparty/prototype.js');
+		// Requirements::javascript("//code.jquery.com/ui/1.10.3/jquery-ui.js");
 		Requirements::combine_files(
 		    'javascript.js',
 		    array(
-//		    	'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
-//		    	'http://code.jquery.com/ui/1.10.3/jquery-ui.js',
-		    	'mysite/foundation/js/vendor/custom.modernizr.js',
-		    	'mysite/foundation/js/foundation.min.js',
-		    	'mysite/js/perfect-scrollbar-0.4.3.with-mousewheel.min.js',
+//		    	'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',		    		
+			    	'mysite/foundation/js/vendor/custom.modernizr.js',
+			    	'mysite/js/jquery-ui.js',
+			    	'mysite/foundation/js/foundation.min.js',
+			    	'mysite/js/perfect-scrollbar-0.4.3.with-mousewheel.min.js',
 		        'mysite/js/jquery.unveil.js',
 		        'mysite/js/jquery.mobile.touch.js',
 		        'themes/gas/js/script.js'

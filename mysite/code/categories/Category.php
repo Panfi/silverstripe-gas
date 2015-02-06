@@ -9,7 +9,10 @@ class Category extends Page {
    		'FeaturedHome' => 'Boolean',
    		'FeaturedOrder' => 'Int',
    		'HideFromPhotos' => 'Int',
-   		'HideBrand' => 'Boolean'
+   		'HideBrand' => 'Boolean',
+   		'HideColors' => 'Boolean',
+   		'HideForSale' => 'Boolean',
+   		'HidePhotos' => 'Boolean'
    	);
 
 	// private static $has_many = array(
@@ -34,6 +37,11 @@ class Category extends Page {
 	{
 		$fields = parent::getCMSFields();
 //		$fields->addFieldToTab("Root.Content", new TextareaField("BlockList", "Fan item blocklist"));
+		$fields->addFieldToTab("Root.Show/HideSections", new CheckboxField("HideBrand","Hide Brands section"));
+		$fields->addFieldToTab("Root.Show/HideSections", new CheckboxField("HidePhotos","Hide Photos section"));
+		$fields->addFieldToTab("Root.Show/HideSections", new CheckboxField("HideForSale","Hide For Sale section"));
+		$fields->addFieldToTab("Root.Show/HideSections", new CheckboxField("HideColors","Hide Browse By Color section"));
+
 		$fields->addFieldToTab("Root.Theme", new ColorField("MainColor","Main color"));
 		$fields->addFieldToTab("Root.Theme", new ColorField("SecondaryColor","Secondary color"));
 		

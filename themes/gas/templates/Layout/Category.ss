@@ -39,8 +39,11 @@
 		</div>
 		<% end_if %>
 		
-		<% include Brands %>
+		<% if HideBrand %><% else %>
+			<% include Brands %>
+		<% end_if %>
 	
+		<% if HidePhotos %><% else %>
 		<div class="subsection projects">
 			<h2 class="blockheading" id="projects"><a href="{$Link}all">Photos under <strong>$Title</strong></a></h2>
 			<ul class="small-block-grid-5 blockgrid">
@@ -50,8 +53,9 @@
 			</ul>
 			<h3 style="text-align:right;"><a href="{$Link}all">See all Photos <i class="icon-right-circled"></i></a></h3>
 		</div>
+		<% end_if %>
 		
-		
+		<% if HideForSale %><% else %>
 		<div class="subsection vehicles-for-sale">
 			<h2 class="blockheading" id="projects"><a href="vehicles-for-sale?Category=$ID">Vehicles for sale</a></h2>
 			<ul class="small-block-grid-3 large-block-grid-6 blockgrid">
@@ -61,8 +65,12 @@
 			</ul>
 			<h3 style="text-align:right;"><a href="vehicles-for-sale?Category=$ID">See all vehicles for sale <i class="icon-right-circled"></i></a></h3>
 		</div>
+		<% end_if %>
 		
-		<% include Colors %>
+		<% if HideColors %><% else %>
+			<% include Colors %>
+		<% end_if %>	
+
 
 	</div>
 </div>

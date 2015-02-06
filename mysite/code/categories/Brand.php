@@ -116,18 +116,27 @@ class Brand extends DataObject {
 	/* PRODUCT STUFF */
 
 	function ProductsByCategory($categoryID) {
+		// $mylimit = 24;
+
+		// if(!isset($_GET['start']) || !is_numeric($_GET['start']) || (int)$_GET['start'] < 1) $_GET['start'] = 0; 
+		// $SQL_start = (int)$_GET['start'];
 
 		if(!$categoryID) {
-			return $this->Products();
+			$products = $this->Products()->sort("Title ASC"); //->limit($mylimit,$SQL_start);
 		}
 		else {
+			// echo($categoryID);
+			$products = Product::get()->where("BrandID = ".$this->ID." AND CategoryID = $categoryID")->sort("Title ASC"); //->limit($mylimit,$SQL_start);
+			//return $this->Products()->where("CategoryID = $category->ID")->limit($mylimit,$SQL_start);
+				
+			/*
 				$sqlQuery = new SQLQuery("Product.ID","Product");
 				$join = "";
 				$sqlQuery->addInnerJoin("Category_Products","Category_Products.ProductID = Product.ID");
 				$where= "Category_Products.CategoryID = ".$categoryID." AND Product.BrandID = ".$this->ID;
 				$sqlQuery->addWhere($where);
 				$sqlQuery->setDistinct(true);
-				$sqlQuery->setLimit(12,$p*12);
+				$sqlQuery->setLimit($mylimit,$SQL_start);
 				// $sqlQuery->setOrderBy("Project.Created DESC");
 				$result = $sqlQuery->execute();
 				
@@ -141,10 +150,13 @@ class Brand extends DataObject {
 					$p = Product::get()->where("Product.ID IN (0, ".implode(",", $product_ids).")");
 					return $p;
 				}
-
+          */
 				//return $this->Products(); //->where("CategoryID", $category->ID); //->where("BrandID = " . $this->ID . " AND CategoryID",$category->ID);
 				// $p = Product::get();
 				//return $p;
+		}
+		if($products->count()>0) {
+			return $products;
 		}
 		// 	}
 		// 	else {
@@ -155,8 +167,7 @@ class Brand extends DataObject {
 	}
 
 	function ProductCategories() {
-		echo("Shit");
 		$cats = $this->Products()->column("CategoryID");
-		print_r($cats);
+		return($cats);
 	}
 }

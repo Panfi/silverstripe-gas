@@ -47,16 +47,42 @@
 			  	<% end_loop %>
 			  </dl>
 
-			  <% if Products %>
+			  <% if $Products %>
 			  <!-- <div class="section <% if Pos==1 %>active<% end_if %>"> -->
-		    	<ul class="small-block-grid-3 large-block-grid-6 blockgrid product-grid">
-		    	<% loop Products %>
+		    	<ul class="small-block-grid-3 large-block-grid-4 blockgrid product-grid">
+		    	<% loop $Products %>
 		      	<li>
 		      		<a href="$Link" title="$Title.XML"><img src="mysite/images/loader.gif" data-src="<% if Image %>$Image.Image.CroppedImage(200,200).URL<% else %>http://placehold.it/200x200&text=No+image<% end_if %>" />
 		      		<h4 class="product-title"><span>$Title</span></h4></a>
 		      	</li>
 		      <% end_loop %>
 		    	</ul>
+
+
+	    	<% if $Products.MoreThanOnePage %>
+	    	<ul class="pagination">
+			    <% if $Products.NotFirstPage %>
+			    	<li class="arrow"><a href="$Products.PrevLink">&laquo;</a></li>
+			    <% end_if %>
+
+			    <% loop Products.PaginationSummary(9) %>
+			  		<% if $CurrentBool %>
+			      	<li class="current"><a href="">$PageNum</a></li>
+			      <% else %>
+		        	<% if $Link %>
+		        		<li><a href="$Link">$PageNum</a></li>
+		        	<% else %>
+		        		<li class="unavailable"><a href="">&hellip;</a></li>
+		        	<% end_if %>
+		        <% end_if %>
+			 		<% end_loop %>
+
+			    <% if $Products.NotLastPage %>
+			   		 <li class="arrow"><a href="$Products.NextLink">&raquo;</a></li>
+			    <% end_if %>
+				</ul>
+				<% end_if %>
+
 			  <!-- </div> -->
 			  <% else %>
 			  	<p>No products found.</p>
