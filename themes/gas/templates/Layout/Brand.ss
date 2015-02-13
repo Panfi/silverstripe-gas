@@ -15,11 +15,11 @@
 		<div class="large-12 columns">
 			<div class="row">
 				<div class="large-8 columns">
-					<h2>$NiceTitle</h2>
+					<h2>Products under <strong>$Title</strong></h2>
 				</div>
 				<div class="large-4 columns">
 
-					<form class="productsearchform" action="$Brand.Link" data-posttype="Product" data-brandid="$Brand.ID" method="get">
+					<form class="productsearchform" action="$Brand.Link" data-posttype="Product" data-brandid="$Brand.ID" data-categoryid="$SubCategory" method="get">
 						
 						<div class="row">
 						<div class="ui-widget large-12 columns">
@@ -27,6 +27,7 @@
 						  <div class="row collapse">
 						  	<div class="small-11 columns">
 						  		<input type="text" placeholder="Type name of product" class="productsearchbox" name="q" value="$SearchTerm">
+						  		<input type="hidden" name="categoryID" value="$SubCategory">
 						  		<% loop ProductSearchForm.Fields %>
 						  			$Field
 						  		<% end_loop %>
@@ -44,22 +45,32 @@
 				</div>
 			</div>
 
-			<% if SearchCategories %>
-			<div class="panel search-suggestions">
-		  	<p>Are you looking for <% loop SearchCategories %>
-		  		<strong><a href="$Top.Brand.Link">$Top.Brand.Title</a></strong> <a href="$Top.Brand.Link/$URLSegment">$Title</a><% if not Last %>,<% end_if %><% end_loop %>?</p>
+			<dl class="sub-nav">
+		  	<% loop Categories %>
+		  		<dd class="<% if Active %>active<% end_if %>"><a href="{$Top.Brand.Link}/{$URLSegment}">$Title</a></dd>
+		  	<% end_loop %>
+		  </dl>
+
+		  <% if SearchCategories %>
+			<div data-alert class="alert-box search-suggestions">
+				<h4><i class="icon-search"></i> Search <strong>suggestions</strong></h4>
+		  	<p>Are you looking for <strong><a href="$Top.Brand.Link">$Top.Brand.Title</a></strong> <% loop SearchCategories %><a href="$Top.Brand.Link/$URLSegment">$Title</a><% if not Last %>, <% end_if %><% end_loop %>?</p>
+		  	<a href="#" class="close">&times;</a>
 		  </div>
 		  <% end_if %>			
 
+		  <% if ResultTitle %>
+		  	<h4>$ResultTitle</h4>
+		  <% end_if %>
+
 			<div class="productwrap">
-			  
-			  <dl class="sub-nav">
-			  	<% loop Categories %>
-			  		<dd class="<% if Active %>active<% end_if %>"><a href="{$Top.Brand.Link}/{$URLSegment}">$Title</a></dd>
-			  	<% end_loop %>
-			  </dl>
 
 			  <% if $Products %>
+
+			  <% with $Products %>
+			  	<p class="text-right">Found <strong>$Count</strong> items. Page <strong>$CurrentPage</strong> of $TotalPages<p>
+			  <% end_with %>
+
 			  <!-- <div class="section <% if Pos==1 %>active<% end_if %>"> -->
 		    	<ul class="small-block-grid-3 large-block-grid-4 blockgrid product-grid">
 		    	<% loop $Products %>

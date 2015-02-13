@@ -1000,7 +1000,7 @@ body:not(.brands) .brands li a, .colors li a {
 
 .minimenu {
 	position: fixed;
-	z-index: 20;
+	z-index: 150;
 	width: 100%;
 	text-align: center;
 	top: 0;
@@ -1574,7 +1574,17 @@ button:focus {
 
 /* BRANDS */
 
-.search-suggestions a {
+.search-suggestions {
+  background: rgba(0,0,0,0.05);
+  border: 1px solid #EFEFEF;
+  padding: 9px 22px 2px 22px;
+  margin-bottom: 22px;
+}
+.search-suggestions {
   text-transform: uppercase !important;
+  color: #555;
+}
+
+.search-suggestions a {
   color: #000 !important;
 }

@@ -22,25 +22,27 @@ class Search_Controller extends Page_Controller {
 	public function index() {
 		
 		$q="";
-		if(isset($_GET["q"])) {
+		if($this->request->requestVar("q")) {
 			$q = Convert::raw2sql(strtolower($_GET["q"]));
 		}
 		$fword = "'%".$q."%'";
-		$query = "Title LIKE $fword OR Content LIKE $fword";
+		$query = "(Title LIKE $fword OR Content LIKE $fword)";
 		
 		if(Director::is_ajax() == true){ 
 			$type="Page";
-			if(isset($_GET["type"])) {
-				$type=$_GET["type"];
+			$msg = "";
+			if($this->request->requestVar("type")) {
+				$type=$this->request->requestVar("type");
 			}
-			if(isset($_GET["brandID"])) {
-				$query.= " AND BrandID = ".Convert::raw2sql($_GET["brandID"]);
+			if($this->request->requestVar("brandID")) {
+				$msg.=" / Brand: ".$this->request->requestVar("brandID");
+				$query.= " AND BrandID = ".Convert::raw2sql($this->request->requestVar("brandID"));
 			}
-			if(isset($_GET["categoryID"])) {
-				$query.= " AND CategoryID = ".Convert::raw2sql($_GET["categoryID"]);
+			if($this->request->requestVar("categoryID")) {
+				$msg.=" / Category: ".$this->request->requestVar("categoryID");
+				$query.= " AND CategoryID = ".Convert::raw2sql($this->request->requestVar("categoryID"));
 			}
-			// echo($query);
-			
+			$msg.= " // Query: ".$query;
 			$result = DataObject::get($type,$query,"Title ASC")->limit(6);
 			if(!$result->first()) { return false; }
 			$set = array();
@@ -54,7 +56,7 @@ class Search_Controller extends Page_Controller {
 					'Text' => $do->dbObject("Content")->FirstSentence()
 				);
 			}
-			echo(json_encode(array("count"=> count($set), "items" => $set)));
+			echo(json_encode(array("count"=> count($set), "items" => $set, "message" => $msg)));
 		}
 		else {
 			$title = "Search results".($q!="" ? " for '$q'" : "");
@@ -68,8 +70,8 @@ class Search_Controller extends Page_Controller {
 	
 	public function SearchResults() {
 		$q="";
-		if(isset($_GET["q"])) {
-			$q = convert::raw2sql($_GET["q"]);
+		if($this->request->requestVar("q")) {
+			$q = convert::raw2sql($this->request->requestVar("q"));
 		}
 		$fword = "'%$q%'";
 		$query = $pquery = "Title LIKE $fword";
@@ -126,7 +128,7 @@ class Search_Controller extends Page_Controller {
 	
 	public function SearchTerm() {
 		$q="";
-		if(isset($_GET["q"])) {
+		if($q = $this->request->requestVar("q")) {
 			return $q;
 		}
 	}
@@ -140,6 +142,7 @@ class Brand_Controller extends Page_Controller {
 	protected $category;
 	protected $brand;
 	protected $urlSegment;
+	protected $productQuery;
 
 	private static $allowed_actions = array (
 		'index'
@@ -148,15 +151,19 @@ class Brand_Controller extends Page_Controller {
 	public function init() {
 		$Params = $this->getURLParams();
 		$this->urlSegment = Convert::raw2sql($Params['ID']);
+		$c = false;
 		if(Convert::raw2sql($Params['CategoryID'])) {
 			$c = Category::get()->where("URLSegment = '".Convert::raw2sql($Params['CategoryID'])."'")->first();
-			if($c) {
-				$this->categoryID = $c->ID;
-				$this->category = $c;
-			}
-			else {
-				$this->categoryID = 0;
-			}
+		}
+		else if($this->request->requestVar("categoryID")>0) {
+			$c = DataObject::get_by_id("Category", $this->request->requestVar("categoryID"));
+		}
+		if($c) {
+			$this->categoryID = $c->ID;
+			$this->category = $c;
+		}
+		else {
+			$this->categoryID = 0;
 		}
 		parent::init();
 	}
@@ -185,45 +192,48 @@ class Brand_Controller extends Page_Controller {
 			else {
 
 				$title = $Item->Title;
-				$niceTitle = "Products under <strong>$title</strong>";
+				$resultTitle = false;
+				$cats = false;
 
+				// Text search
 				if( $q = $this->request->requestVar("q") ) {
 					if(!SecurityToken::inst()->checkRequest($this->request)) {
 						return $this->httpError(400);
 					}
 				}
 
+				$where = "BrandID = ".$Item->ID;
 
-				$p = false;
-				if($Item->ProductsByCategory($this->categoryID)) {
-					$products = $Item->ProductsByCategory($this->categoryID);
-					if($q) {
-
-						$niceTitle = "'<em>".$q."</em>' under <strong>{$title}</strong>";
-						$title = "Search for '".$q."'";
-
-						$fword = "%".Convert::raw2sql($q)."%";
-						$where = "Title LIKE '$fword'";
-						$cats = $Item->Categories()->where("Title LIKE '$fword'");
-						if($cats->count()) {
-							$catids = $cats->column("ID");
-							if(count($catids)) {
-								$where.= " OR CategoryID IN (".implode(",",$catids).")";
-							}
-						}
-						if($this->CategoryID) {
-							$where.= " AND CategoryID = ".$this->categoryID;
-						}
-						$products = $products->where($where);
-					}
-					$p = new PaginatedList($products, $this->request);
-					// $p->setLimitItems(false);
-					$p->setPageLength(24);
+				// Actual category
+				if($this->categoryID) {
+					$where.= " AND CategoryID = ".$this->categoryID;
 				}
+
+				if($q) {
+
+					$resultTitle = "Results matching '<em>".$q."</em>' under <strong>{$title}</strong>";
+					$title = "Search for '".$q."'";
+
+					$fword = "%".Convert::raw2sql($q)."%";
+					$where .=" AND Title LIKE '$fword'";
+
+					// Text similar Categories
+					$cats = $Item->Categories()->where("Title LIKE '$fword'");
+					if($cats->count()) {
+						$catids = $cats->column("ID");
+						if(count($catids) && !$this->categoryID) {
+							$where.= " OR CategoryID IN (".implode(",",$catids).")";
+						}
+					}
+				}
+
+				echo($where);
+
+				$this->productQuery = $where;
 
 				$Data = array(
 					'Title' => $Item->Title,
-					'NiceTitle' => $niceTitle,
+					'ResultTitle' => $resultTitle,
 					'MetaTitle' => $Item->Title . ($this->categoryID ? " | ". $this->category->Title : null ),
 					'ClassName' => "BrandView",
 					'MetaTitle' => $Item->Title,
@@ -231,9 +241,9 @@ class Brand_Controller extends Page_Controller {
 					'Brand' => $Item,
 					'Projects' => $Item->Projects(),
 					'SearchCategories' => $cats,
-					'SubCategory' => $this->CategoryID,
+					'SubCategory' => $this->categoryID,
 					// 'Categories' => $this->Categories(),
-					'Products' => $p
+					// 'Products' => $p
 				);
 				return $this->customise($Data)->renderWith(array('Brand','Page'));
 			}
@@ -274,6 +284,16 @@ class Brand_Controller extends Page_Controller {
 				return $b;
 			}
 		}
+	}
+
+	public function Products() {
+		$prod = Product::get()->where($this->productQuery);
+		if($prod->count()) {
+			$p = new PaginatedList($prod, $this->request);
+			// $p->setLimitItems(false);
+			$p->setPageLength(24);
+		}
+		return $p;
 	}
 	
 	public function Brands() {

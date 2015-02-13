@@ -140,18 +140,21 @@ $(document).ready(function() {
           
           var id = this.element.attr('id');
           console.log(id);
+          console.log("Brand: "+$(".productsearchform").data("brandid"));
+          console.log("Category: "+$(".productsearchform").data("categoryid"));
+          f = $(".productsearchform");
           $.ajax({
             url: "search",
             type: "GET",
             dataType: "json",
             data: {
               type: "Product",
-              brandID: $(".productsearchform").data("brandid"),
-              categoryID: $(".productsearchform").data("categoryid"),
+              brandID: f.data("brandid"),
+              categoryID: f.data("categoryid"),
               q: $(".productsearchbox").val()
             },
             success: function(data) {
-              //console.log(data);
+              console.log(data);
               response( $.map(data.items, function(item) {
               return {
                 value: item.Title,
@@ -176,7 +179,7 @@ $(document).ready(function() {
           // console.log(item);
           return $("<li></li>")
              .data("item.autocomplete", item)
-             .append("<a><div class='row'><div class='small-2 medium-3 columns'><img src='" + item.thumb + "' /></div><div class='small-10 medium-9 columns'><h3>" + item.value + "</h3><p>" + item.text + "</p><span class='button button-primary'>Read more</span></div></div></a>")
+             .append("<a><div class='row'><div class='small-2 medium-3 columns'><img src='" + item.thumb + "' /></div><div class='small-10 medium-9 columns'><h4>" + item.value + "</h4><p>" + item.text + "</p><span class='button button-primary'>Read more</span></div></div></a>")
              .appendTo(ul);
        };
     }
