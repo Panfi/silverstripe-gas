@@ -60,8 +60,8 @@
 
 			</div>
 			<div class="large-4 columns header-right">
-				<p class="address">15600 Roscoe Blvd., Van Nuys, CA 91406 <a href="http://maps.google.com?q=15600 Roscoe Blvd, Van Nuys, CA 90014" target="_blank"><i class="icon-direction"></i></a></p>
-				<p class="call">Call today <a class="button small radius" href="tel:877-GO-GAS-GO">877-GO-GAS-GO</a></p>
+				<p class="address"><a href="http://maps.google.com?q=15600 Roscoe Blvd, Van Nuys, CA 90014" target="_blank">15600 Roscoe Blvd., Van Nuys, CA 91406 <i class="icon icon-direction"></i></a></p>
+				<p class="call">Call today <a class="button small radius" href="tel:+8774642746">877-GO-GAS-GO</a></p>
 			</div>
 		</div>
 	</div>

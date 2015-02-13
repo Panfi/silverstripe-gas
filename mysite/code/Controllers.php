@@ -36,6 +36,9 @@ class Search_Controller extends Page_Controller {
 			if(isset($_GET["brandID"])) {
 				$query.= " AND BrandID = ".Convert::raw2sql($_GET["brandID"]);
 			}
+			if(isset($_GET["categoryID"])) {
+				$query.= " AND CategoryID = ".Convert::raw2sql($_GET["categoryID"]);
+			}
 			// echo($query);
 			
 			$result = DataObject::get($type,$query,"Title ASC")->limit(6);
@@ -151,6 +154,9 @@ class Brand_Controller extends Page_Controller {
 				$this->categoryID = $c->ID;
 				$this->category = $c;
 			}
+			else {
+				$this->categoryID = 0;
+			}
 		}
 		parent::init();
 	}
@@ -178,6 +184,9 @@ class Brand_Controller extends Page_Controller {
 			}
 			else {
 
+				$title = $Item->Title;
+				$niceTitle = "Products under <strong>$title</strong>";
+
 				if( $q = $this->request->requestVar("q") ) {
 					if(!SecurityToken::inst()->checkRequest($this->request)) {
 						return $this->httpError(400);
@@ -189,8 +198,23 @@ class Brand_Controller extends Page_Controller {
 				if($Item->ProductsByCategory($this->categoryID)) {
 					$products = $Item->ProductsByCategory($this->categoryID);
 					if($q) {
+
+						$niceTitle = "'<em>".$q."</em>' under <strong>{$title}</strong>";
+						$title = "Search for '".$q."'";
+
 						$fword = "%".Convert::raw2sql($q)."%";
-						$products = $products->where("Title LIKE '$fword'");
+						$where = "Title LIKE '$fword'";
+						$cats = $Item->Categories()->where("Title LIKE '$fword'");
+						if($cats->count()) {
+							$catids = $cats->column("ID");
+							if(count($catids)) {
+								$where.= " OR CategoryID IN (".implode(",",$catids).")";
+							}
+						}
+						if($this->CategoryID) {
+							$where.= " AND CategoryID = ".$this->categoryID;
+						}
+						$products = $products->where($where);
 					}
 					$p = new PaginatedList($products, $this->request);
 					// $p->setLimitItems(false);
@@ -199,12 +223,15 @@ class Brand_Controller extends Page_Controller {
 
 				$Data = array(
 					'Title' => $Item->Title,
+					'NiceTitle' => $niceTitle,
 					'MetaTitle' => $Item->Title . ($this->categoryID ? " | ". $this->category->Title : null ),
 					'ClassName' => "BrandView",
 					'MetaTitle' => $Item->Title,
 					'Content' => $Item->Content,
 					'Brand' => $Item,
 					'Projects' => $Item->Projects(),
+					'SearchCategories' => $cats,
+					'SubCategory' => $this->CategoryID,
 					// 'Categories' => $this->Categories(),
 					'Products' => $p
 				);

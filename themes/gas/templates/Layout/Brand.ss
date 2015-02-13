@@ -15,7 +15,7 @@
 		<div class="large-12 columns">
 			<div class="row">
 				<div class="large-8 columns">
-					<h2>Products under <strong>$Title</strong></h2>
+					<h2>$NiceTitle</h2>
 				</div>
 				<div class="large-4 columns">
 
@@ -42,7 +42,14 @@
 					</form>
 
 				</div>
-			</div>				
+			</div>
+
+			<% if SearchCategories %>
+			<div class="panel search-suggestions">
+		  	<p>Are you looking for <% loop SearchCategories %>
+		  		<strong><a href="$Top.Brand.Link">$Top.Brand.Title</a></strong> <a href="$Top.Brand.Link/$URLSegment">$Title</a><% if not Last %>,<% end_if %><% end_loop %>?</p>
+		  </div>
+		  <% end_if %>			
 
 			<div class="productwrap">
 			  

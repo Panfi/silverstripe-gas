@@ -147,6 +147,7 @@ $(document).ready(function() {
             data: {
               type: "Product",
               brandID: $(".productsearchform").data("brandid"),
+              categoryID: $(".productsearchform").data("categoryid"),
               q: $(".productsearchbox").val()
             },
             success: function(data) {
