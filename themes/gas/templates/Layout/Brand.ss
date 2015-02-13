@@ -18,7 +18,8 @@
 					<h2>Products under <strong>$Title</strong></h2>
 				</div>
 				<div class="large-4 columns">
-					<form class="productsearchform" action="productsearch" data-posttype="Product" data-brandid="$Brand.ID">
+
+					<form class="productsearchform" action="$Brand.Link" data-posttype="Product" data-brandid="$Brand.ID" method="get">
 						
 						<div class="row">
 						<div class="ui-widget large-12 columns">
@@ -26,6 +27,9 @@
 						  <div class="row collapse">
 						  	<div class="small-11 columns">
 						  		<input type="text" placeholder="Type name of product" class="productsearchbox" name="q" value="$SearchTerm">
+						  		<% loop ProductSearchForm.Fields %>
+						  			$Field
+						  		<% end_loop %>
 						  	</div>
 						  	<div class="small-1 columns">
 						  		<span class="postfix"><i class="icon-search"></i></span>
@@ -36,6 +40,7 @@
 						</div>
 					    
 					</form>
+
 				</div>
 			</div>				
 

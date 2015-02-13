@@ -34,57 +34,51 @@
 </head>
 
 <body class="$ClassName $URLSegment">
-	
-	<div id="outer-wrap">
 
 	<% include Menus %>
-	
-	<div id="inner-wrap">
 
-		<% include InnerMenu %>
-		
-		<div class="headerwrap">
-			<div class="row">
-				<div class="large-4 columns header-left">
-					<a href="./"><img src="$ThemeDir/images/Logo.png" /></a>
-				</div>
-				<div class="large-4 columns header-center">
-					<div class="tagline">automotive custom shop</div>					
+	<div class="headerwrap">
+		<div class="row">
+			<div class="large-4 columns header-left">
+				<a href="./"><img src="$ThemeDir/images/Logo.png" /></a>
+			</div>
+			<div class="large-4 columns header-center">
+				<div class="tagline">automotive custom shop</div>					
 
-					<form class="searchform" action="search">
-						<i class="icon-search"></i>
-						
-						<div class="row">
-						<div class="ui-widget large-12 columns">
-						  <span class="ui-helper-hidden-accessible">&nbsp;</span>
-						  <input type="text" placeholder="Search..." class="searchbox" name="q" value="$SearchTerm">
-						  <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
-						</div>
-						</div>
-					    
-					</form>
+				<form class="searchform" action="search">
+					<i class="icon-search"></i>
+					
+					<div class="row">
+					<div class="ui-widget large-12 columns">
+					  <span class="ui-helper-hidden-accessible">&nbsp;</span>
+					  <input type="text" placeholder="Search..." class="searchbox" name="q" value="$SearchTerm">
+					  <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
+					</div>
+					</div>
+				    
+				</form>
 
-				</div>
-				<div class="large-4 columns header-right">
-					<p class="address">15600 Roscoe Blvd., Van Nuys, CA 91406 <a href="http://maps.google.com?q=15600 Roscoe Blvd, Van Nuys, CA 90014" target="_blank"><i class="icon-direction"></i></a></p>
-					<p class="call">Call today <a class="button small radius" href="tel:877-GO-GAS-GO">877-GO-GAS-GO</a></p>
-				</div>
+			</div>
+			<div class="large-4 columns header-right">
+				<p class="address">15600 Roscoe Blvd., Van Nuys, CA 91406 <a href="http://maps.google.com?q=15600 Roscoe Blvd, Van Nuys, CA 90014" target="_blank"><i class="icon-direction"></i></a></p>
+				<p class="call">Call today <a class="button small radius" href="tel:877-GO-GAS-GO">877-GO-GAS-GO</a></p>
 			</div>
 		</div>
+	</div>
 		
-		<% include TopMenu %>
-			
-		<div class="layout">			
-			$Layout
-			<% include SocialBlock %>
-			<% include Updates %>
-			<% include Footer %>
-		</div>
-		<% include AddThis %>
+	<% include TopMenu %>
+		
+	<div class="layout">			
+		$Layout
+		<% include SocialBlock %>
+		<% include Updates %>
+		<% include Footer %>
 	</div>
-	</div>
-	
-	<% include ContactModal %>
+	<% include AddThis %>
+
+</div>
+
+<% include ContactModal %>
 	
 
 	<!-- <script>

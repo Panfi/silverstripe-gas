@@ -36,7 +36,7 @@ class Search_Controller extends Page_Controller {
 			if(isset($_GET["brandID"])) {
 				$query.= " AND BrandID = ".Convert::raw2sql($_GET["brandID"]);
 			}
-			echo($query);
+			// echo($query);
 			
 			$result = DataObject::get($type,$query,"Title ASC")->limit(6);
 			if(!$result->first()) { return false; }
@@ -47,7 +47,8 @@ class Search_Controller extends Page_Controller {
 					'ID' => $do->ID,
 					'Title' => $do->Title,
 					'Link' => $do->Link(),
-					'Thumbnail' => $do->ThumbnailURL(40)
+					'Thumbnail' => $do->ThumbnailURL(180),
+					'Text' => $do->dbObject("Content")->FirstSentence()
 				);
 			}
 			echo(json_encode(array("count"=> count($set), "items" => $set)));
@@ -154,16 +155,17 @@ class Brand_Controller extends Page_Controller {
 		parent::init();
 	}
 	
-	const URLSegment = '/brands';
+	const URLSegment = 'brands';
 	
 	public function getURLSegment() { 
 		return self::URLSegment; 
 	}
 	
 	public function Link($action = null, $id = null) {
-		//$action = $this->request->param('Action');
-		//$id = $this->request->param('ID');
-		return Controller::join_links(self::URLSegment, $action, $id);
+		$category = $this->request->param('CategoryID');
+		$id = $this->request->param('ID');
+		$l = Controller::join_links(self::URLSegment, $id, $category);
+		return($l);
 	} 
 	
 	
@@ -175,9 +177,22 @@ class Brand_Controller extends Page_Controller {
 				print_r($this->Categories()->where("Active",1)->first());
 			}
 			else {
+
+				if( $q = $this->request->requestVar("q") ) {
+					if(!SecurityToken::inst()->checkRequest($this->request)) {
+						return $this->httpError(400);
+					}
+				}
+
+
 				$p = false;
 				if($Item->ProductsByCategory($this->categoryID)) {
-					$p = new PaginatedList($Item->ProductsByCategory($this->categoryID), $this->request);
+					$products = $Item->ProductsByCategory($this->categoryID);
+					if($q) {
+						$fword = "%".Convert::raw2sql($q)."%";
+						$products = $products->where("Title LIKE '$fword'");
+					}
+					$p = new PaginatedList($products, $this->request);
 					// $p->setLimitItems(false);
 					$p->setPageLength(24);
 				}
@@ -265,6 +280,25 @@ class Brand_Controller extends Page_Controller {
 		}
 	}
 	
+	public function ProductSearchForm() {
+      // Create fields
+      $fields = new FieldList(
+          // new TextField('q')
+      );
+
+      // Create actions
+      $actions = new FieldList(
+          new FormAction('doBrowserPoll', 'Search')
+      );
+
+      return new Form($this, 'ProductSearchForm', $fields, $actions);
+  }
+
+  public function SearchTerm() {
+  	return $this->request->requestVar("q");
+  }
+
+
 	// public function Products() {
 	// 	$c = Product::get();
 	// 	return $c;

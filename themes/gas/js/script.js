@@ -11,14 +11,14 @@ function toggleLeftNav() {
 	console.log("Left nav toggle");
 	if(currentNavigation!="left") {
 //		$(".sidenav-right").hide();
-		$(".sidenav-left").show();
+		// $(".sidenav-left").show();
 		$(document.documentElement).removeClass("js-nav-right").addClass("js-nav-left");
 		currentNavigation = "left";
 	} else {
 		$(document.documentElement).removeClass("js-nav-left");
-		setTimeout(function() {
-			$(".sidenav-left").hide();
-		}, 800);	
+		// setTimeout(function() {
+		// 	$(".sidenav-left").hide();
+		// }, 800);	
 		currentNavigation = false;
 	}
 }
@@ -27,14 +27,14 @@ function toggleRightNav() {
 	console.log("Right nav toggle");
 	if(currentNavigation!="right") {
 //		$(".sidenav-left").hide();
-		$(".sidenav-right").show();
+		// $(".sidenav-right").show();
 		$(document.documentElement).removeClass("js-nav-left").addClass("js-nav-right");
 		currentNavigation = "right";
 	} else {
 		$(document.documentElement).removeClass("js-nav-right");
-		setTimeout(function() {
-			$(".sidenav-right").hide();
-		}, 800);
+		// setTimeout(function() {
+		// 	$(".sidenav-right").hide();
+		// }, 800);
 		currentNavigation = false;
 	}
 }
@@ -48,9 +48,9 @@ $(document).ready(function() {
 	console.log("Document ready.");
 	$(document.documentElement).addClass("js-ready");
 	
-    if($(".moretext")) {
-      $(".moretext").readmore({ maxHeight: 200 });
-    }
+  if($(".moretext")) {
+    $(".moretext").readmore({ maxHeight: 200 });
+  }
 //	$('.sidenav-right').hide();
 //	$('.sidenav-left').hide();
 		
@@ -69,27 +69,27 @@ $(document).ready(function() {
 	$("img").unveil(300);
 	
 	
-	if($(document).width() > 760) {
-		setInterval(function() {
-			if(didScroll) {
-				didScroll=false;
-				$('.fix-y').each(function() {
-					dy = $(this).data("dy");
-					//console.log($(this).css("top"));
-					if($(this).hasClass('animate')) {
-						$(this).stop(true).animate({'top': $(window).scrollTop() + dy},500,'easeOutQuad');
-					}
-					else {
-						$(this).css({'top': $(window).scrollTop() + dy});
-					}
-				});
-			}
-		},200);
-		//	FIX SCROLL
-		$(window).scroll(function(){
-		 	didScroll=true;
-		}); 
-	}
+	// if($(document).width() > 760) {
+	// 	setInterval(function() {
+	// 		if(didScroll) {
+	// 			didScroll=false;
+	// 			$('.fix-y').each(function() {
+	// 				dy = $(this).data("dy");
+	// 				//console.log($(this).css("top"));
+	// 				if($(this).hasClass('animate')) {
+	// 					$(this).stop(true).animate({'top': $(window).scrollTop() + dy},500,'easeOutQuad');
+	// 				}
+	// 				else {
+	// 					$(this).css({'top': $(window).scrollTop() + dy});
+	// 				}
+	// 			});
+	// 		}
+	// 	},250);
+	// 	//	FIX SCROLL
+	// 	$(window).scroll(function(){
+	// 	 	didScroll=true;
+	// 	}); 
+	// }
 
 	if($("div.scrollable").length) {
   	$("div.scrollable").css({
@@ -133,11 +133,12 @@ $(document).ready(function() {
     }
 
     if($(".productsearchbox").length) {
-
+      
       $(".productsearchbox" ).autocomplete({
 
         source: function( request, response ) {
-           var id = this.element.attr('id');
+          
+          var id = this.element.attr('id');
           console.log(id);
           $.ajax({
             url: "search",
@@ -145,17 +146,18 @@ $(document).ready(function() {
             dataType: "json",
             data: {
               type: "Product",
-              brandID: $(".producsearchform").data("brandid"),
+              brandID: $(".productsearchform").data("brandid"),
               q: $(".productsearchbox").val()
             },
             success: function(data) {
-              console.log(data);
+              //console.log(data);
               response( $.map(data.items, function(item) {
               return {
                 value: item.Title,
                 id: item.ID,
                 link: item.Link,
-                thumb: item.Thumbnail
+                thumb: item.Thumbnail,
+                text: item.Text
               }
               }));
             }
@@ -169,10 +171,12 @@ $(document).ready(function() {
           
         }
       }).data("ui-autocomplete")._renderItem = function (ul, item) {
-           return $("<li></li>")
-               .data("item.autocomplete", item)
-               .append("<a>" + item.label + "</a>")
-               .appendTo(ul);
+          ul.addClass("product-autocomplete");
+          // console.log(item);
+          return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<a><div class='row'><div class='small-2 medium-3 columns'><img src='" + item.thumb + "' /></div><div class='small-10 medium-9 columns'><h3>" + item.value + "</h3><p>" + item.text + "</p><span class='button button-primary'>Read more</span></div></div></a>")
+             .appendTo(ul);
        };
     }
     
