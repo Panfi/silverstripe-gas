@@ -15,7 +15,7 @@
 		<div class="large-12 columns">
 			<div class="row">
 				<div class="large-8 columns">
-					<h2>Products under <strong>$Title</strong></h2>
+					<h2><strong>$Title</strong> Products</h2>
 				</div>
 				<div class="large-4 columns">
 
@@ -45,11 +45,22 @@
 				</div>
 			</div>
 
-			<dl class="sub-nav">
-		  	<% loop Categories %>
-		  		<dd class="<% if Active %>active<% end_if %>"><a href="{$Top.Brand.Link}/{$URLSegment}">$Title</a></dd>
-		  	<% end_loop %>
-		  </dl>
+			<div class="row">
+				<div class="large-8 columns">
+					<dl class="sub-nav">
+				  	<% loop Categories %>
+				  		<dd class="<% if Active %>active<% end_if %>"><a href="{$Top.Brand.Link}/{$URLSegment}">$Title</a></dd>
+				  	<% end_loop %>
+				  </dl>
+				</div>
+				<div class="large-4 columns text-right result-count">
+						<% if Products %>
+							<% with $Products %>
+						  	<p>Found <strong>$Count</strong> items. Page <strong>$CurrentPage</strong> of <strong>$TotalPages</strong></p>
+						  <% end_with %>
+						<% end_if %>
+				</div>
+			</div>
 
 		  <% if SearchCategories %>
 			<div data-alert class="alert-box search-suggestions">
@@ -66,10 +77,6 @@
 			<div class="productwrap">
 
 			  <% if $Products %>
-
-			  <% with $Products %>
-			  	<p class="text-right">Found <strong>$Count</strong> items. Page <strong>$CurrentPage</strong> of $TotalPages<p>
-			  <% end_with %>
 
 			  <!-- <div class="section <% if Pos==1 %>active<% end_if %>"> -->
 		    	<ul class="small-block-grid-3 large-block-grid-4 blockgrid product-grid">

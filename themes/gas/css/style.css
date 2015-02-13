@@ -1588,3 +1588,12 @@ button:focus {
 .search-suggestions a {
   color: #000 !important;
 }
+
+.result-count,
+.result-count strong {
+  font-size: 0.9em;
+  font-weight: 300;
+}
+.result-count {
+  color: #999;
+}

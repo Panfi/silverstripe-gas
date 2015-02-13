@@ -211,7 +211,7 @@ class Brand_Controller extends Page_Controller {
 
 				if($q) {
 
-					$resultTitle = "Results matching '<em>".$q."</em>' under <strong>{$title}</strong>";
+					$resultTitle = "Results matching '<em>".$q."</em> ' under <strong>{$title}</strong>";
 					$title = "Search for '".$q."'";
 
 					$fword = "%".Convert::raw2sql($q)."%";
@@ -226,8 +226,9 @@ class Brand_Controller extends Page_Controller {
 						}
 					}
 				}
-
-				echo($where);
+				if($this->request->requestVar("isDev")) {
+					echo($where);
+				}
 
 				$this->productQuery = $where;
 
