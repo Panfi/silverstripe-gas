@@ -153,9 +153,9 @@ class Product extends DataObject {
       if($i) {
         return $i->CroppedImage($width,$width)->URL;
       }
-      else {
-        return "http://www.placehold.it/".$width."x".$width."&text=No+image";
-      }
+    }
+    else {
+      return "http://www.placehold.it/".$width."x".$width."&text=No+image";
     }
   }
 

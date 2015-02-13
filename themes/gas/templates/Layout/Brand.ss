@@ -57,7 +57,7 @@
 		    	<ul class="small-block-grid-3 large-block-grid-4 blockgrid product-grid">
 		    	<% loop $Products %>
 		      	<li>
-		      		<a href="$Link" title="$Title.XML"><img src="mysite/images/loader.gif" data-src="<% if Image %>$Image.Image.CroppedImage(200,200).URL<% else %>http://placehold.it/200x200&text=No+image<% end_if %>" />
+		      		<a href="$Link" title="$Title.XML"><img src="mysite/images/loader.gif" data-src="$ThumbnailURL(300)" />
 		      		<h4 class="product-title"><span>$Title</span></h4></a>
 		      	</li>
 		      <% end_loop %>
@@ -65,9 +65,9 @@
 
 
 	    	<% if $Products.MoreThanOnePage %>
-	    	<ul class="pagination">
+	    	<h4><ul class="pagination">
 			    <% if $Products.NotFirstPage %>
-			    	<li class="arrow"><a href="$Products.PrevLink">&laquo;</a></li>
+			    	<li class="arrow"><a href="$Products.PrevLink"><i class="icon icon-left-open"></i></a></li>
 			    <% end_if %>
 
 			    <% loop Products.PaginationSummary(9) %>
@@ -83,9 +83,9 @@
 			 		<% end_loop %>
 
 			    <% if $Products.NotLastPage %>
-			   		 <li class="arrow"><a href="$Products.NextLink">&raquo;</a></li>
+			   		 <li class="arrow"><a href="$Products.NextLink"><i class="icon icon-right-open"></i></a></li>
 			    <% end_if %>
-				</ul>
+				</ul></h4>
 				<% end_if %>
 
 			  <!-- </div> -->
@@ -119,9 +119,9 @@
 			<% if Count>1 && Last %>and <% end_if %><a href="$Link" title="$title" class="label radius">$Title</a><% if Last %><% else %>,<% end_if %>
 		<% end_loop %>
 		</h3>
+		<hr />
 		<% end_if %>
 		
-		<hr />
 		<p>
 			<a href="brands" class="button radius">Return to <strong>All brands</strong></a>
 		</p>
