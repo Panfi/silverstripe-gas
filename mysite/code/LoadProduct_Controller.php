@@ -72,8 +72,18 @@ class LoadProduct_Controller extends Page_Controller {
 
   private static $allowed_actions = array (
     'index',
+    'steeda',
     'roush',
-    'steeda'
+    'jlaudio',
+    'advwheels',
+    'pirelli',
+    'roush',
+    '3dcarbon',
+    'steeda',
+    'hr',
+    'shelby',
+    'mhtwheels',
+    'fuelgrills'
   );
   
   public function init() {
@@ -108,7 +118,7 @@ class LoadProduct_Controller extends Page_Controller {
   // ROUSH */
   public function roush() {
     $this->brandName = "Roush";
-    $this->brandID = 0; //?
+    // $this->brandID = 0; //?
     $this->csvFile = "roush.csv";
 
     $this->groupMap = array(
@@ -196,7 +206,6 @@ class LoadProduct_Controller extends Page_Controller {
   public function steeda() {
     $this->brandName = "Steeda";
     $this->brandID = 58;
-    $this->csvFile = "steeda.csv";
 
     $this->groupMap = array(
       'Mustang Induction'=>14,
@@ -233,13 +242,138 @@ class LoadProduct_Controller extends Page_Controller {
     $this->runImport();
   }
 
+
+  // JL AUDIO */
+  public function jlaudio() {
+    $this->brandName = "JL Audio";
+    $this->brandID = 34;
+    $this->csvFile = "jlaudio.csv";
+
+    $this->groupMap = array(
+      'Amplifier Accessories'=>16,
+      'Amplifiers'=>16,
+      'Connection Systems'=>16,
+      'Evolution Speaker Systems'=>16,
+      'OEM Interface'=>16,
+      'StealthBox'=>16,
+      'Subwoofer Drivers'=>16,
+      'Subwoofer Systems'=>16
+    );
+
+    $this->runImport();
+  }
+
+  // ADV WHEELS */
+  public function advwheels() {
+    $this->brandName = "ADV1 Wheels";
+    $this->brandID = 165;
+    $this->csvFile = "advwheels.csv";
+
+    $this->groupMap = array(
+      'Wheels'=>16
+    );
+
+    $this->runImport();
+  }
+
+   // JL AUDIO */
+  public function shelby() {
+    $this->brandName = "Shelby";
+    $this->brandID = 93;
+    $this->csvFile = "shelby.csv";
+
+    $this->groupMap = array(
+      'Brakes'=>14,
+      'Clutch'=>14,
+      'Cooling'=>14,
+      'Engine'=>14,
+      'Engine Parts'=>14,
+      'Exhaust'=>14,
+      'Gauges'=>15,
+      'Shifters'=>15,
+      'Suspension'=>14,
+      'Wheels'=>13,
+      'Electrical'=>16
+    );
+
+    $this->runImport();
+  }
+
+  // HR SPRINGS */
+  public function hr() {
+    $this->brandName = "HR Springs";
+    $this->brandID = 126;
+    $this->csvFile = "hr.csv";
+
+    $this->groupMap = array(
+      'Springs'=>14,
+      'ETS'=>14,
+      'Cup Kits'=>14,
+      'Sway Bars'=>14,
+      'I.D. Race Springs'=>14,
+      'Wheel Spacers'=>14,
+      'Coil Overs'=>14,
+      'Accessories'=>14
+    );
+
+    $this->runImport();
+  }
+
+
+  // MHTWHEELS */
+  public function mhtwheels() {
+    $this->brandName = "MHT Wheels";
+    $this->brandID = 166;
+    $this->csvFile = "mhtwheels.csv";
+
+    $this->groupMap = array(
+      'Fuel Dually'=>13,
+      'Fuel Forged'=>13,
+      'Niche 3 Piece'=>13,
+      'Niche Competition'=>13,
+      'Niche Monotec'=>13,
+      'Niche Racing'=>13,
+      'Niche Sport'=>13,
+      'Niche Track'=>13
+    );
+
+    $this->runImport();
+  }
+
+  // FUEL GRILLS */
+  public function fuelgrills() {
+    $this->brandName = "FUEL Grills";
+    $this->brandID = 169;
+    $this->csvFile = "fuelgrills.csv";
+
+    $this->groupMap = array(
+      'Fuel Grills'=>12
+    );
+
+    $this->runImport();
+  }
+
+
+  /* THE ACTUAL IMPORT */
+
+  public function import() {
+    if($this->request->getVars("brand")) {
+      echo("Jup");
+      $brand = $_GET("brand");
+      // echo($brand);
+      // $this->csvFile = $brand . ".csv";
+      // $this->$brand();
+    }
+    return false;
+  }
+
   function runImport() {
     
     /* AUTOMATIC */
     echo("<p>".$this->brandName." with BrandID ".$this->brandID."</p>");
 
     if($items = readCSV($this->csvFile)) {
-      print_r("<p>Found <strong>".sizeof($items)."</strong> items.<br/>");
+      print_r("<p>Found <strong>".sizeof($items)."</strong> items.\n");
 
       // HEADER TEXT
       if(isset($_GET['import'])) {
@@ -252,14 +386,14 @@ class LoadProduct_Controller extends Page_Controller {
       // END HEADER TEXT
 
       $items = array_slice($items,$this->start,$this->length);
-      echo("Items $this->start through $this->length<br/>");
-      echo("<h3>Item list</h3>");
+      echo("Items $this->start through $this->length\n");
+      echo("\n\n---------------Item list\n");
       $categories = array();
 
       foreach($items as $item) {
         if($this->count++ < $this->limit) {
           // print_r($item);
-          echo($this->count.". ".$item["title"]."<br/>");
+          echo($this->count.". ".$item["title"]."\n");
           $categories[] = $item["category"];
           if(isset($_GET['import'])) {
             $this->addProduct($item);
@@ -272,10 +406,10 @@ class LoadProduct_Controller extends Page_Controller {
           }
         }
       }
-      echo("<h3>Unique Product Groups marked by Vendor</h3>");
+      echo("\n\n----------Unique Product Groups marked by Vendor\n");
       $unique_categories= array_unique($categories);
       foreach($unique_categories as $uc) {
-        echo($uc."<br/>");
+        echo($uc."\n");
       }
       
     };
@@ -285,7 +419,9 @@ class LoadProduct_Controller extends Page_Controller {
 
   function updateProduct($item) {
     $title = $item["title"];
-    $p = DataObject::get("Product","Title='".mysql_escape_string($title)."'");
+    $part_number = $item["part_number"];
+    $brandID = $item["brandid"] ? $item["brandid"] : $this->brandID;
+    $p = DataObject::get_one("Product","Title='".$title."' AND PartNumber = '".$part_number."' AND BrandID = ". $brandID);
     if($p) {
       $p->Content = $item["description"];
       $p->Price = $item["price"];
@@ -297,35 +433,37 @@ class LoadProduct_Controller extends Page_Controller {
       $p->MakeText = $item["make"];
       $p->ModelText = $item["model"];
       $p->ModelYears = $item["model_years"];
-      $p->BrandID = $this->brandID;
+      $p->BrandID = $brandID;
       $p->OriginalURL = $item["_pageUrl"];
-      $p->PartNumber = $item["part_number"];
+      $p->PartNumber = $part_number;
 
       if(isset($this->groupMap[$item["category"]])) {
         $categoryID = $this->groupMap[$item["category"]];
-        echo("> Adding to category ".$categoryID."<br/>");
+        echo("> Adding to category ".$categoryID."\n");
         $p->CategoryID = $categoryID;
       }
       $p->write();
     }
     else {
-      echo("Product not found.<br/>");
+      echo("Product not found.\n");
     }
   }
 
   function addProduct($item) {
     $title = $item["title"];
-    $p = DataObject::get("Product","Title='".mysql_escape_string($title)."'");
-    echo("<b>".$item['title']."</b><br/>");
+    $part_number = $item["part_number"];
+    $brandID = $item["brandid"] ? $item["brandid"] : $this->brandID;
+    $p = DataObject::get_one("Product","Title='".$title."' AND PartNumber = '".$part_number."' AND BrandID = ".$brandID);
+    echo("<b>".$item['title']."</b>\n");
     
-    if($p->count()>1) {
-      echo("> Product already exists - will update.<br/>");
-      $p = $p->first();
+    if($p) {
+      echo("> Product already exists - will update.\n");
     }
     else {
-      echo("> New product.<br/>");
+      echo("> New product.\n");
       $p = new Product();
       $p->Title = $title;
+      $p->PartNumber = $item["part_number"];
     }
     $p->Content = $item["description"];
     $p->Price = $item["price"];
@@ -337,13 +475,12 @@ class LoadProduct_Controller extends Page_Controller {
     $p->MakeText = $item["make"];
     $p->ModelText = $item["model"];
     $p->ModelYears = $item["model_years"];
-    $p->BrandID = $this->brandID;
+    $p->BrandID = $brandID;
     $p->OriginalURL = $item["_pageUrl"];
-    $p->PartNumber = $item["part_number"];
 
     if(isset($this->groupMap[$item["category"]])) {
       $categoryID = $this->groupMap[$item["category"]];
-      echo("> Adding to category ".$categoryID."<br/>");
+      echo("> Adding to category ".$categoryID."\n");
       $p->CategoryID = $categoryID;
     }
 
@@ -380,13 +517,13 @@ class LoadProduct_Controller extends Page_Controller {
   function saveImage($imageURL, $item, $productID, $n = 0) {
 
     if(!$productID) { return false; }
-    if(strtolower(get_file_extension($imageURL))!="jpg") { return false; } 
+    $image_extension = ".jpg";
+    if(strtolower(get_file_extension($imageURL))=="png") { $image_extension = ".png"; } 
     
     global $dir;
 
-    $image_extension = ".jpg";
-    $brandTag = implode("", explode(" ",$this->brand->Title));
-    $part_no = $item["part_number"] ? $item["part_number"] : $item["_num"];
+    $brandTag = implode("", explode(" ",$this->brandName));
+    $part_no = $item["part_number"] ? implode("-", explode("/", $item["part_number"])) : $item["_num"];
     $image_base = $brandTag."_".$part_no."_".$n;
 
     $imageName = $image_base . $image_extension;
@@ -406,22 +543,22 @@ class LoadProduct_Controller extends Page_Controller {
         // $imageObject->Name = $imageName; //this function also sets the images Filename and title in a round about way. (see setName() in File.php)
         $imageObject->OwnerID = 0; //(Member::currentUser() ? Member::currentUser()->ID : 0); //assign current user as Owner
         $imageObject->write(); //write the object to the database
-        echo(">> Saved image $imageURL with ID $imageObjectID<br/>");
+        echo("-> Saved image $imageURL with ID ".$imageObject->ID."\n");
       }
       else {
-        echo(">> Image $imageName exists with ID ".$imageObject->ID."<br/>");
+        echo("-> Image $imageName exists with ID ".$imageObject->ID."\n");
       }
 
       $pi = DataObject::get_one("ProductImage","ImageID = ".$imageObject->ID);
       if($pi) {
-        echo(">> Image already attached to product {$productID}.<br/>");
+        echo("--> Image already attached to product {$productID}.\n");
       }
       else {
         $pi = new ProductImage();
         $pi->ImageID = $imageObject->ID;
         $pi->ProductID = $productID;
         $pi->write();  
-        echo("Attached ProductImage with ID ".$pi->ID." to Product ".$productID."<br/>");
+        echo("Attached ProductImage with ID ".$pi->ID." to Product ".$productID."\n");
       }
 
       return $pi;

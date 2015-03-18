@@ -56,7 +56,7 @@
             <% else %>
               <p><a href="#" class="button radius"><strong>Request</strong> a quote</a></p>
             <% end_if %>
-            <div class="textcontent moretext">$Content</div>
+            <div class="textcontent moretext"><p>$Content</p></div>
             <hr />
             <h3>Interested in <strong>$Title</strong>?</h3>
             <p>
