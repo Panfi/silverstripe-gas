@@ -175,6 +175,9 @@ class Brand_Controller extends Page_Controller {
 	}
 	
 	public function Link($action = null, $id = null) {
+		if($c = $this->getCurrentBrand()) {
+			return $c->Link();
+		}
 		$category = $this->request->param('CategoryID');
 		$id = $this->request->param('ID');
 		$l = Controller::join_links(self::URLSegment, $id, $category);
@@ -228,6 +231,11 @@ class Brand_Controller extends Page_Controller {
 				}
 				if($this->request->requestVar("isDev")) {
 					echo($where);
+				}
+
+				if($this->request->requestVar("group") && $this->request->requestVar("group")!="" ) {
+					$group = urldecode($this->request->requestVar("group"));
+					$where.=" AND ProductGroup='$group'";
 				}
 
 				$this->productQuery = $where;
@@ -296,6 +304,15 @@ class Brand_Controller extends Page_Controller {
 		}
 		return $p;
 	}
+
+	public function FilterTitle() {
+		if($this->request->requestVar("group") && $this->request->requestVar("group")!="" ) {
+				return urldecode($this->request->requestVar("group"));
+		}
+		else {
+			return "Filter";
+		}
+	}
 	
 	public function Brands() {
 		if(($c=(int)$this->request->getVar('Category')) && $c>0 ) {
@@ -327,6 +344,27 @@ class Brand_Controller extends Page_Controller {
 			return $cat;
 		}
 	}
+
+	public function ProductGroups() {
+		$brand = $this->getCurrentBrand();
+		if($brand) {
+			$sqlQuery = new SQLQuery("ProductGroup","Product","BrandID=".$brand->ID);
+			$sqlQuery->setDistinct(true);
+			$result = $sqlQuery->execute();
+			//$productGroups = $brand->Products->Column("ProductGroup")->
+			$returnedRecords = new ArrayList();
+			if(count($result)>0) {
+				foreach($result as $row) {
+					if($row["ProductGroup"]!="") {
+						$row["Link"] = $this->Link()."?group=".urlencode($row["ProductGroup"]);
+				    $returnedRecords->push(new ArrayData($row)); 
+				  }
+				}
+				return $returnedRecords;
+			}
+			return false;
+		}
+	}
 	
 	public function ProductSearchForm() {
       // Create fields
@@ -345,8 +383,6 @@ class Brand_Controller extends Page_Controller {
   public function SearchTerm() {
   	return $this->request->requestVar("q");
   }
-
-
 	// public function Products() {
 	// 	$c = Product::get();
 	// 	return $c;

@@ -151,7 +151,7 @@ class Product extends DataObject {
     if($this->Image()) {
       $i = $this->Image()->Image();
       if($i) {
-        return $i->CroppedImage($width,$width)->URL;
+        return $i->PaddedImage($width,$width)->URL;
       }
     }
     else {

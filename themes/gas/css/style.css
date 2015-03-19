@@ -34,6 +34,10 @@ p strong {
 .button {
 	text-transform: uppercase;
 }
+.button-white {
+  background: #FFF;
+  color: #444;
+}
 .right-align {
   text-align: right;
 }
@@ -1402,11 +1406,21 @@ button:focus {
 	}
 }
 
+/* BRANDS */
+
 .BrandView .heading {
 	margin-bottom: 0 !important;
 }
 .BrandView .heading .sharetext {
   margin-top: 10px;
+}
+
+.filter-dropdown {
+  display: inline-block;
+  clear: none !important;
+}
+.filter-dropdown-inner li {
+  text-align: left !important;
 }
 
 

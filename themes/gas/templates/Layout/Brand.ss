@@ -55,10 +55,20 @@
 				</div>
 				<div class="large-4 columns text-right result-count">
 						<% if Products %>
-							<% with $Products %>
-						  	<p>Found <strong>$Count</strong> items. Page <strong>$CurrentPage</strong> of <strong>$TotalPages</strong></p>
-						  <% end_with %>
-						<% end_if %>
+						<p><i class="icon-target icon"></i> <strong>$Products.Count</strong> <span>( <strong>$Products.CurrentPage</strong> / <strong>$Products.TotalPages</strong> )</span>
+						  <% if ProductGroups %>
+					  		<span class="dropdown-wrap filter-dropdown">
+									<a href="#" data-dropdown="drop1" class="button button-white small round">$FilterTitle <i class=" icon-down-open"></i></a>
+									<ul id="drop1" class="f-dropdown filter-dropdown-inner" data-dropdown-content>
+										<% loop ProductGroups %>
+											<li><a href="$Link">{$ProductGroup}</a></li>
+										<% end_loop %>
+										<li><a href="$Link">-- SHOW ALL --</a></li>
+									</ul>
+								</span>
+							<% end_if %>
+						</p>
+					<% end_if %>
 				</div>
 			</div>
 

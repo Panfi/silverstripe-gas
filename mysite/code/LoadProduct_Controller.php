@@ -347,7 +347,13 @@ class LoadProduct_Controller extends Page_Controller {
     $this->csvFile = "fuelgrills.csv";
 
     $this->groupMap = array(
-      'Fuel Grills'=>12
+      'GMC Fuel Grills'=>12,
+      'Jeep Fuel Grills'=>12,
+      'Nissan Fuel Grilles'=>12,
+      'Chevrolet Fuel Grills'=>12,
+      'Dodge Fuel Grills'=>12,
+      'Ford Fuel Grills'=>12,
+      'Toyota Fuel Grills'=>12
     );
 
     $this->runImport();
