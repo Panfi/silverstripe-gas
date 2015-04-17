@@ -68,7 +68,9 @@ class LoadProduct_Controller extends Page_Controller {
       $groupMap,
       $count,
       $start,
-      $limit;
+      $limit,
+      $variationsEnabled,
+      $defaultImageExtension;
 
   private static $allowed_actions = array (
     'index',
@@ -83,7 +85,15 @@ class LoadProduct_Controller extends Page_Controller {
     'hr',
     'shelby',
     'mhtwheels',
-    'fuelgrills'
+    'fuelgrills',
+    'borla',
+    'fordracing',
+    'tsw',
+    'whipple',
+    'bassani',
+    'kn',
+    'magnaflow',
+    'tdcarbon'
   );
   
   public function init() {
@@ -104,7 +114,7 @@ class LoadProduct_Controller extends Page_Controller {
       $this->limit = $_GET['limit'];
     }
     else {
-      $this->limit = 9999;
+      $this->limit = 99999;
     }
 
     parent::init();
@@ -359,6 +369,196 @@ class LoadProduct_Controller extends Page_Controller {
     $this->runImport();
   }
 
+  // BORLA */
+  public function borla() {
+    $this->brandName = "Borla";
+    $this->brandID = 17;
+    $this->csvFile = "borla.csv";
+
+    $this->groupMap = array(
+      'Cat-Back™ Exhaust'=>12,
+      'Header/Manifold-Back Exhaust'=>12,
+      'Headers'=>12,
+      'Muffler'=>12,
+      'Polished Tips'=>12,
+      'Rear Section Exhaust'=>12,
+      'X-Pipes, Mid-Pipes, & Down-Pipes'=>12
+    );
+
+    $this->runImport();
+  }
+
+  // FORD RACING */
+  public function fordracing() {
+    $this->brandName = "Ford Racing";
+    $this->brandID = 26;
+    $this->csvFile = "fordracing.csv";
+
+    $this->groupMap = array(
+      'Appearance: Decals/Graphics'=>18,
+      'Appearance: Trim'=>14,
+      'Body: Functional'=>12,
+      'Chassis: Brake Kits / Components'=>14,
+      'Chassis: Control Arms / Stabilizers'=>14,
+      'Chassis: Handling Packs'=>14,
+      'Chassis: Shocks / Adj Suspension'=>14,
+      'Chassis: Springs'=>14,
+      'Chassis: Steering Systems'=>14,
+      'Chassis: Wheels'=>13,
+      'D-Line: Automatic Transmission'=>14,
+      'D-Line: Axle Components'=>14,
+      'D-Line: Axle Shafts'=>14,
+      'D-Line: Clutch Related'=>14,
+      'D-Line: Differentials'=>14,
+      'D-Line: Drive Shafts'=>14,
+      'D-Line: Manual Trans'=>14,
+      'D-Line: Ring & Pinion'=>14,
+      'D-Line: Shifters'=>14,
+      'Electrical: Air Metering'=>16,
+      'Electrical: Analyzers / Calibrators'=>16,
+      'Electrical: Driving Lights'=>16,
+      'Electrical: Fuel Metering'=>16,
+      'Electrical: Gauges'=>16,
+      'Electrical: Ignition Related'=>16,
+      'Electrical: Microprocessors'=>16,
+      'Electrical: Wiring'=>16,
+      'Engine: Air Cleaner'=>14,
+      'Engine: Cam/Tappets/Pushrods'=>14,
+      'Engine: Complete Engines'=>14,
+      'Engine: Cooling'=>14,
+      'Engine: Crankshafts'=>14,
+      'Engine: Cylinder Heads'=>14,
+      'Engine: Dress-Up Kits'=>12,
+      'Engine: Engine Blocks'=>14,
+      'Engine: Exhaust Related'=>14,
+      'Engine: Fasteners'=>14,
+      'Engine: Flywheels'=>14,
+      'Engine: Fuel Delivery'=>14,
+      'Engine: Gaskets'=>14,
+      'Engine: Intake Related'=>14,
+      'Engine: Oil Pumps/Pans'=>14,
+      'Engine: Power Packs'=>14,
+      'Engine: Superchargers'=>14,
+      'Engine: Timing Drive Related'=>14,
+      'Engine: Valve Covers'=>14,
+      'Engine: Valves / Springs'=>14,
+      'Seats'=>15,
+      'Tools: Fender Covers'=>12,
+      'Vehicle: Ford Racing'=>14
+    );
+
+    $this->runImport();
+  }
+
+
+  /* MAGNAFLOW */
+
+  public function magnaflow() {
+    $this->brandName = "Magnaflow";
+    $this->brandID = 39;
+    $this->csvFile = "magnaflow.csv";
+
+    $this->variationsEnabled = true;
+
+    $this->groupMap = array(
+      "Performance Exhaust"=>14,
+      "Black Series Mufflers with Tips"=>14,
+      "Glass Pack"=>14,
+      "Polished Stainless Steel Mufflers"=>14,
+      "Polished Stainless Steel Mufflers With Tips"=>14,
+      "Race/Specialty Series"=>14,
+      "Satin Stainless Steel Mufflers"=>14,
+      "XL Mufflers"=>14
+    );
+    $this->runImport();
+  }
+
+   public function kn() {
+    $this->brandName = "KN Filters";
+    $this->brandID = 35;
+    $this->csvFile = "kn.csv";
+
+    $this->variationsEnabled = true;
+
+    $this->groupMap = array(
+      'Air Filters - Automotive' => 14,
+      'Air Filters - SUV' => 14,
+      'Air Filters - Van' => 14,
+      'Air Filters - Truck' => 14
+    );
+    $this->runImport();
+  }
+
+
+   public function tdcarbon() {
+    $this->brandName = "3D Carbon";
+    $this->brandID = 7;
+    $this->csvFile = "3dcarbon.csv";
+    $this->variationsEnabled = true;
+    $this->groupMap = array(
+      "Style Kits" => 12
+    );
+    $this->runImport();
+  }
+
+  public function whipple() {
+    $this->brandName = "Whipple";
+    $this->brandID = 119;
+    $this->csvFile = "whipple.csv";
+
+    $this->groupMap = array(
+    );
+    $this->runImport();
+  }
+
+  public function tsw() {
+    $this->brandName = "TSW";
+    $this->brandID = 170;
+    $this->csvFile = "tsw.csv";
+
+    $this->groupMap = array(
+        "Alloy Wheels" => 13
+    );
+    $this->runImport();
+  }
+
+   public function pirelli() {
+    $this->brandName = "Pirelli";
+    $this->brandID = 48;
+    $this->csvFile = "pirelli.csv";
+
+    $this->defaultImageExtension = ".png";
+    $this->groupMap = array(
+      "Tires" => 13
+    );
+    $this->runImport();
+  }
+
+   public function bassani() {
+    $this->brandName = "Bassani";
+    $this->brandID = 15;
+    $this->csvFile = "bassani.csv";
+
+    $this->groupMap = array(
+        "Accessories"=>14,
+        "Aft-Cat System"=>14,
+        "X-Y Crossover / Mid Pipes"=>14,
+        "Mufflers"=>14,
+        "Headers"=>14
+    );
+    $this->runImport();
+  }
+
+  //  public function magnaflow() {
+  //   $this->brandName = "";
+  //   $this->brandID = ;
+  //   $this->csvFile = ".csv";
+
+  //   $this->groupMap = array(
+  //   );
+  //   $this->runImport();
+  // }
+
 
   /* THE ACTUAL IMPORT */
 
@@ -385,6 +585,9 @@ class LoadProduct_Controller extends Page_Controller {
       if(isset($_GET['import'])) {
         echo("Import enabled.");
       }
+      else if(isset($_GET['update'])) {
+        echo("Update.");
+      }
       else {
         echo("Preview only, no import.");
       }
@@ -400,6 +603,7 @@ class LoadProduct_Controller extends Page_Controller {
         if($this->count++ < $this->limit) {
           // print_r($item);
           echo($this->count.". ".$item["title"]."\n");
+          echo($item["main_image"]."\n");
           $categories[] = $item["category"];
           if(isset($_GET['import'])) {
             $this->addProduct($item);
@@ -423,11 +627,134 @@ class LoadProduct_Controller extends Page_Controller {
 
   }
 
+  function addProduct($item) {
+    $title = str_replace("'","\'",$item["title"]);
+    $part_number = $item["part_number"];
+    $brandID = isset($item["brandid"]) ? $item["brandid"] : $this->brandID;
+    $wherefilter = "Title='".$title."' AND BrandID = ".$brandID;
+    if($part_number!="") {
+      $wherefilter = $wherefilter." AND PartNumber = '".$part_number."'";
+    }
+    $p = DataObject::get_one("Product",$wherefilter);
+    echo("<b>".$item['title']."</b>\n");
+    
+    if($p) {
+      echo("> Product already exists - will update.\n");
+    }
+    else {
+      echo("> New product.\n");
+      $p = new Product();
+      $p->Title = $title;
+      $p->PartNumber = $item["part_number"];
+    }
+    
+    $p->Content = $item["description"];
+    $p->Price = $item["price"];
+    $p->ProductGroup = $item["category"];
+    // OPTIONAL 2ND SUB CATEGORY
+    if(isset($item["category2"])) {
+      $p->ProductGroup2 = $item["category2"];
+    }
+    $p->MakeText = $item["make"];
+    $p->ModelText = $item["model"];
+    $p->ModelYears = $item["model_years"];
+    if(isset($item["extra"])) {
+      $p->ExtraText = $item["extra"];
+    }
+    $p->BrandID = $brandID;
+    $p->OriginalURL = $item["_pageUrl"];
+
+    if(isset($this->groupMap[$item["category"]])) {
+      $categoryID = $this->groupMap[$item["category"]];
+      echo("> Adding to category ".$categoryID."\n");
+      $p->CategoryID = $categoryID;
+    }
+
+    if($this->variationsEnabled) {
+
+      if($item["is_variation"]=="N") {
+        $p->write();
+
+        if(isset($item["main_image"])) {
+          $pi = $this->saveImage($item["main_image"], $item, $p->ID,  0);
+          // if($pi) {
+          //   $p->Images()->add($pi);
+          // }
+        }
+        if(isset($item["images"])) {
+          echo("Product has images.</br>");
+          $images = explode(";",$item["images"]);
+          if(count($images)>0) {
+            for($i=0;$i<count($images);$i++) {
+              // echo($images[$i]);
+              $this->saveImage($images[$i], $item, $p->ID, $i+1);
+            }
+          }
+          else {
+            $clean =implode("", explode(" ",$item["images"]));
+            echo("***".$clean."***");
+            echo("***".$clean."***");
+            $this->saveImage($clean, $item, $p->ID, $i+1);
+          }
+        }
+      }
+      elseif($item["is_variation"]=="Y") {
+        echo("Variation here!\n");
+        $v = new ProductVariation();
+        $v->Title = $item["variation_title"];
+        if(isset($item["variation_description"])) {
+          $v->Description = $item["variation_description"];
+        }
+        $v->Year = $item["model_years"];
+        $v->ModelText = $item["variation_model"];
+        $v->MakeText = $item["make"];
+        $v->VersionText = $item["variation_version"];
+        $v->Extra = $item["variation_extra"];
+        $v->PartNumber = $item["variation_part_number"];
+        $v->ProductID = $p->ID;
+        $v->VariationPrice = $item["price"];
+        $v->write();
+        echo("Variation added.\n");
+      }
+    }
+    else {
+
+      $p->write();
+
+      if(isset($item["main_image"])) {
+        $pi = $this->saveImage($item["main_image"], $item, $p->ID,  0);
+        // if($pi) {
+        //   $p->Images()->add($pi);
+        // }
+      }
+      if(isset($item["images"])) {
+        echo("Product has images.</br>");
+        $images = explode(";",$item["images"]);
+        if(count($images)>0) {
+          for($i=0;$i<count($images);$i++) {
+            // echo($images[$i]);
+            $this->saveImage($images[$i], $item, $p->ID, $i+1);
+          }
+        }
+        else {
+          $clean =implode("", explode(" ",$item["images"]));
+          echo("***".$clean."***");
+          echo("***".$clean."***");
+          $this->saveImage($clean, $item, $p->ID, $i+1);
+        }
+      } 
+    }
+
+    // $p->write();
+    //echo($item["image"]);
+  }
+
   function updateProduct($item) {
     $title = $item["title"];
+    $title = str_replace("'","\'",$item["title"]);
     $part_number = $item["part_number"];
-    $brandID = $item["brandid"] ? $item["brandid"] : $this->brandID;
-    $p = DataObject::get_one("Product","Title='".$title."' AND PartNumber = '".$part_number."' AND BrandID = ". $brandID);
+    $brandID = isset($item["brandid"]) ? $item["brandid"] : $this->brandID;
+    $p = DataObject::get_one("Product","Title='".$title."' AND BrandID = ". $brandID ." AND PartNumber = '".$part_number."'"); 
     if($p) {
       $p->Content = $item["description"];
       $p->Price = $item["price"];
@@ -439,6 +766,7 @@ class LoadProduct_Controller extends Page_Controller {
       $p->MakeText = $item["make"];
       $p->ModelText = $item["model"];
       $p->ModelYears = $item["model_years"];
+      $p->ExtraText = $item["extra"];
       $p->BrandID = $brandID;
       $p->OriginalURL = $item["_pageUrl"];
       $p->PartNumber = $part_number;
@@ -455,75 +783,13 @@ class LoadProduct_Controller extends Page_Controller {
     }
   }
 
-  function addProduct($item) {
-    $title = $item["title"];
-    $part_number = $item["part_number"];
-    $brandID = $item["brandid"] ? $item["brandid"] : $this->brandID;
-    $p = DataObject::get_one("Product","Title='".$title."' AND PartNumber = '".$part_number."' AND BrandID = ".$brandID);
-    echo("<b>".$item['title']."</b>\n");
-    
-    if($p) {
-      echo("> Product already exists - will update.\n");
-    }
-    else {
-      echo("> New product.\n");
-      $p = new Product();
-      $p->Title = $title;
-      $p->PartNumber = $item["part_number"];
-    }
-    $p->Content = $item["description"];
-    $p->Price = $item["price"];
-    $p->ProductGroup = $item["category"];
-    // OPTIONAL 2ND SUB CATEGORY
-    if(isset($item["category2"])) {
-      $p->ProductGroup2 = $item["category2"];
-    }
-    $p->MakeText = $item["make"];
-    $p->ModelText = $item["model"];
-    $p->ModelYears = $item["model_years"];
-    $p->BrandID = $brandID;
-    $p->OriginalURL = $item["_pageUrl"];
-
-    if(isset($this->groupMap[$item["category"]])) {
-      $categoryID = $this->groupMap[$item["category"]];
-      echo("> Adding to category ".$categoryID."\n");
-      $p->CategoryID = $categoryID;
-    }
-
-    $p->write();
-
-
-    if(isset($item["main_image"])) {
-      $pi = $this->saveImage($item["main_image"], $item, $p->ID,  0);
-      // if($pi) {
-      //   $p->Images()->add($pi);
-      // }
-    }
-    if(isset($item["images"])) {
-      echo("Product has images.</br>");
-      $images = explode(";",$item["images"]);
-      if(count($images)>0) {
-        for($i=0;$i<count($images);$i++) {
-          // echo($images[$i]);
-          $this->saveImage($images[$i], $item, $p->ID, $i+1);
-        }
-      }
-      else {
-        $clean =implode("", explode(" ",$item["images"]));
-        echo("***".$clean."***");
-        echo("***".$clean."***");
-        $this->saveImage($clean, $item, $p->ID, $i+1);
-      }
-    }
-
-    // $p->write();
-    //echo($item["image"]);
-  }
 
   function saveImage($imageURL, $item, $productID, $n = 0) {
 
     if(!$productID) { return false; }
-    $image_extension = ".jpg";
+    // if(strpos($imageURL, "_th")) { return false; }
+
+    $image_extension = $this->defaultImageExtension ? $this->defaultImageExtension : ".jpg";
     if(strtolower(get_file_extension($imageURL))=="png") { $image_extension = ".png"; } 
     
     global $dir;
@@ -555,7 +821,7 @@ class LoadProduct_Controller extends Page_Controller {
         echo("-> Image $imageName exists with ID ".$imageObject->ID."\n");
       }
 
-      $pi = DataObject::get_one("ProductImage","ImageID = ".$imageObject->ID);
+      $pi = DataObject::get_one("ProductImage","ImageID = ".$imageObject->ID." AND ProductID=".$productID);
       if($pi) {
         echo("--> Image already attached to product {$productID}.\n");
       }

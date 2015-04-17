@@ -37,6 +37,7 @@ silverstripe-cache
 .Trashes
 ehthumbs.db
 Thumbs.db
+.esproj
 
 # SILVERSTRIPE Specifics #
 ##########################

@@ -74,71 +74,17 @@
 		<% include Updates %>
 		<% include Footer %>
 	</div>
-	<% include AddThis %>
 
 </div>
 
 <% include ContactModal %>
 	
+$ExtraJavascript
 
-	<!-- <script>
-	document.write('<script src=' +
-	('__proto__' in {} ? 'mysite/foundation/js/vendor/zepto' : 'mysite/foundation/js/vendor/jquery') +
-	'.js><\/script>')
-	</script> -->
-	
-	<!-- <script src="mysite/zozotabs/js/zozo.tabs.min.js"></script> -->
-	$ExtraJavascript
-	<!-- <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script> -->
-	<!-- <script src="mysite/foundation/js/foundation.min.js"></script> -->
-	<!--
-	
-	<script src="js/foundation/foundation.js"></script>
-	
-	<script src="js/foundation/foundation.abide.js"></script>
-	
-	<script src="js/foundation/foundation.dropdown.js"></script>
-	
-	<script src="js/foundation/foundation.placeholder.js"></script>
-	
-	<script src="js/foundation/foundation.forms.js"></script>
-	
-	<script src="js/foundation/foundation.alerts.js"></script>
-	
-	<script src="js/foundation/foundation.magellan.js"></script>
-	
-	<script src="js/foundation/foundation.reveal.js"></script>
-	
-	<script src="js/foundation/foundation.tooltips.js"></script>
-	
-	<script src="js/foundation/foundation.orbit.js"></script>
-	
-	<script src="js/foundation/foundation.section.js"></script>
-	
-	<script src="js/foundation/foundation.topbar.js"></script>
-	
-	-->
-	<!-- <script type="text/javascript">
-	    less = {
-	        env: "development", // or "production"
-	        async: false,       // load imports async
-	        fileAsync: false,   // load imports async when in a page under
-	                            // a file protocol
-	        poll: 1000,         // when in watch mode, time in ms between polls
-	        functions: {},      // user functions, keyed by name
-	        dumpLineNumbers: "comments", // or "mediaQuery" or "all"
-	        relativeUrls: false,// whether to adjust url's to be relative
-	                            // if false, url's are already relative to the
-	                            // entry less file
-	        rootpath: ":/gas/"// a path to add on to the start of every url
-	                            //resource
-	    };
-	    less.watch();
-	</script> -->
-	<script>
-	  $(document).foundation();
-	  <% include GoogleAnalytics %>
-	</script>
+<script>
+  <% include GoogleAnalytics %>
+  <% include AddThis %>
+</script>
   	
 </body>
 </html>

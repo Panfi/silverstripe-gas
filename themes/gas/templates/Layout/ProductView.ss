@@ -48,8 +48,8 @@
             <h2>$Title</h2>
             <!-- <% with Brand %><p><a href="$Item.Brand.Link"><img src="$Image.CroppedImage(50,50).URL" alt="$Title.XML" /> $Title</a></p><% end_with %> -->
             <% if ProductCode %><h4>$ProductCode</h4><% end_if %>
-            <% if AvailableSizes %>
-              <p class="additional">Available sizes: <strong>$AvailableSizes</strong></p>
+            <% if ExtraText %>
+              <p class="additional">Available sizes: <strong>$ExtraText</strong></p>
             <% end_if %>
             <% if Price>0 %>
               <h3>$Price.Nice</h3>
@@ -58,6 +58,21 @@
             <% end_if %>
             <div class="textcontent moretext"><p>$Content</p></div>
             <hr />
+            <% if ProductVariation %>
+              <div class="textcontent">
+                  
+                  <h3>Available for:</h3>
+                  <ul>
+                  <% loop ProductVariation %>
+                    <li><% if Title %><h4>$Title</h4><% end_if %>
+                      <% if Year %>$Year - <% end_if %> <% if MakeText %><strong>$MakeText $ModelText</strong><% end_if %> $VersionText
+                      <% if Description %>$Description<% end_if %>
+                    </li>
+                  <% end_loop %>
+                  </ul>
+              </div>
+              <hr/>
+            <% end_if %>
             <h3>Interested in <strong>$Title</strong>?</h3>
             <p>
               <a href="javascript:0;" data-reveal-id="contactModal" class="button radius"><strong>Click here</strong> to find out more</a>

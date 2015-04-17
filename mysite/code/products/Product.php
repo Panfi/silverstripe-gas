@@ -6,7 +6,7 @@ class Product extends DataObject {
     'Title' => 'Varchar(255)',
     'ProductCode' => 'Varchar(255)',
     'PartNumber' => 'Varchar(255)',
-    'AvailableSizes' => 'Varchar(255)',
+    'ExtraText' => 'Varchar(255)',
     'ModelYears' => 'Varchar(512)',
     'MakeText' => 'Varchar(255)',
     'ModelText' => 'Varchar(255)',
@@ -31,7 +31,8 @@ class Product extends DataObject {
   );
   
   private static $has_many = array (
-    'Images' => 'ProductImage'
+    'Images' => 'ProductImage',
+    'ProductVariation' => 'ProductVariation'
   );
 
   private static $defaults = array(
@@ -80,7 +81,7 @@ class Product extends DataObject {
     $fields->addFieldToTab("Root.Images", $photoManager);
   }
 
-  $fields->addFieldToTab("Root.Main", new HtmlEditorField("Content","Description"), "AvailableSizes");
+  $fields->addFieldToTab("Root.Main", new HtmlEditorField("Content","Description"), "ExtraText");
 
   $b = DataObject::get("Brand","1","Title ASC");
   if($b) {

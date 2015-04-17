@@ -348,7 +348,7 @@ class Brand_Controller extends Page_Controller {
 	public function ProductGroups() {
 		$brand = $this->getCurrentBrand();
 		if($brand) {
-			$sqlQuery = new SQLQuery("ProductGroup","Product","BrandID=".$brand->ID);
+			$sqlQuery = new SQLQuery("ProductGroup","Product","BrandID=".$brand->ID,"","ProductGroup ASC");
 			$sqlQuery->setDistinct(true);
 			$result = $sqlQuery->execute();
 			//$productGroups = $brand->Products->Column("ProductGroup")->

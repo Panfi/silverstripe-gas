@@ -1,8 +1,10 @@
 /*!
  *
- *  Copyright (c) David Bushell | http://dbushell.com/
+ *  Copyright (c) Design Collective
  *
  */
+
+$(document).foundation();
 
 var currentNavigation = false,
 	didScroll = false;
