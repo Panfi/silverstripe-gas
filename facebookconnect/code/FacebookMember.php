@@ -20,7 +20,9 @@ class FacebookMember extends DataExtension {
 	);
 	
 	public function updateCMSFields(FieldList $fields) {
-		$fields->makeFieldReadonly('Email');
+    if(!Permission::check("ADMIN")) {
+		  $fields->makeFieldReadonly('Email');
+    }
 		$fields->makeFieldReadonly('FacebookUID');
 		$fields->makeFieldReadonly('FacebookLink');
 		$fields->makeFieldReadonly('FacebookTimezone');
