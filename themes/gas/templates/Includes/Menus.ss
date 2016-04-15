@@ -1,21 +1,27 @@
 <div class="show-for-small hide-for-medium-up mobilemenu">
     <button onClick="toggleLeftNav()" class="left-off-canvas-toggle togglebtn toggleleft"><i class="icon-th-list-1"></i><i class="icon-angle-circled-right"></i></button>
     <button data-reveal-id="contactModal" class="togglebtn togglecenter">CONTACT <i class="icon-phone-circled"></i></button>
+    <button data-reveal-id="subscribeModal" class="togglebtn togglecenter">SUBSCRIBE <i class="icon-mail-alt"></i></button>
     <button onClick="toggleRightNav()" class="right-off-canvas-toggle togglebtn toggleright"><i class="icon-angle-circled-left"></i><i class="icon-th-1"></i></button>
 </div>
 
 <div class="hide-for-small minimenu">
     <button id="menubutton" onClick="toggleLeftNav()" class="left-off-canvas-toggle togglebtn toggleleft" data-dy="178"><span>SITEMAP </span><i class="icon icon-menu"></i></button>
-	<div class="minimenu-inner">
+	<div class="minimenu-inner text-left">
+
 		<a href="./"><i class="icon-home"></i> home </a> &nbsp;
 		<a href="blog"><i class="icon-pencil"></i> blog </a> &nbsp;
 		<a href="specials"><i class="icon-tags"></i> specials </a> &nbsp;
-		<a data-reveal-id="contactModal" class="togglecenter">Contact us <i class="icon-phone-circled"></i></a>
-		Follow us:
-		<a href="https://www.facebook.com/GalpinAutoSports"><i class="icon-facebook-circled"></i></a>
-		<a href="https://twitter.com/galpinautosport"><i class="icon-twitter-circled"></i></a>
-		<a href="http://instagram.com/galpinautosports"><i class="icon-instagram-circled"></i></a>
-		<a href="http://www.youtube.com/galpinautosports"><i class="icon-play-circled-1"></i></a>
+
+        <div class="right">
+            <a data-reveal-id="subscribeModal"><i class="icon-mail-alt"></i> Subscribe</a> &nbsp;
+    		<a data-reveal-id="contactModal" class="togglecenter">Contact us </i></a>
+    		Follow us:
+    		<a href="https://www.facebook.com/GalpinAutoSports"><i class="icon-facebook-circled"></i></a>
+    		<a href="https://twitter.com/galpinautosport"><i class="icon-twitter-circled"></i></a>
+    		<a href="http://instagram.com/galpinautosports"><i class="icon-instagram-circled"></i></a>
+    		<a href="http://www.youtube.com/galpinautosports"><i class="icon-play-circled-1"></i></a>
+        </div>
 	</div>
     <button id="firstStop" onClick="toggleRightNav()" class="right-off-canvas-toggle togglebtn toggleright" data-dy="178"><i class="icon icon-left-open"></i><span> COOL STUFF</span></button>
 </div>

@@ -11,12 +11,12 @@
   <% base_tag %>
   <title>$SiteConfig.Title | <% if MetaTitle %>$MetaTitle<% else %>$Title<% end_if %></title>
   $MetaTags(false)
-  
+
   <!-- Included CSS Files (Uncompressed) -->
   <!--
   <link rel="stylesheet" href="stylesheets/foundation.css">
   -->
-  
+
   <!-- Included CSS Files (Compressed) -->
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="stylesheet" href="mysite/foundation/css/foundation.min.css" />
@@ -28,9 +28,9 @@
   <link rel="image_src" href="$ThumbnailURL" />
   <script src="mysite/foundation/js/vendor/custom.modernizr.js"></script>
   <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-  
+
   <% include Theming %>
-  
+
 </head>
 
 <body class="$ClassName $URLSegment">
@@ -43,11 +43,11 @@
 				<a href="./"><img src="$ThemeDir/images/Logo.png" /></a>
 			</div>
 			<div class="large-4 columns header-center">
-				<div class="tagline">automotive custom shop</div>					
+				<div class="tagline">automotive custom shop</div>
 
 				<form class="searchform" action="search">
 					<i class="icon-search"></i>
-					
+
 					<div class="row">
 					<div class="ui-widget large-12 columns">
 					  <span class="ui-helper-hidden-accessible">&nbsp;</span>
@@ -55,7 +55,7 @@
 					  <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
 					</div>
 					</div>
-				    
+
 				</form>
 
 			</div>
@@ -65,10 +65,10 @@
 			</div>
 		</div>
 	</div>
-		
+
 	<% include TopMenu %>
-		
-	<div class="layout">			
+
+	<div class="layout">
 		$Layout
 		<% include SocialBlock %>
 		<% include Updates %>
@@ -78,13 +78,14 @@
 </div>
 
 <% include ContactModal %>
-	
+<% include SubscribeModal %>
+
 $ExtraJavascript
 
 <script>
   <% include GoogleAnalytics %>
   <% include AddThis %>
 </script>
-  	
+
 </body>
 </html>

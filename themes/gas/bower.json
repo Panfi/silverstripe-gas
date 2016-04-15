@@ -1,0 +1,19 @@
+{
+  "name": "foundation-template",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Klemen <klemen@kinkcreative.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/KINKCreative/silverstripe-gas",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ]
+}

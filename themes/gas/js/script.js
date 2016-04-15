@@ -8,7 +8,7 @@ $(document).foundation();
 
 var currentNavigation = false,
 	didScroll = false;
- 
+
 function toggleLeftNav() {
 	console.log("Left nav toggle");
 	if(currentNavigation!="left") {
@@ -20,7 +20,7 @@ function toggleLeftNav() {
 		$(document.documentElement).removeClass("js-nav-left");
 		// setTimeout(function() {
 		// 	$(".sidenav-left").hide();
-		// }, 800);	
+		// }, 800);
 		currentNavigation = false;
 	}
 }
@@ -49,28 +49,28 @@ $(document).ready(function() {
 
 	console.log("Document ready.");
 	$(document.documentElement).addClass("js-ready");
-	
+
   if($(".moretext")) {
     $(".moretext").readmore({ maxHeight: 200 });
   }
 //	$('.sidenav-right').hide();
 //	$('.sidenav-left').hide();
-		
+
 	//ACTIONS
 	$(".action").removeClass("round").addClass("button").addClass("radius");
 	$(".js-ready #Form_FilterForm .action").hide();
 	// $(".action").addClass("btn-primary");
 	$(".message").addClass("alert-box");
 	$(".message.bad").addClass("alert");
-	
+
 	$(".js-ready .form_submit").click(function() {
 		$(this).parent().parent().find("form").submit();
 	});
-	
+
 	//UNVEIL
 	$("img").unveil(300);
-	
-	
+
+
 	// if($(document).width() > 760) {
 	// 	setInterval(function() {
 	// 		if(didScroll) {
@@ -90,7 +90,7 @@ $(document).ready(function() {
 	// 	//	FIX SCROLL
 	// 	$(window).scroll(function(){
 	// 	 	didScroll=true;
-	// 	}); 
+	// 	});
 	// }
 
 	if($("div.scrollable").length) {
@@ -99,12 +99,12 @@ $(document).ready(function() {
   		"overflow" : "hidden"
   		}).perfectScrollbar();
   }
-	
+
   if($(".searchbox").length) {
   	$( ".searchbox" ).autocomplete({
 
         source: function( request, response ) {
-          
+
           $.ajax({
             url: "search",
             type: "GET",
@@ -129,17 +129,17 @@ $(document).ready(function() {
             "Selected: " + ui.item.link :
             "Nothing selected, input was " + this.value);
           window.location = ui.item.link;
-          
+
         }
       });
     }
 
     if($(".productsearchbox").length) {
-      
+
       $(".productsearchbox" ).autocomplete({
 
         source: function( request, response ) {
-          
+
           var id = this.element.attr('id');
           console.log(id);
           console.log("Brand: "+$(".productsearchform").data("brandid"));
@@ -174,7 +174,7 @@ $(document).ready(function() {
             "Selected: " + ui.item.link :
             "Nothing selected, input was " + this.value);
           window.location = ui.item.link;
-          
+
         }
       }).data("ui-autocomplete")._renderItem = function (ul, item) {
           ul.addClass("product-autocomplete");
@@ -185,13 +185,13 @@ $(document).ready(function() {
              .appendTo(ul);
        };
     }
-    
+
     //$(".expand").hide();
     $(".expand-button").click(function() {
     	$(this).find("i").toggleClass("icon-angle-circled-down").toggleClass("icon-angle-circled-up");
     	$(".expand").slideToggle(500);
     });
-    
+
     $( "html.touch" ).on( "swiperight", function() {
     	if(currentNavigation=="right") {
     		toggleRightNav();
@@ -200,7 +200,7 @@ $(document).ready(function() {
     		toggleLeftNav();
     	}
     });
-    
+
     $( "html.touch" ).on( "swipeleft", function() {
     	if(currentNavigation=="left") {
 			toggleLeftNav();
@@ -209,7 +209,7 @@ $(document).ready(function() {
 			toggleRightNav();
 		}
     });
-    
+
     /* var showChar = 300;
     var morebutton = "<a class='morelink more' href='#'>More<i class='icon-right-open-1'></i></a>";
     var lessbutton = "<a class='morelink less' href='#'>Less<i class='icon-left-open-1'></i></a>";
@@ -225,7 +225,7 @@ $(document).ready(function() {
             $(this).html(html);
         }
     });
- 
+
     $(".morelink").click(function(){
         $(".moretext").toggle();
         $(".morelink").toggle();
@@ -240,7 +240,7 @@ $(document).ready(function() {
         // }
         return false;
     }); */
-    
+
     $(".ProfilePage .profile a").click(function(evt) {
     	evt.preventDefault();
     	$a = $("#profileModal");
@@ -254,16 +254,16 @@ $(document).ready(function() {
     	$("#profileModal").foundation("reveal","open");
     	return false;
     });
-    
+
     /* var clickActionTimeout = null;
-    
+
     function clearClickActionTimeout() {
       if(clickActionTimeout) {
         clearTimeout(clickActionTimeout);
         clickActionTimeout = null;
       }
     }
-    
+
     $elem.click(function(e) {
       e.preventDefault();
       clearClickActionTimeout();
@@ -272,12 +272,12 @@ $(document).ready(function() {
         openPicture();
       }, 200);
     });
-    
+
     $elem.bind('stopdrag', function() {
       clearClickActionTimeout();
     }); */
-    
-    
+
+
  });
 
 
@@ -465,4 +465,5 @@ $(document).ready(function() {
       });
     }
   }
+
 })(jQuery);

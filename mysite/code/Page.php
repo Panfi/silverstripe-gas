@@ -1,6 +1,6 @@
 <?php
 class Page extends SiteTree {
-	
+
 	private static $db = array(
 		'CustomHtml' => 'Text',
 		'Summary' => 'Varchar(500)',
@@ -9,39 +9,39 @@ class Page extends SiteTree {
 		'ActionButtonLink' => 'Varchar(255)',
 		'ActionEnabled' => 'Boolean'
 	);
-	
+
 	private static $has_one = array(
 		'Sections' => 'WidgetArea',
 		'Image' => "Image",
 		'ActionImage' => 'Image'
 	);
-	
+
 	private static $has_many = array(
 		'Images' => 'PageImage'
 	);
-	
+
 	function getCMSFields() {
 	    $fields = parent::getCMSFields();
 //	    $fields->removeByName('MetaTitle');
 //	    $fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("Sections"));
 
-	 	if(!Permission::check('ADMIN')){ 
-	 		$fields->removeByName(_t('SiteTree.TABTODO')); 
+	 	if(!Permission::check('ADMIN')){
+	 		$fields->removeByName(_t('SiteTree.TABTODO'));
 	 		$fields->removeByName(_t('SiteTree.TABBEHAVIOUR'));
 	 		$fields->removeByName('Access');
 	 		$fields->removeByName('Google Sitemap');
 	 	}
-	 	
-	 	$gridFieldConfig = GridFieldConfig_RecordEditor::create(); 
+
+	 	$gridFieldConfig = GridFieldConfig_RecordEditor::create();
 		$gridFieldConfig->addComponent(new GridFieldBulkManager());
-		$gridFieldConfig->addComponent(new GridFieldBulkUpload());   
-    $gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));    
+		$gridFieldConfig->addComponent(new GridFieldBulkUpload());
+    $gridFieldConfig->addComponent(new GridFieldSortableRows('SortOrder'));
     $gridFieldConfig->getComponentByType('GridFieldBulkUpload')
       ->setUfSetup('setFolderName', 'images')
       ->setUfConfig('sequentialUploads', true);
 
 		$photoManager = new GridField("Images", "Images", $this->Images()->sort("SortOrder"), $gridFieldConfig);
-	 	
+
 //	 	$photoManager = new ImageDataObjectManager(
 //	 		$this, // Controller
 //	 		'Images', // Source name
@@ -49,46 +49,46 @@ class Page extends SiteTree {
 //	 		'Image', // File name on DataObject
 //	 		array(
 //	 			'Caption' => 'Name'
-//	 		), // Headings 
+//	 		), // Headings
 //	 		'getCMSFields_forPopup' // Detail fields (function name or FieldSet object)
 	 		// Filter clause
 	 		// Sort clause
 	 		// Join clause
 //	 	);
 //	 	$photoManager->setUploadFolder("images/pages");
-	 	
+
 	 	$fields->removeByName('Content.Content');
 	 	$fields->addFieldToTab("Root.Main", new HTMLEditorField("Content","Content",15));
-	 	
+
 	 	$imageField = UploadField::create('Image','Choose main image')->setAllowedFileCategories('image');
-	 	$imageField->setFolderName("images"); 
-	 	
+	 	$imageField->setFolderName("images");
+
 	 	$actionimageField = UploadField::create('ActionImage','Choose action image')->setAllowedFileCategories('image');
-	 	$actionimageField->setFolderName("images/cta"); 
-	 	
+	 	$actionimageField->setFolderName("images/cta");
+
 	 	$fields->addFieldToTab("Root.Images",new HeaderField("ImageNote","Main image",3));
 	 	$fields->addFieldToTab("Root.Images",$imageField);
 	 	$fields->addFieldToTab("Root.Images",new LiteralField("ImageNote2","<br/>"));
 	 	$fields->addFieldToTab("Root.Images",new HeaderField("ImageNote3","Photos / leading images",3));
 	 	$fields->addFieldToTab("Root.Images",$photoManager);
-	 	
+
 	 	$fields->addFieldToTab("Root.CallToAction",new HeaderField("ActionNote","Call to Action",3));
 	 	$fields->addFieldToTab("Root.CallToAction",new CheckboxField("ActionEnabled","Check to enable Call to Action"));
 	 	$fields->addFieldToTab("Root.CallToAction", new HTMLEditorField("ActionText","Enter action text",10));
 	 	$fields->addFieldToTab("Root.CallToAction", new TextField("ActionButtonLabel", "Label on the button"));
 	 	$fields->addFieldToTab("Root.CallToAction", new TextField("ActionButtonLink", "URL of Action button"));
 	 	$fields->addFieldToTab("Root.CallToAction",$actionimageField);
-	 	
+
 	 	$fields->addFieldToTab("Root.Main", new TextareaField("Summary","Enter summary"));
 	 	$fields->addFieldToTab("Root.Main", new TextareaField("CustomHtml","Custom HTML code",4));
-	 	
+
 		return $fields;
 	}
-	
+
 	public function onBeforeWrite () {
 		parent::onBeforeWrite();
 	}
-	
+
     public function IsAdmin() {
       return Permission::check('ADMIN') ? 1 : 0;
      }
@@ -96,11 +96,11 @@ class Page extends SiteTree {
 	public function canDelete($member = null) {
 		return Permission::check('ADMIN');
 	}
-	
+
 	static $api_access = true;
 
 	function ThumbnailURL($width=300) {
-    if($this->Image()) {
+    if($this->Image() && !!$this->Image()->CroppedImage($width,$width)) {
       $i = $this->Image();
       if($i) {
         return $i->CroppedImage($width,$width)->URL;
@@ -110,7 +110,7 @@ class Page extends SiteTree {
       }
     }
   }
-		
+
 }
 class Page_Controller extends ContentController {
 
@@ -141,7 +141,7 @@ class Page_Controller extends ContentController {
 		Requirements::combine_files(
 		    'javascript.js',
 		    array(
-//		    	'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',		    		
+//		    	'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
 			    	'mysite/foundation/js/vendor/custom.modernizr.js',
 			    	'mysite/js/jquery-ui.js',
 			    	'mysite/foundation/js/foundation.min.js',
@@ -153,39 +153,39 @@ class Page_Controller extends ContentController {
 		);
 		parent::init();
 	}
-	    
+
 //	public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false) {
 //			$page = $this;
 //			$parts = array();
 //			$i = 0;
 //			while(
-//				$page  
-//	 			&& (!$maxDepth || sizeof($parts) < $maxDepth) 
+//				$page
+//	 			&& (!$maxDepth || sizeof($parts) < $maxDepth)
 //	 			&& (!$stopAtPageType || $page->ClassName != $stopAtPageType)
 //	 		) {
-//				if($showHidden || $page->ShowInMenus || ($page->ID == $this->ID)) { 
+//				if($showHidden || $page->ShowInMenus || ($page->ID == $this->ID)) {
 //					if($page->URLSegment == 'home') $hasHome = true;
 //					if(($page->ID == $this->ID) || $unlinked) {
-//					
+//
 //						$ttitle=Convert::raw2xml($page->Title);
 //						if(str_word_count($ttitle) > 9) {
 //							$shortened = implode(' ',array_slice(str_word_count($ttitle,1),0,9));
-//							$ttitle= $shortened."...";	
+//							$ttitle= $shortened."...";
 //						}
-//						
+//
 //					 	$parts[] = "<li>".$ttitle."</li>";
 //					} else {
-//						$parts[] = ("<li><a href=\"" . $page->Link() . "\">" . Convert::raw2xml($page->Title) . "</a><span class=\"divider\">/</span></li>"); 
+//						$parts[] = ("<li><a href=\"" . $page->Link() . "\">" . Convert::raw2xml($page->Title) . "</a><span class=\"divider\">/</span></li>");
 //					}
 //				}
 //				$page = $page->Parent;
 //			}
-//	
+//
 //			return implode("", array_reverse($parts));
 //		}
 
 //	public function PrevNextPage($Mode = 'next') {
-//	   
+//
 //	  if($Mode == 'next'){
 //	    $Where = "ParentID = $this->ParentID AND Sort > $this->Sort";
 //	    $Sort = "Sort ASC";
@@ -197,31 +197,31 @@ class Page_Controller extends ContentController {
 //	  else{
 //	    return false;
 //	  }
-//	  
+//
 //	  $dob= DataObject::get("Page", $Where, $Sort, null, 1);
 //	  return $dob ? $dob : false;
-//	     
+//
 //	}
-	
+
 	function Siblings() {
 		if($this->ParentID) {
 		  $whereStatement = "ClassName!='ErrorPage' AND ParentID = ".$this->ParentID;
 		  return DataObject::get("Page", $whereStatement);
 		 }
 	 }
-	 
+
 	 function getMetaTitle() {
 	 	return $this->Title;
 	 }
-	
+
 	public function setMessage($type, $message)
-	   {   
+	   {
 	       Session::set('Message', array(
 	           'MessageType' => $type,
 	           'Message' => $message
 	       ));
 	   }
-	
+
 	public function getMessage(){
 		if($message = Session::get('Message')){
 			Session::clear('Message');
@@ -229,102 +229,100 @@ class Page_Controller extends ContentController {
 			return $array->renderWith('Message');
 		}
 	}
-	
+
 	public function IsAdmin() {
 	  return Permission::check('ADMIN');
 	 }
-	
-	
+
+
 	public function YouTubeID($embedcode) {
 		preg_match('/youtube[.]com\/(v|embed)\/([^"?]+)/', $embedcode, $match);
 		return $match[2];
 	}
-	
+
 	function ThumbnailURL($width=300) {
 		if($this->VideoEmbed) {
 			return "http://img.youtube.com/vi/".singleton("Page_Controller")->YouTubeID($this->VideoEmbed)."/0.jpg";
 		}
-		if($this->ImageID) {
+		if($this->ImageID && $this->Image()->SetWidth($width)) {
 			return $this->Image()->SetWidth($width)->URL;
 		}
-		if($this->Images()->Count()>0) {
+		if($this->Images()->Count()>0 && $this->Images()->First()->Image()->SetWidth($width)) {
 			return $this->Images()->First()->Image()->SetWidth($width)->URL;
 		}
 		return "http://www.placehold.it/300x200&text=No+image";
 	}
-	
+
 	function RandomPages($n=5) {
 		$i = DataObject::get("Page","ImageID > 0","RAND()","",$n);
 		if($i) {
 			return($i);
 		}
 	}
-	
+
 	public function getBrands() {
 		$br = DataObject::get("Brand","ImageID!=0","SortOrder ASC","",18);
 		if($br) {
 			return $br;
 		}
 	}
-	
+
 	public function getColors() {
 		$c = DataObject::get("Color","","SortOrder ASC");
 		if($c) {
 			return $c;
 		}
 	}
-	
+
 	public function getTags() {
 		$t = DataObject::get("Tag","");
 		if($t) {
 			return $t;
 		}
 	}
-	
+
 	public function getRecentSpecials() {
 		$s = DataObject::get("Special","","Created DESC","",5);
 		if($s) {
 			return $s;
 		}
 	}
-	
+
 	public function getRecentArticles() {
 		$s = DataObject::get("Article","","Created DESC","",5);
 		if($s) {
 			return $s;
 		}
 	}
-	
+
 	public function getRecentNews() {
 		$s = DataObject::get("Article","BlogrollID=27","Created DESC","",5);
 		if($s) {
 			return $s;
 		}
 	}
-	
+
 	public function getRecentEvents() {
 		$s = DataObject::get("Article","BlogrollID=48","Created DESC","",5);
 		if($s) {
 			return $s;
 		}
 	}
-	
+
 	public function getInstagram() {
 		$instagram_id = "37926823";
 		$token = INSTAGRAM_ACCESS_TOKEN;
-		
+
 		$instagram = new RestfulService("https://api.instagram.com/v1/users/".$instagram_id."/media/recent", 900);
 		$params = array("access_token" => $token);
 		$instagram->setQueryString($params);
 		$iconn = $instagram->request();
-		
-		$iarray = json_decode($iconn->getBody(), true);		
+
+		$iarray = json_decode($iconn->getBody(), true);
 		$results = ArrayList::create();
-		//print_r($results->First()); //->images->thumbnail->url
 		$count=0;
 		foreach($iarray["data"] as $item) {
 			if($count++<5) {
-				//print_r($item["images"]["thumbnail"]["url"]."<br/>");
 				 $results->push(
 					new ArrayData(
 						array(
@@ -342,87 +340,49 @@ class Page_Controller extends ContentController {
 		}
 		return $results;
 	}
-	
-	public function getTwitter() {
-		$twitter = new RestfulService("https://api.twitter.com/1.1/statuses/user_timeline.json", 900);
-		$twitter->httpHeader('GET /1.1/search/tweets.json? HTTP/1.1');
-		$twitter->httpHeader('Host: api.twitter.com');
-		$twitter->httpHeader( "User-Agent: GalpinAutoSports.com v.1");
-		$twitter->httpHeader('Content-Type: application/x-www-form-urlencoded;charset=UTF-8');
-		$twitter->httpHeader('Authorization: Bearer '.TWITTER_BEARER_TOKEN);
-		
-		$screen_name = "galpinautosport";
 
-		$params = array('screen_name' => $screen_name,"include_entities"=>"true","result_type"=>"mixed","count"=>"1");
-		$twitter->setQueryString($params);
-		$conn = $twitter->request();
-		$tarray = json_decode($conn->getBody(), true);
-//		print_r($tarray);
-				
-		if(isset($tarray[0])) {
-			$t = $tarray[0];
-			//print_r($t);
-			$image="";
-			if(isset($t["entities"]["media"])) {
-				$image = $t["entities"]["media"][0]["media_url"].":thumb";
-			}
-				//print_r($t["entities"]["media"][0]["media_url"]);
-				return new ArrayData(
-					array(
-						'Content' => $t["text"],
-						'ImageURL' => $image,
-						'Link' => "http://twitter.com/".$t["user"]["screen_name"]."/status/".$t["id_str"],
-						'TwitterID' => $t["id_str"]
-					)
-				);
-			//}
-		}
-		return false;
-	}
-	
-	function FacebookPost(){
+	function FacebookPosts(){
 		$fbid = 96140524893;
-		//$token = "1417590485135903|eypxvgf7p65Gk0EdSltGng2bsOY";
-		
-		$facebook = new RestfulService("https://www.facebook.com/feeds/page.php?format=json&id=".$fbid, 900);
-		//$params = array("access_token" => $token, "limit" => 3);
-		//$facebook->setQueryString($params);
+		$token = "1417590485135903|eypxvgf7p65Gk0EdSltGng2bsOY";
+
+		$url = "https://graph.facebook.com/". $fbid . "/feed";
+
+		$facebook = new RestfulService($url, 5);
+		$params = array("access_token" => $token, "limit" => 2);
+		$facebook->setQueryString($params);
 		$fconn = $facebook->request();
-		$farray = json_decode($fconn->getBody(), true);		
-		
-		$e = $farray["entries"][0];
-		if($e) {
-			return new ArrayData(array(
-				"Content" => $e["content"],
-				"Link" => $e["alternate"]
-			));
+
+		$farray = json_decode($fconn->getBody(), true);
+		$e = $farray["data"];
+		if(!!$e) {
+			return new ArrayList($e);
 		}
 	}
-	
+
 	function Sections() {
 		return false;
 	}
-	
-	/** 
-	* Just get the current URL 
-	* @return string 
-	*/ 
-	static function curPageURL() { 
-	      $pageURL = 'http'; 
-	      if (Director::protocol() == 'https') {$pageURL .= "s";} 
-	      $pageURL .= "://"; 
-	      if ($_SERVER["SERVER_PORT"] != "80") { 
-	         $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"]; 
-	      } else { 
-	         $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; 
-	      } 
-	      return $pageURL; 
+
+	/**
+	* Just get the current URL
+	* @return string
+	*/
+	static function curPageURL() {
+	      $pageURL = 'http';
+	      if (Director::protocol() == 'https') {$pageURL .= "s";}
+	      $pageURL .= "://";
+	      if ($_SERVER["SERVER_PORT"] != "80") {
+	         $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+	      } else {
+	         $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+	      }
+	      return $pageURL;
 	   }
-	
+
 	public function ContactForm() {
 		return new ContactForm($this, "ContactForm");
 	}
-	
+
 	public function doSubmit($data, Form $form) {
 		$from = "no-reply@galpinautosports.com";
 		if($data["Email"]!="") {
@@ -440,7 +400,7 @@ class Page_Controller extends ContentController {
 		$body = $body."State: ".$data["State"]." <br/>";
 		$body = $body."ZIP: ".$data["ZIP"]." <br/>";
 		$body = $body."<hr />";
-		$body = $body."<h3>VEHICLE INFORMATION: </h3>";	
+		$body = $body."<h3>VEHICLE INFORMATION: </h3>";
 		$body = $body."Year: ".$data["CarYear"]." <br/>";
 		$body = $body."Make: ".$data["CarMake"]." <br/>";
 		$body = $body."Model: ".$data["CarModel"]." <br/>";
@@ -466,7 +426,7 @@ class Page_Controller extends ContentController {
 	    Controller::curr()->setMessage("success","Thank you! Your e-mail inquiry has been sent!");
 	    Controller::curr()->redirectBack();
 	}
-	
+
 	public function mailtest() {
 		$from = "no-reply@galpinautosports.com";
 		$to = "klemen@kinkcreative.com";
@@ -476,14 +436,14 @@ class Page_Controller extends ContentController {
 		$email->send();
 		return array();
 	}
-	
+
 }
 
 
 class ContactForm extends Form {
- 
+
     public function __construct($controller, $name) {
-    	
+
     	$actionField = new HiddenField("ContactAction",0);
     	$c = Category::get()->sort("Title ASC"); //ContactAction::get();
     	if($c->map()) {
@@ -507,7 +467,7 @@ class ContactForm extends Form {
             CheckboxField::create("Subscribe","Add me to the mailing list"),
             HiddenField::create("CurrentURL", Controller::curr()->curPageURL())
         );
-        
+
         $requiredFields = new RequiredFields(
         	'FirstName',
         	'LastName',
@@ -516,10 +476,10 @@ class ContactForm extends Form {
         );
 
         $actions = new FieldList(FormAction::create("doSubmit")->setTitle("Submit"));
-        
+
         parent::__construct($controller, $name, $fields, $actions, $requiredFields);
     }
-     
+
     public function forTemplate() {
         return $this->renderWith(array($this->class, 'Form'));
     }
