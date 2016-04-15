@@ -36,7 +36,7 @@
 			</div>
 		</div>
 
-		<h3><a href="http://instagram.com/galpinautosports" target="_blank"><i class="icon-instagram-circled"></i> Follow us on <strong>Instagram</strong></a></h3>
+		<h3 class="m-t-10"><a href="http://instagram.com/galpinautosports" target="_blank"><i class="icon-instagram-circled"></i> Follow us on <strong>Instagram</strong></a></h3>
 		<!-- <ul class="large-block-grid-5 small-block-grid-3 blockgrid">
 			< % loop Instagram % >
 			<li class="$ClassName">
