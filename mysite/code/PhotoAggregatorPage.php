@@ -3,68 +3,68 @@
 class PhotoAggregatorPage extends Page {
 
 	private static $allowed_children = array("none");
-	
+
 	function DropdownTitle() {
 		$String = '' . $this->Parent()->Title . ' --- ' . $this->Title;
 		return $String;
 	}
-	
+
 }
- 
+
 class PhotoAggregatorPage_Controller extends Page_Controller {
-	
+
 	private static $allowed_actions = array(
 		"index",
 		"FilterForm",
 		"getmodels"
 	);
-	
+
 	public function index() {
-		if(Director::is_ajax() || $_GET["Ajax"]==1) {
+		if(Director::is_ajax() || (array_key_exists("Ajax", $_GET) && $_GET["Ajax"]==1)) {
 			return $this->renderWith("PhotoAggregatorPage_reload");
 		}
 		else {
 			return array();
 		}
 	}
-	
+
 	public function Photos() {
-				
+
 		$sqlQuery = new SQLQuery("*","ProjectImage");
-		
+
 		$where = "1";
 		$join = "";
-		
+
 		if(($c=(int)$this->request->getVar('Category')) && $c>0 ) {
 			$where.= " AND ProjectImage_Category.CategoryID = $c";
 			$sqlQuery->addInnerJoin("ProjectImage_Category","ProjectImage_Category.ProjectImageID = ProjectImage.ID");
 		}
-		
+
 		if(($b=(int)$this->request->getVar('Brand')) && $b>0 ) {
 			$where.= " AND Project_Brands.BrandID = $b";
 			$sqlQuery->addInnerJoin("Project_Brands","Project_Brands.ProjectID = ProjectImage.ProjectID");
 		}
-		
+
 		if(($co=(int)$this->request->getVar('Color')) && $co>0 ) {
 			$where.= " AND ProjectImage_Color.ColorID = $co";
 			$sqlQuery->addInnerJoin("ProjectImage_Color","ProjectImage_Color.ProjectImageID = ProjectImage.ID");
 		}
-		
+
 		if(($t=(int)$this->request->getVar('Tag')) && $t>0 ) {
 			$where.= " AND Project_Tags.TagID = $t";
 			$sqlQuery->addInnerJoin("Project_Tags","Project_Tags.ProjectID = ProjectImage.ProjectID");
 		}
-		
+
 		if(($mk=(int)$this->request->getVar('Make')) && $mk>0 ) {
 			$where.= " AND Project.CarMakeID = $mk";
 			$sqlQuery->addInnerJoin("Project","Project.ID = ProjectImage.ProjectID");
 		}
-		
+
 		if(($mo=(int)$this->request->getVar('Model')) && $mo>0 ) {
 			$where.= " AND Project.CarModelID = $mo";
 			$sqlQuery->addInnerJoin("Project","Project.ID = ProjectImage.ProjectID");
 		}
-		
+
 		$p=0;
 		if($this->request->getVar('p')>0) {
 			$p = (int)$this->request->getVar('p');
@@ -75,7 +75,7 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 		$sqlQuery->setLimit(12,$p*12);
 		$sqlQuery->setOrderBy("ProjectImage.Created DESC");
 		$result = $sqlQuery->execute();
-		
+
 		$arrayList = new ArrayList();
 		foreach($result as $rowArray) {
 			$p = new ProjectImage($rowArray);
@@ -83,10 +83,10 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 		}
 		return $arrayList;
 	}
-	
-	function Form() 
+
+	function Form()
 	{
-	
+
 		$bf = new LiteralField("Brands","Brands");
 		$b = DataObject::get("Brand");
 		if($b) {
@@ -94,7 +94,7 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 			$bf->setEmptyString("All brands");
 		}
 		$bf->addExtraClass("normalSelect");
-		
+
 		$cf = new LiteralField("Categories","Categories");
 		$c = Category::get()->where("HideFromPhotos != 1");
 		if($c) {
@@ -102,7 +102,7 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 			$cf->setEmptyString("All categories");
 		}
 		$cf->addExtraClass("normalSelect");
-		
+
 		$cof = new LiteralField("Color","Color");
 		$co = DataObject::get("Color");
 		if($co) {
@@ -110,7 +110,7 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 			$cof->setEmptyString("All colors");
 		}
 		$cof->addExtraClass("normalSelect");
-		
+
 		$tf = new LiteralField("Tag","Tag");
 		$t = DataObject::get("Tag");
 		if($t) {
@@ -120,21 +120,21 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 		$tf->addExtraClass("normalSelect");
 
 //		$typeField = new DropdownField("Type","Type",array(0=>"All","news"=>"News","projects" => "Projects","specials" => "Specials"),$this->request->getVar('Type'));
-		
+
 		/* $maf = new LiteralField("Make","Make");
 		$ma = DataObject::get("CarMake");
 		if($ma) {
 			$maf = new DropdownField("Make","Make",$ma->map("ID","Title"),$this->request->getVar('Make'));
 			$maf->setEmptyString("All makes");
 		}
-		
+
 		$mof = new LiteralField("Model","Model");
 		$mo = DataObject::get("CarModel");
 		if($mo) {
 			$mof = new DropdownField("Model","Model",$mo->map("ID","Title"),$this->request->getVar('Model'));
 			$mof->setEmptyString("All models");
 		} */
-		
+
 		$maf = new LiteralField("Make","Make");
 		$ma = DataObject::get("CarMake");
 		if($ma) {
@@ -142,9 +142,9 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 			$maf = new DropdownField("Make","Make",$mamap,$this->request->getVar('Make'));
 			$maf->setEmptyString("All makes");
 		}
-		
+
 		/* MODELS IF LOADED */
-		$momap = array("0" => "First select make");			
+		$momap = array("0" => "First select make");
 		$m = (int)$this->request->getVar('Make');
 		$emptymo="";
 		if($m>0) {
@@ -154,7 +154,7 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 				$emptymo="All models";
 			}
 			else {
-				$momap = array("0" => "No models available");	
+				$momap = array("0" => "No models available");
 			}
 		}
 		$mof = new DropdownField("Model","Model",$momap,$this->request->getVar('Model'));
@@ -164,14 +164,14 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 		if(!$m) {
 			$mof->setDisabled(true);
 		}
-		
-		
+
+
 		$page = 0;
-		if((int)$_GET["p"]>0) {
-			$page = (int)$_GET["p"];
-		} 
+		if($this->request->param("p")>0) {
+			$page = $this->request->param("p");
+		}
 		$pagefield = new HiddenField("p","p",$page);
-		
+
       	// Create fields
 	    $fields = new FieldList(
 	    	new LiteralField("FormHeader",'<h4>Filter photos <img src="mysite/images/loader-small.gif" class="loader" alt="Loading" /></h4>'),
@@ -183,9 +183,9 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 			$pagefield
 		);
 
-	 	
+
 //	 	$fields->push($pageField);
-	 	
+
 	    // Create action
 	    $a = new FormAction('getResults', _t("SHOWRESULTS",'Update'));
 	    $a->addExtraClass("small");
@@ -193,26 +193,26 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 	    $actions = new FieldList(
 	    	$a
 	    );
-		
+
 		// Create action
 		// $validator = new RequiredFields();
-			
+
 	    $f = new Form($this, 'FilterForm', $fields, $actions);
 	    $f->setFormMethod('GET');
 	    $f->setStrictFormMethodCheck("GET");
-	    
+
 	    return $f;
 
 	}
-	
+
 	public function getmodels() {
 		$m = (int)$this->request->getVar('make');
 		if(!is_numeric($m) || $m<=0) {
 			return false;
 		}
-		
+
 		$response = '<select id="Form_FilterForm_Model" name="Model">';
-		
+
 		$models = CarModel::get()->where("CarMakeID = $m")->sort("Title ASC");
 		if($models) {
 			/* $response.=("<option selected='selected' value=''>Select model</option>"); */
@@ -228,7 +228,7 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 		echo($response);
 		return false;
 	}
-	
+
 //	function PhotosCacheKey() {
 //	    $start = (isset($_GET["start"]) && is_numeric($_GET["start"])) ? (int)$_GET["start"] : 0;
 //	    return implode('_', array(
@@ -242,6 +242,6 @@ class PhotoAggregatorPage_Controller extends Page_Controller {
 //	        $this->Aggregate("ProjectImage")->Max("LastEdited"),
 //	    ));
 //	}
-	
+
 }
 
