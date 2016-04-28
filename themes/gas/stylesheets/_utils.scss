@@ -1,5 +1,5 @@
 $start: 0;
-$limit: 100;
+$limit: 300;
 $interval: 5;
 
 $real: $limit / $interval;
@@ -8,6 +8,11 @@ $real: $limit / $interval;
 
 @for $i from 0 through $real {
   @if(($i * $interval) + $start <= $limit) {
+
+    .mh-#{($i * $interval) + $start} {
+      min-height: #{($i * $interval) + $start}px;
+    }
+
     .m-#{($i * $interval) + $start} {
       margin: #{($i * $interval) + $start}px;
     }
@@ -45,17 +50,20 @@ $real: $limit / $interval;
   }
 }
 
-// @media (max-width: #{upper-bound($small-range)} ) {
-//   .m-t-xs-0 {
-//     margin-top: 0 !important;
-//   }
-// }
 
-// @media (min-width: #{upper-bound($small-range)} ) {
-//   .float-md-left {
-//     float: left;
-//   }
-//   .float-md-right {
-//     float: right;
-//   }
-// }
+.vertical-align-parent {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  &.vertical-align-absolute {
+    position: absolute;
+  }
+}

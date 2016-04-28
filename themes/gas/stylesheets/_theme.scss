@@ -1414,6 +1414,9 @@ input:focus, select:focus, textarea:focus, button:focus {
     transform: translate3d(-20%, 0, 0) scale3d(1, 1, 1);
   }*/
   .heading {
+    background-position: center center;
+    background-size: cover;
+
     fieldset .field {
       margin: 0 1% 0 0;
       float: left;
@@ -1431,14 +1434,14 @@ input:focus, select:focus, textarea:focus, button:focus {
       color: #5e89b5;
     }
   }
-  .saleswrap h1 {
-    margin: 4em 0 0 0;
-    position: absolute;
-    left: 0;
-  }
-  .salesmessage {
-    margin: 1.5em 0;
-  }
+  // .saleswrap h1 {
+  //   margin: 4em 0 0 0;
+  //   position: absolute;
+  //   left: 0;
+  // }
+  // .salesmessage {
+  //   margin: 1.5em 0;
+  // }
   #profileModal .details {
     margin-left: 1em;
   }

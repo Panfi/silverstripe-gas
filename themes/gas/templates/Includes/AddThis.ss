@@ -6,7 +6,7 @@ addthis.layers({
     'numPreferredServices' : 5,
     'desktop': false,
     'mobile': false
-  }, 
+  },
   'follow' : {
     'desktop' : false,
     'mobile': false,
@@ -19,3 +19,7 @@ addthis.layers({
     ]
   }
 });
+
+function successCallback() {
+  addthis.init()
+}
