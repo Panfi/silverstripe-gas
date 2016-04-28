@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "87bf6ffff2138b38b8db9e6d117451db",
+    "hash": "7984e3a52f6c038dbe707b7328967b54",
     "packages": [
         {
             "name": "ajshort/silverstripe-memberprofiles",

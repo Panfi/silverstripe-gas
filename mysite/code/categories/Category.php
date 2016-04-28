@@ -17,8 +17,9 @@ class Category extends Page {
    		'VideoEmbed' => 'Text'
    	);
 
-	// private static $has_many = array(
-	// );
+	private static $has_many = array(
+		'SubCategoryButtons' => 'SubCategoryButton'
+	);
 
 	private static $many_many = array(
 		'Projects' => 'Project',
@@ -60,6 +61,10 @@ class Category extends Page {
 
 		$fields->addFieldToTab("Root.Main", new TextareaField("VideoEmbed", "Video Embed Code"));
 		$fields->addFieldToTab("Root.Main", new CheckboxField("HideFromPhotos", "Check to hide category from photos"));
+
+		$conf = GridFieldConfig_RecordEditor::create(10);
+    $conf->addComponent(new GridFieldSortableRows('SortOrder'));
+    $fields->addFieldToTab('Root.Subcategories', new GridField('SubCategoryButtons', 'Subcategories', $this->SubCategoryButtons(), $conf));
 
 		$if=UploadField::create("BackgroundImage","Upload background image");
 		$if->setFolderName("images/backgrounds");

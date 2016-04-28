@@ -27,39 +27,32 @@
 			<% include Images %>
 		<% end_if %>
 
-			<% if VideoEmbed %>
-				<div class="section p-t-20 p-b-20">
-					<div class="row">
-						<div class="large-6 columns push-6">
-							<div class="flex-video widescreen">
+			<div class="section p-t-20 p-b-20">
+				<div class="row">
+
+					<div class="large-6 columns push-6">
+						<div class="flex-video widescreen">
+							<% if VideoEmbed %>
 								$VideoEmbed.RAW
-							</div>
-						</div>
-						<div class="large-6 columns pull-6">
-							<ul class="small-block-grid-2 large-block-grid-3 blockgrid">
-								<li>
-										<img src="http://placehold.it/640x400?text=Sub">
-								</li>
-								<li>
-										<img src="http://placehold.it/640x400?text=Sub">
-								</li>
-								<li>
-										<img src="http://placehold.it/640x400?text=Sub">
-								</li>
-								<li>
-										<img src="http://placehold.it/640x400?text=Sub">
-								</li>
-								<li>
-										<img src="http://placehold.it/640x400?text=Sub">
-								</li>
-								<li>
-										<img src="http://placehold.it/640x400?text=Sub">
-								</li>
-							</ul>
+							<% end_if %>
 						</div>
 					</div>
+
+					<div class="large-6 columns pull-6">
+						<% if SubCategoryButtons %>
+							<ul class="small-block-grid-2 large-block-grid-2 blockgrid">
+								<% loop SubCategoryButtons %>
+									<li class="subCategory">
+											<h3><% if $HtmlTitle %>$HtmlTitle.RAW<% else %>$Title<% end_if %></h3>
+											<img src="$Image.CroppedImage(640,400).URL" />
+									</li>
+								<% end_loop %>
+							</ul>
+						<% end_if %>
+					</div>
+
 				</div>
-		<% end_if %>
+			</div>
 
 		<% if HideBrand %><% else %>
 			<% include Brands %>

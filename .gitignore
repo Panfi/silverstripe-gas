@@ -1,3 +1,5 @@
+mysite/_db.php
+
 vendor/
 sftp-config.json
 silverstripe-cache

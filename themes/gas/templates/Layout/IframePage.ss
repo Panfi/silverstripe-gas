@@ -3,7 +3,7 @@
 
 <% if $FullWidth %>
 	$Content
-	<iframe src="$IframeURL" class="iframeContent" style="min-height: {$IframeHeight}px;"></iframe>
+	<iframe src="$IframeURL" class="iframeContent" style="min-height: {$IframeHeight}px;" allowtransparency="true"></iframe>
 <% else %>
 
 	<div class="row layout">
@@ -11,7 +11,7 @@
 
 			$Image.SetWidth(1000,600)
 
-			<iframe src="$IframeURL" class="iframeContent" style="min-height: {$IframeHeight}px;"></iframe>
+			<iframe src="$IframeURL" class="iframeContent" style="min-height: {$IframeHeight}px;" allowtransparency="true"></iframe>
 
 			$Message
 			<% if VideoEmbed %><div class="flex-video widescreen">$VideoEmbed.RAW</div><% end_if %>

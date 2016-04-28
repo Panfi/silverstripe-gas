@@ -1466,7 +1466,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
   .blockgrid li a i {
     &.sale, &.socialicon {
-      background-size: 30px 30px;
+      background-size: 80px 80px;
     }
   }
 }
@@ -1791,4 +1791,25 @@ input:focus, select:focus, textarea:focus, button:focus {
 
 .addthis_counter {
   display: none !important;
+}
+
+
+
+/* SUBCATEGORY BUTTONS */
+
+.Category {
+  .subCategory {
+    position: relative;
+    h3 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 15px;
+      margin: 0;
+      color: #FFFFFF;
+      font-size: 22px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+  }
 }
