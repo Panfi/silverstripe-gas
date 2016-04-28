@@ -3,7 +3,6 @@
     "description": "Integration of Facebook Connect into SilverStripe",
     "keywords": ["facebook", "silverstripe"],
     "type": "silverstripe-module",
-    "target-dir": "facebookconnect",
     "homepage": "https://github.com/wilr/silverstripe-facebookconnect",
     "license": "BSD-3-Clause",
     "authors": [{
@@ -11,6 +10,10 @@
         "email": "will@fullscreen.io"
     }],
     "require": {
-        "silverstripe/framework": ">=3.1"
+        "silverstripe/framework": ">=3.1",
+        "facebook/php-sdk-v4": "4.0.*@dev"
+    },
+    "extra": {
+        "installer-name": "facebookconnect"
     }
 }
